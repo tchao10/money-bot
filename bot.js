@@ -13,8 +13,8 @@ bot.on('message', message => {
   	}
 	if (message.content === '$donate') {
 		moneyCount++;
-    	message.reply('thanks, I have $'+moneyCount+' now! \\:musicteacher:');
-		//message.react(message.guild.emojis.get('123456789012345678'));
+    	message.reply('thanks, I have $'+moneyCount+' now!');
+		message.react(message.guild.emojis.get('426956349751164950'));
   	}
 	//switch(message.content){
 	//	case 'ping':
