@@ -1,20 +1,15 @@
 const Discord = require('discord.js');
-const bot = new Discord.Client();
+const client = new Discord.Client();
 
-var moneyCount = 0;
-
-bot.on('ready', () => {
+client.on('ready', () => {
     console.log('I am ready!');
 });
 
-bot.on('message', message => {
-	switch(message.content){
-		case 'ping':
-			message.reply('dong');
-		break;
-		case '$donate':
-			message.reply('thanks, I have $'+moneyCount+' now!');
-		break;
+client.on('message', message => {
+    if (message.content === 'ping') {
+    	message.reply('pong');
+  	}
 });
 
-bot.login(process.env.BOT_TOKEN);
+// THIS  MUST  BE  THIS  WAY
+client.login(process.env.BOT_TOKEN);
