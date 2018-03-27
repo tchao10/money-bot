@@ -19,7 +19,7 @@ bot.on('message', message => {
 		
 	// Also good practice to ignore any message that does not start with our prefix, 
 	// which is set in the configuration file.
-	if(message.content.indexOf(messagePrefix) !== 0)
+	if(message.content.indexOf(this.messagePrefix) !== 0)
 		return;
 	
 	// Here we separate our "command" name, and our "arguments" for the command. 
@@ -34,8 +34,9 @@ bot.on('message', message => {
 	if (command === 'ping') {
     	message.reply('pong');
   	}
-	if (command === '$donate') {
-		moneyCount++;
+	
+	if (command === 'donate') {
+		this.moneyCount++;
 		message.react(message.guild.emojis.get('426956349751164950'));
     	message.reply('thanks, I have $'+moneyCount+' now!');
   	}
