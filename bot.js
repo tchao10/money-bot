@@ -32,7 +32,11 @@ bot.on('message', message => {
 	//===== My Commands (edited) =================================================================
 	
 	if (command === 'ping') {
-    	message.reply('pong');
+    	message.reply('pong1');
+  	}
+	
+	if (message.content === 'ping') {
+    	message.reply('pong2');
   	}
 	
 	if (command === 'donate') {
