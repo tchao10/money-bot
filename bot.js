@@ -10,7 +10,7 @@ bot.on('ready', () => {
 });
 
 bot.on('message', message => {
-	if (message.content === 'ping') {
+	if (message.content === '$ping') {
     	message.reply('pong');
   	}
 	if (message.content === '$donate') {
@@ -18,13 +18,6 @@ bot.on('message', message => {
 		message.react(message.guild.emojis.get('426956349751164950'));
     	message.reply('thanks, I have $'+moneyCount+' now!');
   	}
-	//switch(message.content){
-	//	case 'ping':
-	//		message.reply('dong');
-	//	break;
-	//	case '$donate':
-	//		message.reply('thanks, I have $'+moneyCount+' now!');
-	//	break;
 });
 
 bot.login(process.env.BOT_TOKEN);
