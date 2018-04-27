@@ -10,9 +10,6 @@ bot.on('ready', () => {
 });
 
 bot.on('message', message => {
-	if (message.content != '9w43y5wa8074tys8ease5s63626262626'){
-		message.reply('terrence sucks')
-	}
 	if (message.content === '$ping') {
     		message.reply('pong');
   	}
