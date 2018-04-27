@@ -39,7 +39,7 @@ bot.on('message', message => {
     	message.reply('pong2');
   	}
 	
-	if (command === '$donate') {
+	if ((command === '$donate')||(message.content === '$donate')) {
 		this.moneyCount++;
 		//message.react(message.guild.emojis.get('426956349751164950'));
     	message.reply('thanks, I have $'+moneyCount+' now!');
