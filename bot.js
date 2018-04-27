@@ -10,13 +10,16 @@ bot.on('ready', () => {
 });
 
 bot.on('message', message => {
+	if (message.content != '9w43y5wa8074tys8ease5s63626262626'){
+		message.reply('terrence sucks')
+	}
 	if (message.content === '$ping') {
-    	message.reply('pong');
+    		message.reply('pong');
   	}
 	if (message.content === '$donate') {
 		moneyCount++;
 		message.react(message.guild.emojis.get('426956349751164950'));
-    	message.reply('thanks, I have $'+moneyCount+' now!');
+    		message.reply('thanks, I have $'+moneyCount+' now!');
   	}
 });
 
