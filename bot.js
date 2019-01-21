@@ -58,13 +58,13 @@ bot.on('message', message => {
 		message.channel.send('hot');
 	}
 
-	if (command === 'coinflip'){
+  if (command === 'coinflip'){
     var randNum = Math.random();
     
-		if (randNum < 0.50){
-		message.channel.send('Heads.');
-		} else {
-		message.channel.send('Tails.');
+    if (randNum < 0.50){
+      message.channel.send('Heads.');
+    } else {
+      message.channel.send('Tails.');
 		}
 	}
   
@@ -279,7 +279,7 @@ bot.on('message', message => {
 		botBlocked = false;
 	}
 	
-	function shotgunCheckGameOver(pHealth, bHealth){
+  function shotgunCheckGameOver(pHealth, bHealth){
 		if (pHealth == 0 || bHealth == 0){
 			return true;
 		}
