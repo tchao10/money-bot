@@ -42,7 +42,7 @@ bot.on('message', message => {
 	var command = message.content.slice(1).toLowerCase();
 	
 	if (command === 'commands' || command === 'help'){
-		message.reply("here is a list of commands: $commands, $help, $ping, $donate, $weather, $coinflip, $shotgun");
+		message.reply("here is a list of commands: $commands, $help, $ping, $donate, $weather, $coinflip, $play/leave, $shotgun");
 	}
 	
 	if (command === 'ping') {
@@ -58,17 +58,16 @@ bot.on('message', message => {
 		message.channel.send('hot');
 	}
 
-	if (command === 'coinflip'){
+  if (command === 'coinflip'){
     var randNum = Math.random();
     
-		if (randNum < 0.50){
-		message.channel.send('Heads.');
-		} else {
-		message.channel.send('Tails.');
+    if (randNum < 0.50){
+      message.channel.send('Heads.');
+    } else {
+      message.channel.send('Tails.');
 		}
 	}
   
-  /*
   if (command.startsWith('play')){
     const channel = message.member.voiceChannel;
 
@@ -76,17 +75,14 @@ bot.on('message', message => {
     .then(connection => console.log('Connected!'))
     .catch(console.error);
     
-    //var songName = command.substring(4);
-    //message.channel.send('_play'+songName);
     message.channel.send('not yet');
   }
   
   if (command === 'leave'){
-    //message.channel.send('_leave');
     message.member.voiceChannel.leave();
     message.channel.send('bye');
   }
-	*/
+	
   
 	//shotgun related stuff ===========================================================
 	if (command === 'shotgun'){
@@ -279,7 +275,7 @@ bot.on('message', message => {
 		botBlocked = false;
 	}
 	
-	function shotgunCheckGameOver(pHealth, bHealth){
+  function shotgunCheckGameOver(pHealth, bHealth){
 		if (pHealth == 0 || bHealth == 0){
 			return true;
 		}
