@@ -13,7 +13,7 @@ setInterval(() => {
 //=============================================================================
 
 const Discord = require('discord.js');
-const bot = new Discord.Client();
+const client = new Discord.Client();
 const prefix = '$';
 
 //donate
@@ -31,18 +31,23 @@ var botAmmo = 0;
 var botBlocked = false;
 var botMoveNum = -1;
 
-bot.on('ready', () => {
+client.on('ready', () => {
     console.log('I am ready!');
 });
 
-bot.on('message', message => {
-	if (message.author === bot.user) return;
+client.on('error', (err) => {
+  console.error("Bot error:");
+  console.error(err);
+});
+
+client.on('message', message => {
+	if (message.author === client.user) return;
 	if (!message.content.startsWith(prefix)) return;
 	
 	var command = message.content.slice(1).toLowerCase();
 	
 	if (command === 'commands' || command === 'help'){
-		message.reply("here is a list of commands: $commands, $help, $ping, $donate, $weather, $coinflip, $play/leave, $shotgun");
+		message.reply("here is a list of commands: $commands, $help, $ping, $donate, $uno, $weather, $pls meme, $coinflip, $spamunobot, $play songName/URL, $leave, $shotgun");
 	}
 	
 	if (command === 'ping') {
@@ -51,20 +56,44 @@ bot.on('message', message => {
 	
 	if (command === 'donate') {
 		moneyCount++;
+		//message.react(message.guild.emojis.get('426956349751164950'));
 		message.reply('thanks, I have $'+moneyCount+' now!');
 	}
 	
+	if (command === 'uno'){
+		message.channel.send('not yet');
+	}
+  
   if (command === 'weather'){
 		message.channel.send('hot');
 	}
-
-  if (command === 'coinflip'){
+  
+  if (command === 'pls meme'){
     var randNum = Math.random();
     
-    if (randNum < 0.50){
-      message.channel.send('Heads.');
+    if (randNum < 0.5){
+		    message.channel.send('https://i.imgur.com/GReZEZN.png');
     } else {
-      message.channel.send('Tails.');
+        message.channel.send('https://i.imgur.com/gK4EbAe.png');
+    }
+	}
+  
+  if (command === 'spamunobot'){
+    message.channel.send('uno help && uno help');
+    message.channel.send('uno help && uno help');
+    message.channel.send('uno help && uno help');
+    message.channel.send('uno help && uno help');
+  }
+	
+	if (command === 'coinflip'){
+    var randNum = Math.random();
+    
+		if (randNum < 0.40){
+		message.channel.send('Heads.');
+		} else if (randNum < 0.60){
+		message.channel.send('oops i dropped the coin');
+		} else {
+		message.channel.send('Tails.');
 		}
 	}
   
@@ -75,15 +104,17 @@ bot.on('message', message => {
     .then(connection => console.log('Connected!'))
     .catch(console.error);
     
+    //var songName = command.substring(4);
+    //message.channel.send('_play'+songName);
     message.channel.send('not yet');
   }
   
   if (command === 'leave'){
+    //message.channel.send('_leave');
     message.member.voiceChannel.leave();
     message.channel.send('bye');
   }
 	
-  
 	//shotgun related stuff ===========================================================
 	if (command === 'shotgun'){
 		if (!shotgunGameEnabled){
@@ -111,13 +142,13 @@ bot.on('message', message => {
 				shotgunAISelectMove(playerAmmo, botAmmo);
 				
 				if (playerAmmo == 0){
-					message.reply("you shoot!... but you have no ammo.");
+					message.reply("you shoot!... but you have no ammo, you clown.");
 				} else {
 					if (botBlocked){
-						message.reply("you shoot!... but I block this turn.");
+						message.reply("you shoot!... but I blocked this turn, heh heh.");
 					} else {
 						botHealth--;
-						message.reply("you shoot!... I lose some health.");
+						message.reply("you shoot!... and it hits! I lose some health.");
 					}
 					playerAmmo--;
 				}
@@ -140,7 +171,7 @@ bot.on('message', message => {
 				message.reply("you're not "+playerName.avatar+"!");
 			}
 		} else {
-			message.reply('there is no shotgun game in progress.');
+			message.reply('there is no shotgun game in progress, you clown.');
 		}
 	}
 	
@@ -170,7 +201,7 @@ bot.on('message', message => {
 				message.reply("you're not "+playerName.avatar+"!");
 			}
 		} else {
-			message.reply('there is no shotgun game in progress.');
+			message.reply('there is no shotgun game in progress, you clown.');
 		}
 	}
 	
@@ -200,7 +231,7 @@ bot.on('message', message => {
 				message.reply("you're not "+playerName.avatar+"!");
 			}
 		} else {
-			message.reply('there is no shotgun game in progress.');
+			message.reply('there is no shotgun game in progress, you clown.');
 		}
 	}
 	
@@ -252,10 +283,10 @@ bot.on('message', message => {
 	
 	function shotgunAIShoot(pBlocked){
 		if (pBlocked){
-			message.channel.send("I shoot!... but you block my bullet.");
+			message.channel.send("I shoot!... but you blocked my bullet.");
 		} else {
 			playerHealth--;
-			message.channel.send("I shoot!... You lose some health.");
+			message.channel.send("I shoot!... and it hits! You lost some health.");
 		}
 		botAmmo--;
 	}
@@ -275,7 +306,7 @@ bot.on('message', message => {
 		botBlocked = false;
 	}
 	
-  function shotgunCheckGameOver(pHealth, bHealth){
+	function shotgunCheckGameOver(pHealth, bHealth){
 		if (pHealth == 0 || bHealth == 0){
 			return true;
 		}
@@ -298,4 +329,14 @@ bot.on('message', message => {
 	
 });
 
-bot.login(process.env.TOKEN);
+/*
+try {
+  console.log("Attempting bot login...\n");
+  client.login(process.env.TOKEN);
+} catch (error) {
+  console.error(error);
+}
+*/
+
+console.log("Attempting bot login...\n");
+client.login(process.env.TOKEN).catch(console.error);
