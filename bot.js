@@ -119,10 +119,8 @@ client.on('message', message => {
     message.channel.send('bye');
   }
 
-  if (command === 'leave'){
-    //message.channel.send('_leave');
-    message.member.voiceChannel.leave();
-    message.channel.send('bye');
+  if (command === 'uptime'){
+    message.channel.send("The bot was last restarted at **" + restartTime + "**.");
   }
 	
 	//shotgun related stuff ===========================================================
