@@ -55,7 +55,7 @@ client.on('message', message => {
 	var command = message.content.slice(1).toLowerCase();
 	
 	if (command === 'commands' || command === 'help'){
-		message.reply("here is a list of commands: $commands, $help, $ping, $donate, $uno, $weather, $pls meme, $coinflip, $spamunobot, $play songName/URL, $leave, $shotgun, $uptime");
+		message.reply("here is a list of commands: $commands, $help, $ping, $donate, $uno, $weather, $pls meme, $coinflip, $spamunobot, $play <songName/URL>, $leave, $shotgun, $uptime");
 	}
 	
 	if (command === 'ping') {
@@ -123,6 +123,8 @@ client.on('message', message => {
 		message.channel.send('bye');
 	}
 
+	// 
+
 	if (command === 'uptime'){
 		// Get time since restartTime
 		var currentDate = new Date();
@@ -144,8 +146,7 @@ client.on('message', message => {
 
 		var restartTimeLocaleString = restartTime.toLocaleString("en-US", {timeZone: "America/Los_Angeles",});
 
-		message.channel.send("__Uptime__: " + hh + " hours, " + mm + " minutes, " + ss + " seconds, and " + msec + " milliseconds");
-		message.channel.send("__Last Restart time__: " + restartTimeLocaleString);
+		message.channel.send("**Uptime**: " + hh + " hours, " + mm + " minutes, " + ss + " seconds, and " + msec + " milliseconds\n**Last restart time**: " + restartTimeLocaleString);
 	}
 	
 	//shotgun related stuff ===========================================================
