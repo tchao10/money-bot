@@ -18,7 +18,7 @@ setInterval(() => {
 const Discord = require('discord.js');
 const client = new Discord.Client();
 const prefix = '$';
-var restartTime;
+var restartTime; // ms of time of restart
 
 // donate variables
 var moneyCount = 0;
@@ -38,9 +38,9 @@ var botMoveNum = -1;
 //==============            FUNCTIONS           ===================================
 
 client.on('ready', () => {
-	var currentDate = new Date();
-	restartTime = currentDate.toLocaleString("en-US", {timeZone: "America/Los_Angeles",}) + " PST";
-    console.log('I am ready! Live as of ' + restartTime + ".");
+	restartTime = new Date();
+	var restartTimeLocaleString = restartTime.toLocaleString("en-US", {timeZone: "America/Los_Angeles",});
+    console.log('I am ready! Live as of ' + restartTimeLocaleString + " PST.");
 });
 
 client.on('error', (err) => {
@@ -124,7 +124,8 @@ client.on('message', message => {
 	}
 
 	if (command === 'uptime'){
-		// 
+		// Get time since restartTime
+
 
 		message.channel.send("The bot was last restarted at **" + restartTime + "**.");
 	}
@@ -353,8 +354,8 @@ try {
 */
 
 var currentDate = new Date();
-var currentTimeAsLocaleString = currentDate.toLocaleString("en-US", {timeZone: "America/Los_Angeles",}) + " PST";
+var currentTimeAsLocaleString = currentDate.toLocaleString("en-US", {timeZone: "America/Los_Angeles",});
 console.log("*****");
 console.log("*****");
-console.log("Attempting bot login at " + currentTimeAsLocaleString + "...");
+console.log("Attempting bot login at " + currentTimeAsLocaleString + " PST...");
 client.login(process.env.TOKEN).catch(console.error);
