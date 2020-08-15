@@ -35,8 +35,8 @@ var botMoveNum = -1;
 
 client.on('ready', () => {
 	var currentDate = new Date();
-	restartTime = currentDate.toLocaleString("en-US", {timeZone: "America/Los_Angeles",}) + " PST.";
-    console.log('I am ready! Live as of ' + restartTime);
+	restartTime = currentDate.toLocaleString("en-US", {timeZone: "America/Los_Angeles",}) + " PST";
+    console.log('I am ready! Live as of ' + restartTime + ".");
 });
 
 client.on('error', (err) => {
@@ -51,7 +51,7 @@ client.on('message', message => {
 	var command = message.content.slice(1).toLowerCase();
 	
 	if (command === 'commands' || command === 'help'){
-		message.reply("here is a list of commands: $commands, $help, $ping, $donate, $uno, $weather, $pls meme, $coinflip, $spamunobot, $play songName/URL, $leave, $shotgun");
+		message.reply("here is a list of commands: $commands, $help, $ping, $donate, $uno, $weather, $pls meme, $coinflip, $spamunobot, $play songName/URL, $leave, $shotgun, $uptime");
 	}
 	
 	if (command === 'ping') {
@@ -113,6 +113,12 @@ client.on('message', message => {
     message.channel.send('not yet');
   }
   
+  if (command === 'leave'){
+    //message.channel.send('_leave');
+    message.member.voiceChannel.leave();
+    message.channel.send('bye');
+  }
+
   if (command === 'leave'){
     //message.channel.send('_leave');
     message.member.voiceChannel.leave();
@@ -343,6 +349,8 @@ try {
 */
 
 var currentDate = new Date();
-var currentTimeAsLocaleString = currentDate.toLocaleString("en-US", {timeZone: "America/Los_Angeles",}) + " PST.";
-console.log("Attempting bot login at " + currentTimeAsLocaleString + "...\n");
+var currentTimeAsLocaleString = currentDate.toLocaleString("en-US", {timeZone: "America/Los_Angeles",}) + " PST";
+console.log("*****");
+console.log("*****");
+console.log("Attempting bot login at " + currentTimeAsLocaleString + "...");
 client.login(process.env.TOKEN).catch(console.error);
