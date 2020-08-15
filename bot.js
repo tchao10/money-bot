@@ -12,7 +12,7 @@ setInterval(() => {
 	http.get(`http://${process.env.PROJECT_DOMAIN}.glitch.me/`);
 }, 280000);
 
-//============           VARIABLES           ====================================
+//============          VARIABLES          ====================================
 
 // bot variables
 const Discord = require('discord.js');
