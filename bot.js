@@ -12,9 +12,11 @@ setInterval(() => {
 
 //=============================================================================
 
+// bot variables
 const Discord = require('discord.js');
 const client = new Discord.Client();
 const prefix = '$';
+var restartTime;
 
 //donate
 var moneyCount = 0;
@@ -32,7 +34,9 @@ var botBlocked = false;
 var botMoveNum = -1;
 
 client.on('ready', () => {
-    console.log('I am ready!');
+	var currentDate = new Date();
+	restartTime = currentDate.toLocaleString("en-US", {timeZone: "America/Los_Angeles",}) + "PST";
+    console.log('I am ready! Live as of ' + restartTime);
 });
 
 client.on('error', (err) => {
@@ -338,5 +342,7 @@ try {
 }
 */
 
-console.log("Attempting bot login...\n");
+var currentDate = new Date();
+var currentTimeAsLocaleString = currentDate.toLocaleString("en-US", {timeZone: "America/Los_Angeles",}) + "PST";
+console.log("Attempting bot login at " + currentTimeAsLocaleString + "...\n");
 client.login(process.env.TOKEN).catch(console.error);
