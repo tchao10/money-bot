@@ -1,16 +1,18 @@
 const http = require('http');
 const express = require('express');
 const app = express();
+
 app.get("/", (request, response) => {
 	console.log(Date.now() + " Ping Received");
 	response.sendStatus(200);
 });
+
 app.listen(process.env.PORT);
 setInterval(() => {
 	http.get(`http://${process.env.PROJECT_DOMAIN}.glitch.me/`);
 }, 280000);
 
-//=============================================================================
+//============       VARIABLES       ====================================
 
 // bot variables
 const Discord = require('discord.js');
@@ -18,10 +20,10 @@ const client = new Discord.Client();
 const prefix = '$';
 var restartTime;
 
-//donate
+// donate variables
 var moneyCount = 0;
 
-//shotgun
+// shotgun variables
 var shotgunGameEnabled = false;
 var shotgunTurnCounter = 0;
 var playerName = null;
@@ -33,6 +35,8 @@ var botAmmo = 0;
 var botBlocked = false;
 var botMoveNum = -1;
 
+//==============            FUNCTIONS           ===================================
+
 client.on('ready', () => {
 	var currentDate = new Date();
 	restartTime = currentDate.toLocaleString("en-US", {timeZone: "America/Los_Angeles",}) + " PST";
@@ -40,8 +44,8 @@ client.on('ready', () => {
 });
 
 client.on('error', (err) => {
-  console.error("Bot error:");
-  console.error(err);
+  	console.error("Bot error:");
+  	console.error(err);
 });
 
 client.on('message', message => {
@@ -68,29 +72,29 @@ client.on('message', message => {
 		message.channel.send('not yet');
 	}
   
-  if (command === 'weather'){
+  	if (command === 'weather'){
 		message.channel.send('hot');
 	}
   
-  if (command === 'pls meme'){
-    var randNum = Math.random();
-    
-    if (randNum < 0.5){
-		    message.channel.send('https://i.imgur.com/GReZEZN.png');
-    } else {
-        message.channel.send('https://i.imgur.com/gK4EbAe.png');
-    }
+  	if (command === 'pls meme'){
+		var randNum = Math.random();
+		
+		if (randNum < 0.75){
+				message.channel.send('https://i.imgur.com/GReZEZN.png');
+		} else {
+			message.channel.send('https://i.imgur.com/gK4EbAe.png');
+		}
 	}
   
-  if (command === 'spamunobot'){
-    message.channel.send('uno help && uno help');
-    message.channel.send('uno help && uno help');
-    message.channel.send('uno help && uno help');
-    message.channel.send('uno help && uno help');
-  }
+	if (command === 'spamunobot'){
+		message.channel.send('uno help && uno help');
+		message.channel.send('uno help && uno help');
+		message.channel.send('uno help && uno help');
+		message.channel.send('uno help && uno help');
+	}
 	
 	if (command === 'coinflip'){
-    var randNum = Math.random();
+    	var randNum = Math.random();
     
 		if (randNum < 0.40){
 		message.channel.send('Heads.');
@@ -101,27 +105,27 @@ client.on('message', message => {
 		}
 	}
   
-  if (command.startsWith('play')){
-    const channel = message.member.voiceChannel;
+	if (command.startsWith('play')){
+		const channel = message.member.voiceChannel;
 
-    channel.join()
-    .then(connection => console.log('Connected!'))
-    .catch(console.error);
-    
-    //var songName = command.substring(4);
-    //message.channel.send('_play'+songName);
-    message.channel.send('not yet');
-  }
-  
-  if (command === 'leave'){
-    //message.channel.send('_leave');
-    message.member.voiceChannel.leave();
-    message.channel.send('bye');
-  }
+		channel.join()
+		.then(connection => console.log('Connected!'))
+		.catch(console.error);
+		
+		//var songName = command.substring(4);
+		//message.channel.send('_play'+songName);
+		message.channel.send('not yet');
+	}
+	
+	if (command === 'leave'){
+		//message.channel.send('_leave');
+		message.member.voiceChannel.leave();
+		message.channel.send('bye');
+	}
 
-  if (command === 'uptime'){
-    message.channel.send("The bot was last restarted at **" + restartTime + "**.");
-  }
+	if (command === 'uptime'){
+		message.channel.send("The bot was last restarted at **" + restartTime + "**.");
+	}
 	
 	//shotgun related stuff ===========================================================
 	if (command === 'shotgun'){
@@ -333,9 +337,9 @@ client.on('message', message => {
 		botBlocked = false;
 		botMoveNum = -1;
 	}
-//=======================================================================================
-	
 });
+
+//============          "MAIN FUNCTION"             ======================================
 
 /*
 try {
