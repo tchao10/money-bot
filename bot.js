@@ -120,8 +120,6 @@ client.on('message', message => {
 		message.channel.send('bye');
 	}
 
-	// 
-
 	if (command === 'uptime' || command === 'up'){
 		// Get time since restartTime
 		var currentDate = new Date();
