@@ -124,6 +124,8 @@ client.on('message', message => {
 	}
 
 	if (command === 'uptime'){
+		// 
+
 		message.channel.send("The bot was last restarted at **" + restartTime + "**.");
 	}
 	
