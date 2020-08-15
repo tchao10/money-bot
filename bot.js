@@ -35,7 +35,7 @@ var botMoveNum = -1;
 
 client.on('ready', () => {
 	var currentDate = new Date();
-	restartTime = currentDate.toLocaleString("en-US", {timeZone: "America/Los_Angeles",}) + "PST";
+	restartTime = currentDate.toLocaleString("en-US", {timeZone: "America/Los_Angeles",}) + " PST.";
     console.log('I am ready! Live as of ' + restartTime);
 });
 
@@ -343,6 +343,6 @@ try {
 */
 
 var currentDate = new Date();
-var currentTimeAsLocaleString = currentDate.toLocaleString("en-US", {timeZone: "America/Los_Angeles",}) + "PST";
+var currentTimeAsLocaleString = currentDate.toLocaleString("en-US", {timeZone: "America/Los_Angeles",}) + " PST.";
 console.log("Attempting bot login at " + currentTimeAsLocaleString + "...\n");
 client.login(process.env.TOKEN).catch(console.error);
