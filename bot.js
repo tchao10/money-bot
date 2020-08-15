@@ -147,7 +147,7 @@ client.on('message', message => {
 	}
 	
 	//shotgun related stuff ===========================================================
-	if (command === 'shotgun'){
+	if (command === 'shotgun' || command === 'sg'){
 		if (!shotgunGameEnabled){
 			shotgunGameEnabled = true;
 			playerName = message.author.username;
@@ -158,7 +158,7 @@ client.on('message', message => {
 		}
 	}
 	
-	if (command === 'shotgunstop'){
+	if (command === 'shotgunstop' || command === 'sgstop'){
 		if (shotgunGameEnabled){
 			shotgunStop();
 			message.channel.send('Shotgun game ended.');
