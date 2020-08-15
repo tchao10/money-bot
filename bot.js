@@ -35,7 +35,7 @@ var botAmmo = 0;
 var botBlocked = false;
 var botMoveNum = -1;
 
-//==============            FUNCTIONS           ===================================
+//==============            "FUNCTIONS"           ===================================
 
 client.on('ready', () => {
 	restartTime = new Date();
