@@ -97,11 +97,11 @@ client.on('message', message => {
     	var randNum = Math.random();
     
 		if (randNum < 0.40){
-		message.channel.send('Heads.');
+			message.channel.send('Heads.');
 		} else if (randNum < 0.60){
-		message.channel.send('oops i dropped the coin');
+			message.channel.send('oops i dropped the coin');
 		} else {
-		message.channel.send('Tails.');
+			message.channel.send('Tails.');
 		}
 	}
   
@@ -111,21 +111,18 @@ client.on('message', message => {
 		channel.join()
 		.then(connection => console.log('Connected!'))
 		.catch(console.error);
-		
-		//var songName = command.substring(4);
-		//message.channel.send('_play'+songName);
+
 		message.channel.send('not yet');
 	}
 	
 	if (command === 'leave'){
-		//message.channel.send('_leave');
 		message.member.voiceChannel.leave();
 		message.channel.send('bye');
 	}
 
 	// 
 
-	if (command === 'uptime'){
+	if (command === 'uptime' || command === 'up'){
 		// Get time since restartTime
 		var currentDate = new Date();
 
@@ -146,7 +143,7 @@ client.on('message', message => {
 
 		var restartTimeLocaleString = restartTime.toLocaleString("en-US", {timeZone: "America/Los_Angeles",});
 
-		message.channel.send("**Uptime**: " + hh + " hours, " + mm + " minutes, " + ss + " seconds, and " + msec + " milliseconds\n**Last restart time**: " + restartTimeLocaleString);
+		message.channel.send("**Uptime**: " + hh + " hours, " + mm + " minutes, " + ss + " seconds, and " + msec + " milliseconds\n**Last restart time**: " + restartTimeLocaleString + " PST");
 	}
 	
 	//shotgun related stuff ===========================================================
