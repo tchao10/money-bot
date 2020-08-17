@@ -49,8 +49,9 @@ client.on('error', (err) => {
 });
 
 client.on('message', message => {
-	if (message.author === client.user) return;
-	if (!message.content.startsWith(prefix)) return;
+	if (message.author === client.user || !message.content.startsWith(prefix)){
+		return;
+	}
 	
 	var command = message.content.slice(1).toLowerCase();
 	
@@ -93,12 +94,12 @@ client.on('message', message => {
 		message.channel.send('uno help && uno help');
 	}
 	
-	if (command === 'coinflip'){
+	if (command === 'coinflip' || command === 'cf'){
     	var randNum = Math.random();
     
-		if (randNum < 0.40){
+		if (randNum < 0.45){
 			message.channel.send('Heads.');
-		} else if (randNum < 0.60){
+		} else if (randNum < 0.55){
 			message.channel.send('oops i dropped the coin');
 		} else {
 			message.channel.send('Tails.');
