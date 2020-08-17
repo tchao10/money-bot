@@ -56,7 +56,8 @@ client.on('message', message => {
 	var command = message.content.slice(1).toLowerCase();
 	
 	if (command === 'commands' || command === 'help'){
-		message.reply("here is a list of commands: $commands, $help, $ping, $donate, $uno, $weather, $pls meme, $coinflip, $spamunobot, $play <songName/URL>, $leave, $shotgun, $uptime");
+		var command = require('./commands/commands.js');
+		//message.reply("here is a list of commands: $commands, $help, $ping, $donate, $uno, $weather, $pls meme, $coinflip, $spamunobot, $play <songName/URL>, $leave, $shotgun, $uptime");
 	}
 	
 	if (command === 'ping') {
@@ -81,7 +82,7 @@ client.on('message', message => {
 		var randNum = Math.random();
 		
 		if (randNum < 0.75){
-				message.channel.send('https://i.imgur.com/GReZEZN.png');
+			message.channel.send('https://i.imgur.com/GReZEZN.png');
 		} else {
 			message.channel.send('https://i.imgur.com/gK4EbAe.png');
 		}
