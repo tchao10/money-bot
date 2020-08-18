@@ -16,8 +16,8 @@ setInterval(() => {
 
 // bot variables
 const Discord = require('discord.js');
+const { prefix } = require('./config.json');
 const client = new Discord.Client();
-const prefix = '$';
 var restartTime; // ms of time of restart
 
 // donate variables
