@@ -49,15 +49,15 @@ client.on('error', (err) => {
 });
 
 client.on('message', message => {
-	if (message.author === client.user || !message.content.startsWith(prefix)){
+	if (message.author.bot || !message.content.startsWith(prefix)){
 		return;
 	}
 	
 	var userCommand = message.content.slice(1).toLowerCase();
 	
 	if (userCommand === 'commands' || userCommand === 'help'){
-		var command = require('./commands/commands.js');
-		//message.reply("here is a list of commands: $commands, $help, $ping, $donate, $uno, $weather, $pls meme, $coinflip, $spamunobot, $play <songName/URL>, $leave, $shotgun, $uptime");
+		//var command = require('./commands/commands.js');
+		message.reply("here is a list of commands: $commands, $help, $ping, $donate, $uno, $weather, $pls meme, $coinflip, $spamunobot, $play <songName/URL>, $leave, $shotgun, $uptime");
 	}
 	
 	if (userCommand === 'ping') {
