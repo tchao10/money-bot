@@ -58,33 +58,37 @@ client.on('message', message => {
 	if (message.author.bot || !message.content.startsWith(prefix)){
 		return;
 	}
-	
-	var userCommand = message.content.slice(1).toLowerCase();
-	
-	if (userCommand === 'commands' || userCommand === 'help'){
+
+	// Splits users arguments after prefix
+	const arguments = message.content.slice(prefix.length).trim().split(/ +/);
+
+	// Gets first word after prefix using the args array
+	const command = args.shift().toLowerCase();
+
+	if (command === 'help' || command === 'commands'){
 		//var command = require('./commands/commands.js');
 		message.reply("here is a list of commands: $help, $ping, $donate, $uno, $weather, $pls meme, $coinflip, $spamunobot, $play <songName/URL>, $leave, $shotgun, $uptime");
 	}
 	
-	if (userCommand === 'ping') {
+	if (command === 'ping') {
 		message.reply('pong');
 	}
 	
-	if (userCommand === 'donate') {
+	if (command === 'donate') {
 		moneyCount++;
 		//message.react(message.guild.emojis.get('426956349751164950'));
 		message.reply('thanks, I have $'+moneyCount+' now!');
 	}
 	
-	if (userCommand === 'uno'){
+	if (command === 'uno'){
 		message.channel.send('not yet');
 	}
   
-  	if (userCommand === 'weather'){
+  	if (command === 'weather'){
 		message.channel.send('hot');
 	}
   
-  	if (userCommand === 'pls meme'){
+  	if (command === 'pls meme' || command === 'pls'){
 		var randNum = Math.random();
 		
 		if (randNum < 0.75){
@@ -94,14 +98,14 @@ client.on('message', message => {
 		}
 	}
   
-	if (userCommand === 'spamunobot'){
+	if (command === 'spamunobot'){
 		message.channel.send('uno help && uno help');
 		message.channel.send('uno help && uno help');
 		message.channel.send('uno help && uno help');
 		message.channel.send('uno help && uno help');
 	}
 	
-	if (userCommand === 'coinflip' || userCommand === 'cf'){
+	if (command === 'coinflip' || command === 'cf'){
     	var randNum = Math.random();
     
 		if (randNum < 0.45){
@@ -113,7 +117,7 @@ client.on('message', message => {
 		}
 	}
   
-	if (userCommand.startsWith('play')){
+	if (command.startsWith('play')){
 		const channel = message.member.voiceChannel;
 
 		channel.join()
@@ -123,12 +127,12 @@ client.on('message', message => {
 		message.channel.send('not yet');
 	}
 	
-	if (userCommand === 'leave'){
+	if (command === 'leave'){
 		message.member.voiceChannel.leave();
 		message.channel.send('bye');
 	}
 
-	if (userCommand === 'uptime' || userCommand === 'up'){
+	if (command === 'uptime' || command === 'up'){
 		// Get time since restartTime
 		var currentDate = new Date();
 
@@ -153,7 +157,7 @@ client.on('message', message => {
 	}
 	
 	//shotgun related stuff ===========================================================
-	if (userCommand === 'shotgun' || userCommand === 'sg'){
+	if (command === 'shotgun' || command === 'sg'){
 		if (!shotgunGameEnabled){
 			shotgunGameEnabled = true;
 			playerName = message.author.username;
@@ -164,7 +168,7 @@ client.on('message', message => {
 		}
 	}
 	
-	if (userCommand === 'shotgunstop' || userCommand === 'sgstop'){
+	if (command === 'shotgunstop' || command === 'sgstop'){
 		if (shotgunGameEnabled){
 			shotgunStop();
 			message.channel.send('Shotgun game ended.');
@@ -173,7 +177,7 @@ client.on('message', message => {
 		}
 	}
 	
-	if (userCommand === 'shoot'){
+	if (command === 'shoot'){
 		if (shotgunGameEnabled){
 			if (message.author.username === playerName){
 				shotgunAISelectMove(playerAmmo, botAmmo);
@@ -212,7 +216,7 @@ client.on('message', message => {
 		}
 	}
 	
-	if (userCommand === 'reload'){
+	if (command === 'reload'){
 		if (shotgunGameEnabled){
 			if (message.author.username === playerName){
 				shotgunAISelectMove(playerAmmo, botAmmo);
@@ -242,7 +246,7 @@ client.on('message', message => {
 		}
 	}
 	
-	if (userCommand === 'block'){
+	if (command === 'block'){
 		if (shotgunGameEnabled){
 			if (message.author.username === playerName){
 				shotgunAISelectMove(playerAmmo, botAmmo);

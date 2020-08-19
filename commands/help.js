@@ -1,6 +1,7 @@
-require("dotenv").config();
-//const request = require("request");
-
-export default async function (req, res) {
-    console.log("hello");
-}
+module.exports = {
+	name: 'help',
+	description: 'Help',
+	execute(message, args) {
+        message.reply("here is a list of commands: $help, $ping, $donate, $uno, $weather, $pls meme, $coinflip, $spamunobot, $play <songName/URL>, $leave, $shotgun, $uptime");
+	},
+};
