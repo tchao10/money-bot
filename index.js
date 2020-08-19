@@ -1,6 +1,7 @@
 const http = require('http');
 const express = require('express');
 const app = express();
+const fs = require('fs');
 
 const botStartupTime = new Date();
 const botStartupTimeAsLocaleString = botStartupTime.toLocaleString("en-US", {timeZone: "America/Los_Angeles",});
@@ -24,6 +25,7 @@ setInterval(() => {
 const Discord = require('discord.js');
 const { prefix } = require('./config.json');
 const client = new Discord.Client();
+client.commands = new Discord.Collection();
 var botIsLiveTime; // ms of time of bot going live
 
 // donate variables
