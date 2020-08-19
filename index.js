@@ -63,7 +63,7 @@ client.on('message', message => {
 	
 	if (userCommand === 'commands' || userCommand === 'help'){
 		//var command = require('./commands/commands.js');
-		message.reply("here is a list of commands: $commands, $help, $ping, $donate, $uno, $weather, $pls meme, $coinflip, $spamunobot, $play <songName/URL>, $leave, $shotgun, $uptime");
+		message.reply("here is a list of commands: $help, $ping, $donate, $uno, $weather, $pls meme, $coinflip, $spamunobot, $play <songName/URL>, $leave, $shotgun, $uptime");
 	}
 	
 	if (userCommand === 'ping') {
