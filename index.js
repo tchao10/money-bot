@@ -1,6 +1,7 @@
 const http = require('http');
 const express = require('express');
 const app = express();
+const Discord = require('discord.js');
 const fs = require('fs');
 
 const botStartupTime = new Date();
@@ -22,10 +23,10 @@ setInterval(() => {
 //============           VARIABLES           ====================================
 
 // bot variables
-const Discord = require('discord.js');
 const { prefix } = require('./config.json');
 const client = new Discord.Client();
 client.commands = new Discord.Collection();
+const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
 var botIsLiveTime; // ms of time of bot going live
 
 // donate variables
