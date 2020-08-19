@@ -2,6 +2,12 @@ const http = require('http');
 const express = require('express');
 const app = express();
 
+const botStartupTime = new Date();
+const botStartupTimeAsLocaleString = botStartupTime.toLocaleString("en-US", {timeZone: "America/Los_Angeles",});
+console.log("*****");
+console.log("*****");
+console.log("Starting up bot at " + botStartupTimeAsLocaleString + " PST...");
+
 app.get("/", (request, response) => {
 	console.log(Date.now() + " Ping Received");
 	response.sendStatus(200);
@@ -18,7 +24,7 @@ setInterval(() => {
 const Discord = require('discord.js');
 const { prefix } = require('./config.json');
 const client = new Discord.Client();
-var restartTime; // ms of time of restart
+var botIsLiveTime; // ms of time of bot going live
 
 // donate variables
 var moneyCount = 0;
@@ -38,9 +44,9 @@ var botMoveNum = -1;
 //==============            "FUNCTIONS"           ===================================
 
 client.on('ready', () => {
-	restartTime = new Date();
-	var restartTimeLocaleString = restartTime.toLocaleString("en-US", {timeZone: "America/Los_Angeles",});
-    console.log('I am ready! Live as of ' + restartTimeLocaleString + " PST.");
+	botIsLiveTime = new Date();
+	var botIsLiveTimeAsLocaleString = botIsLiveTime.toLocaleString("en-US", {timeZone: "America/Los_Angeles",});
+    console.log('I am ready! Live as of ' + botIsLiveTimeAsLocaleString + " PST.");
 });
 
 client.on('error', (err) => {
@@ -369,9 +375,7 @@ try {
 }
 */
 
-var currentDate = new Date();
-var currentTimeAsLocaleString = currentDate.toLocaleString("en-US", {timeZone: "America/Los_Angeles",});
-console.log("*****");
-console.log("*****");
-console.log("Attempting bot login at " + currentTimeAsLocaleString + " PST...");
+const botLoginTime = new Date();
+const botLoginTimeAsLocaleString = botLoginTime.toLocaleString("en-US", {timeZone: "America/Los_Angeles",});
+console.log("Attempting bot login at " + botLoginTimeAsLocaleString + " PST...");
 client.login(process.env.TOKEN).catch(console.error);
