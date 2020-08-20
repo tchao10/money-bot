@@ -96,19 +96,7 @@ client.on('message', message => {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+	
 
 	if (command === 'donate') {
 		moneyCount++;
