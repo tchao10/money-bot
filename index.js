@@ -77,6 +77,8 @@ client.on('message', message => {
 	// Gets first word after prefix using the args array
 	const command = args.shift().toLowerCase();
 
+
+
 	if (command === 'help' || command === 'commands'){
 		//var command = require('./commands/commands.js');
 		message.reply("here is a list of commands: $help, $ping, $donate, $uno, $weather, $pls meme, $coinflip, $spamunobot, $play <songName/URL>, $leave, $shotgun, $uptime");
