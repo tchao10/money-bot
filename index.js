@@ -69,6 +69,7 @@ client.on('error', (err) => {
 });
 
 client.on('message', message => {
+	// If the message author is a bot or if the message doesn't start with the prefix, then stop
 	if (message.author.bot || !message.content.startsWith(prefix)){
 		return;
 	}
@@ -79,19 +80,18 @@ client.on('message', message => {
 	// Gets first word after prefix using the args array
 	const command = args.shift().toLowerCase();
 
-	// If the command doesn't exist, stop
+	// If the command doesn't exist, then stop
 	if (!client.commands.has(command)){
 		return;
 	}
 
+	// Execute the command
 	try {
 		client.commands.get(command).execute(message, args);
 	} catch (error) {
 		console.error(error);
 		message.reply('there was an error trying to execute that command!');
 	}
-
-
 
 
 	if (command === 'donate') {
