@@ -23,7 +23,7 @@ setInterval(() => {
 //============           VARIABLES           ====================================
 
 // bot variables
-const prefix = require('./config.json');
+const { prefix } = require('./config.json');
 const client = new Discord.Client();
 
 // donate variables
@@ -68,7 +68,7 @@ client.on('error', (err) => {
   	console.error(err);
 });
 
-client.on('message', message => {
+client.on('message', message => {	
 	// If the message author is a bot or if the message doesn't start with the prefix, then stop
 	if (message.author.bot || !message.content.startsWith(prefix)){
 		return;
@@ -77,9 +77,9 @@ client.on('message', message => {
 	// Splits users arguments after prefix
 	const arguments = message.content.slice(prefix.length).trim().split(/ +/);
 
-	// Gets first word after prefix using the args array
-	const command = args.shift().toLowerCase();
-
+	// Gets first word after prefix using the arguments array
+	const command = arguments.shift().toLowerCase();
+	
 	// If the command doesn't exist, then stop
 	if (!client.commands.has(command)){
 		return;
@@ -87,11 +87,27 @@ client.on('message', message => {
 
 	// Execute the command
 	try {
-		client.commands.get(command).execute(message, args);
+		client.commands.get(command).execute(message, arguments);
 	} catch (error) {
 		console.error(error);
 		message.reply('there was an error trying to execute that command!');
 	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 	if (command === 'donate') {
