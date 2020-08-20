@@ -25,7 +25,6 @@ setInterval(() => {
 // bot variables
 const prefix = require('./config.json');
 const client = new Discord.Client();
-var botIsLiveTime; // ms of time of bot going live
 
 // donate variables
 var moneyCount = 0;
@@ -41,6 +40,9 @@ var botHealth = 2;
 var botAmmo = 0;
 var botBlocked = false;
 var botMoveNum = -1;
+
+// uptime variables
+var botIsLiveTime; // ms of time of bot going live
 
 //==============            "FUNCTIONS"           ===================================
 
@@ -77,43 +79,25 @@ client.on('message', message => {
 	// Gets first word after prefix using the args array
 	const command = args.shift().toLowerCase();
 
+	// If the command doesn't exist, stop
+	if (!client.commands.has(command)){
+		return;
+	}
+
+	try {
+		client.commands.get(command).execute(message, args);
+	} catch (error) {
+		console.error(error);
+		message.reply('there was an error trying to execute that command!');
+	}
+
+
+
 
 	if (command === 'donate') {
 		moneyCount++;
 		//message.react(message.guild.emojis.get('426956349751164950'));
 		message.reply('thanks, I have $'+moneyCount+' now!');
-	}
-	
-	if (command === 'uno'){
-		message.channel.send('not yet');
-	}
-  
-  	if (command === 'weather'){
-		message.channel.send('hot');
-	}
-
-	if (command === 'uptime' || command === 'up'){
-		// Get time since restartTime
-		var currentDate = new Date();
-
-		// To supposedly handle times that are on opposite sides of midnight e.g. 9pm and 5am
-		if (currentDate < restartTime){
-			currentDate.setDate(currentDate.getDate() + 1);
-		}
-
-		var differenceBetweenCurrentAndRestartTimes = currentDate - restartTime;
-
-		var msec = differenceBetweenCurrentAndRestartTimes;
-		var hh = Math.floor(msec / 1000 / 60 / 60);
-		msec -= hh * 1000 * 60 * 60;
-		var mm = Math.floor(msec / 1000 / 60);
-		msec -= mm * 1000 * 60;
-		var ss = Math.floor(msec / 1000);
-		msec -= ss * 1000;
-
-		var restartTimeLocaleString = restartTime.toLocaleString("en-US", {timeZone: "America/Los_Angeles",});
-
-		message.channel.send("**Uptime**: " + hh + " hours, " + mm + " minutes, " + ss + " seconds, and " + msec + " milliseconds\n**Last restart time**: " + restartTimeLocaleString + " PST");
 	}
 	
 	//shotgun related stuff ===========================================================
