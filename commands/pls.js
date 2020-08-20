@@ -1,7 +1,13 @@
 module.exports = {
-	name: 'help',
-	description: 'Help',
+	name: 'pls',
+	description: 'Pls',
 	execute(message, args) {
-        message.reply("here is a list of commands: $help, $ping, $donate, $uno, $weather, $pls meme, $coinflip, $spamunobot, $play <songName/URL>, $leave, $shotgun, $uptime");
+		var randNum = Math.random();
+		
+		if (randNum < 0.75){
+			message.channel.send('https://i.imgur.com/GReZEZN.png');
+		} else {
+			message.channel.send('https://i.imgur.com/gK4EbAe.png');
+		}
 	},
 };

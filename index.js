@@ -78,16 +78,6 @@ client.on('message', message => {
 	const command = args.shift().toLowerCase();
 
 
-
-	if (command === 'help' || command === 'commands'){
-		//var command = require('./commands/commands.js');
-		message.reply("here is a list of commands: $help, $ping, $donate, $uno, $weather, $pls meme, $coinflip, $spamunobot, $play <songName/URL>, $leave, $shotgun, $uptime");
-	}
-	
-	if (command === 'ping') {
-		message.reply('pong');
-	}
-	
 	if (command === 'donate') {
 		moneyCount++;
 		//message.react(message.guild.emojis.get('426956349751164950'));
@@ -100,50 +90,6 @@ client.on('message', message => {
   
   	if (command === 'weather'){
 		message.channel.send('hot');
-	}
-  
-  	if (command === 'pls meme' || command === 'pls'){
-		var randNum = Math.random();
-		
-		if (randNum < 0.75){
-			message.channel.send('https://i.imgur.com/GReZEZN.png');
-		} else {
-			message.channel.send('https://i.imgur.com/gK4EbAe.png');
-		}
-	}
-  
-	if (command === 'spamunobot'){
-		message.channel.send('uno help && uno help');
-		message.channel.send('uno help && uno help');
-		message.channel.send('uno help && uno help');
-		message.channel.send('uno help && uno help');
-	}
-	
-	if (command === 'coinflip' || command === 'cf'){
-    	var randNum = Math.random();
-    
-		if (randNum < 0.45){
-			message.channel.send('Heads.');
-		} else if (randNum < 0.55){
-			message.channel.send('oops i dropped the coin');
-		} else {
-			message.channel.send('Tails.');
-		}
-	}
-  
-	if (command.startsWith('play')){
-		const channel = message.member.voiceChannel;
-
-		channel.join()
-		.then(connection => console.log('Connected!'))
-		.catch(console.error);
-
-		message.channel.send('not yet');
-	}
-	
-	if (command === 'leave'){
-		message.member.voiceChannel.leave();
-		message.channel.send('bye');
 	}
 
 	if (command === 'uptime' || command === 'up'){

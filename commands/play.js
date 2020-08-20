@@ -1,7 +1,13 @@
 module.exports = {
-	name: 'help',
-	description: 'Help',
+	name: 'play',
+	description: 'Play',
 	execute(message, args) {
-        message.reply("here is a list of commands: $help, $ping, $donate, $uno, $weather, $pls meme, $coinflip, $spamunobot, $play <songName/URL>, $leave, $shotgun, $uptime");
+		const channel = message.member.voiceChannel;
+
+		channel.join()
+			.then(connection => console.log('Connected into voice channel!'))
+			.catch(console.error);
+
+		message.channel.send('not yet');
 	},
 };
