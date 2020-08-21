@@ -57,12 +57,14 @@ for (const file of commandFiles) {
 	client.commands.set(command.name, command);
 }
 
+// Triggers when the bot is live
 client.on('ready', () => {
 	botIsLiveTime = new Date();
 	var botIsLiveTimeAsLocaleString = botIsLiveTime.toLocaleString("en-US", {timeZone: "America/Los_Angeles",});
     console.log('I am ready! Live as of ' + botIsLiveTimeAsLocaleString + " PST.");
 });
 
+// Triggers on error 
 client.on('error', (err) => {
   	console.error("Bot error:");
   	console.error(err);
@@ -78,16 +80,18 @@ client.on('message', message => {
 	const arguments = message.content.slice(prefix.length).trim().split(/ +/);
 
 	// Gets first word after prefix using the arguments array
-	const command = arguments.shift().toLowerCase();
+	const commandName = arguments.shift().toLowerCase();
 	
 	// If the command doesn't exist, then stop
-	if (!client.commands.has(command)){
+	if (!client.commands.has(commandName)){
 		return;
 	}
 
+	const command = client.commands.get(commandName);
+
 	// Execute the command
 	try {
-		client.commands.get(command).execute(message, arguments);
+		command.execute(message, arguments);
 	} catch (error) {
 		console.error(error);
 		message.reply('there was an error trying to execute that command!');
@@ -98,14 +102,14 @@ client.on('message', message => {
 
 	
 
-	if (command === 'donate') {
+	if (commandName === 'donate') {
 		moneyCount++;
 		//message.react(message.guild.emojis.get('426956349751164950'));
 		message.reply('thanks, I have $'+moneyCount+' now!');
 	}
 	
 	//shotgun related stuff ===========================================================
-	if (command === 'shotgun' || command === 'sg'){
+	if (commandName === 'shotgun' || commandName === 'sg'){
 		if (!shotgunGameEnabled){
 			shotgunGameEnabled = true;
 			playerName = message.author.username;
@@ -116,7 +120,7 @@ client.on('message', message => {
 		}
 	}
 	
-	if (command === 'shotgunstop' || command === 'sgstop'){
+	if (commandName === 'shotgunstop' || commandName === 'sgstop'){
 		if (shotgunGameEnabled){
 			shotgunStop();
 			message.channel.send('Shotgun game ended.');
@@ -125,7 +129,7 @@ client.on('message', message => {
 		}
 	}
 	
-	if (command === 'shoot'){
+	if (commandName === 'shoot'){
 		if (shotgunGameEnabled){
 			if (message.author.username === playerName){
 				shotgunAISelectMove(playerAmmo, botAmmo);
@@ -164,7 +168,7 @@ client.on('message', message => {
 		}
 	}
 	
-	if (command === 'reload'){
+	if (commandName === 'reload'){
 		if (shotgunGameEnabled){
 			if (message.author.username === playerName){
 				shotgunAISelectMove(playerAmmo, botAmmo);
@@ -194,7 +198,7 @@ client.on('message', message => {
 		}
 	}
 	
-	if (command === 'block'){
+	if (commandName === 'block'){
 		if (shotgunGameEnabled){
 			if (message.author.username === playerName){
 				shotgunAISelectMove(playerAmmo, botAmmo);
