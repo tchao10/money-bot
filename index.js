@@ -87,7 +87,19 @@ client.on('message', message => {
 		return;
 	}
 
+	// Create the command
 	const command = client.commands.get(commandName);
+
+	// Argument check, and show usage if it exists
+	if (command.args && !args.length) {
+		let reply = `You didn't provide any arguments, ${message.author}!`;
+
+		if(command.usage){
+			reply += `\nThe proper usage would be: \`${prefix}${command.name} ${command.usage}\``;
+		}
+
+		return message.channel.send(reply);
+	}
 
 	// Execute the command
 	try {
