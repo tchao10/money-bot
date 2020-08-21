@@ -1,8 +1,8 @@
 module.exports = {
 	name: 'help',
-	description: 'Help',
+	description: 'Displays a list of commands.',
 	usage: "No usage provided.",
-	aliases: [],
+	aliases: ["commands"],
 	args: false,
 	guildOnly: false,
 	execute(message, args) {

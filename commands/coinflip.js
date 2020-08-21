@@ -2,7 +2,7 @@ module.exports = {
 	name: "coinflip",
 	description: "Flips a coin.",
 	usage: "No usage provided.",
-	aliases: [],
+	aliases: ["cf"],
 	args: false,
 	guildOnly: false,
 	execute(message, args) {
