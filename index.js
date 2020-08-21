@@ -115,6 +115,16 @@ client.on('message', message => {
 	}
 
 
+
+
+
+
+
+
+
+
+
+	
 	if (commandName === 'donate') {
 		moneyCount++;
 		//message.react(message.guild.emojis.get('426956349751164950'));
