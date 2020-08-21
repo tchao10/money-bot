@@ -8,8 +8,6 @@ module.exports = {
 	args: false,
 	guildOnly: false,
 	execute(message, args) {
-        //message.reply("here is a list of commands: $help, $ping, $donate, $uno, $weather, $pls meme, $coinflip, $spamunobot, $play <songName/URL>, $leave, $shotgun, $uptime");
-	
 		const data = [];
 		const { commands } = message.client;
 
@@ -42,9 +40,9 @@ module.exports = {
 
 		if (command.aliases) data.push(`**Aliases:** ${command.aliases.join(', ')}`);
 		if (command.description) data.push(`**Description:** ${command.description}`);
-		if (command.usage) data.push(`**Usage:** ${prefix}${command.name} ${command.usage}`);
+		if (command.usage) data.push(`**Usage:** \`${prefix}${command.name}\` ${command.usage}`);
 
-		data.push(`**Cooldown:** ${command.cooldown || 3} second(s)`);
+		data.push(`**Cooldown:** ${command.cooldown || 0.5} second(s)`);
 
 		message.channel.send(data, { split: true });
 	},

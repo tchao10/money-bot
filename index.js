@@ -57,8 +57,10 @@ for (const file of commandFiles) {
 	client.commands.set(command.name, command);
 }
 
-// Create cooldowns collection for commands
+// Create a cooldowns collection for commands
 const cooldowns = new Discord.Collection();
+
+
 
 // Triggers when the bot is live
 client.once("ready", () => {
@@ -367,15 +369,6 @@ client.on("message", message => {
 });
 
 //============          "MAIN FUNCTION"             ======================================
-
-/*
-try {
-  console.log("Attempting bot login...\n");
-  client.login(process.env.TOKEN);
-} catch (error) {
-  console.error(error);
-}
-*/
 
 const botLoginTime = new Date();
 const botLoginTimeAsLocaleString = botLoginTime.toLocaleString("en-US", {timeZone: "America/Los_Angeles",});
