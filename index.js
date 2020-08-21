@@ -85,12 +85,15 @@ client.on("message", message => {
 	// Gets first word after prefix using the arguments array
 	const commandName = arguments.shift().toLowerCase();
 	
-	// Create the command, checking aliases as well
+	// Create the command, checking aliases as well. But if the command doesn't exist, then stop
 	const command = client.commands.get(commandName) || client.commands.find(cmd => cmd.aliases && cmd.aliases.includes(commandName));
-	
-	// If the command doesn't exist, then stop
 	if (!command){
 		return;
+	}
+
+	// Check if a command can only be used in a server (and not a DM)
+	if (command.guildOnly && message.channel.type === "dm") {
+		return message.reply("I can't execute that command inside DMs!");
 	}
 
 	// Check cooldown of command of user
@@ -113,12 +116,6 @@ client.on("message", message => {
 
 	timestamps.set(message.author.id, now);
 	setTimeout(() => timestamps.delete(message.author.id), cooldownAmount);
-
-
-	// Check if a command can only be used in a server (and not a DM)
-	if (command.guildOnly && message.channel.type === "dm") {
-		return message.reply("I can't execute that command inside DMs!");
-	}
 
 	// Argument check, and show usage if it exists
 	if (command.arguments && !arguments.length) {

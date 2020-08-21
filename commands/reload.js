@@ -8,6 +8,10 @@ module.exports = {
 	args: true,
 	guildOnly: false,
 	execute(message, args) {
+        if (message.author.id != 134095374381088768){
+            return message.channel.send("Insufficient permissions.");
+        }
+
 		if (!args.length){
             return message.channel.send(`You didn't pass any command to reload, ${message.author}!`);
         }
