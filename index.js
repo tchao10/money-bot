@@ -100,10 +100,10 @@ client.on("message", message => {
 
 	// Argument check, and show usage if it exists
 	if (command.args && !args.length) {
-		let reply = `You didn't provide any arguments, ${message.author}!`;
+		let reply = "You didn't provide any arguments, " + message.author + "!";
 
 		if(command.usage){
-			reply += `\nThe proper usage would be: \`${prefix}${command.name} ${command.usage}\``;
+			reply += "\nThe proper usage would be: `" + ${prefix}${command.name} ${command.usage}\``;
 		}
 
 		return message.channel.send(reply);
@@ -116,7 +116,7 @@ client.on("message", message => {
 
 	const now = Date.now();
 	const timestamps = cooldowns.get(command.name);
-	const cooldownAmount = (command.cooldown || 3) * 1000;
+	const cooldownAmount = (command.cooldown || 0.5) * 1000; // If command doesn't have a cooldown, set it to 0.5 seconds instead
 
 	if (timestamps.has(message.author.id)) {
 		const expirationTime = timestamps.get(message.author.id) + cooldownAmount;
