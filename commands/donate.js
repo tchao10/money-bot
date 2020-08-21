@@ -1,7 +1,7 @@
 module.exports = {
 	name: "donate",
 	description: "Donates money to me.",
-	usage: "No usage provided.",
+	usage: "",
 	aliases: [],
 	args: false,
 	guildOnly: false,
