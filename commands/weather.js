@@ -1,6 +1,6 @@
 module.exports = {
 	name: 'weather',
-	description: 'Weather',
+	description: 'Displays the weather.',
 	usage: "No usage provided.",
 	aliases: [],
 	args: false,

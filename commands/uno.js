@@ -1,6 +1,6 @@
 module.exports = {
 	name: 'uno',
-	description: 'Uno',
+	description: 'Starts an uno game.',
 	usage: "No usage provided.",
 	aliases: [],
 	args: false,

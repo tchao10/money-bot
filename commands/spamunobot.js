@@ -1,10 +1,10 @@
 module.exports = {
 	name: 'spamunobot',
-	description: 'Spamunobot',
+	description: 'Spams uno bot',
 	usage: "No usage provided.",
 	aliases: [],
 	args: false,
-	guildOnly: false,
+	guildOnly: true,
 	execute(message, args) {
 		message.channel.send('uno help && uno help');
 		message.channel.send('uno help && uno help');
