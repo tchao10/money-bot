@@ -1,8 +1,8 @@
-const http = require('http');
-const express = require('express');
+const http = require("http");
+const express = require("express");
 const app = express();
-const Discord = require('discord.js');
-const fs = require('fs');
+const Discord = require("discord.js");
+const fs = require("fs");
 
 const botStartupTime = new Date();
 const botStartupTimeAsLocaleString = botStartupTime.toLocaleString("en-US", {timeZone: "America/Los_Angeles",});
@@ -23,7 +23,7 @@ setInterval(() => {
 //============           VARIABLES           ====================================
 
 // bot variables
-const { prefix } = require('./config.json');
+const { prefix } = require("./config.json");
 const client = new Discord.Client();
 
 // donate variables
@@ -48,7 +48,7 @@ var botIsLiveTime; // ms of time of bot going live
 
 // Creates commands based on .js file names in ./commands folder
 client.commands = new Discord.Collection();
-const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
+const commandFiles = fs.readdirSync("./commands").filter(file => file.endsWith(".js"));
 for (const file of commandFiles) {
 	const command = require(`./commands/${file}`);
 
@@ -58,19 +58,19 @@ for (const file of commandFiles) {
 }
 
 // Triggers when the bot is live
-client.on('ready', () => {
+client.on("ready", () => {
 	botIsLiveTime = new Date();
 	var botIsLiveTimeAsLocaleString = botIsLiveTime.toLocaleString("en-US", {timeZone: "America/Los_Angeles",});
-    console.log('I am ready! Live as of ' + botIsLiveTimeAsLocaleString + " PST.");
+    console.log("I am ready! Live as of " + botIsLiveTimeAsLocaleString + " PST.");
 });
 
 // Triggers on error 
-client.on('error', (err) => {
+client.on("error", (err) => {
   	console.error("Bot error:");
   	console.error(err);
 });
 
-client.on('message', message => {	
+client.on("message", message => {	
 	// If the message author is a bot or if the message doesn't start with the prefix, then stop
 	if (message.author.bot || !message.content.startsWith(prefix)){
 		return;
@@ -91,8 +91,8 @@ client.on('message', message => {
 	const command = client.commands.get(commandName);
 
 	// Check if a command can only be used in a server (and not a DM)
-	if (command.guildOnly && message.channel.type === 'dm') {
-		return message.reply('I can\'t execute that command inside DMs!');
+	if (command.guildOnly && message.channel.type === "dm") {
+		return message.reply("I can't execute that command inside DMs!");
 	}
 
 	// Argument check, and show usage if it exists
@@ -111,7 +111,7 @@ client.on('message', message => {
 		command.execute(message, arguments);
 	} catch (error) {
 		console.error(error);
-		message.reply('there was an error trying to execute that command!');
+		message.reply("there was an error trying to execute that command!");
 	}
 
 
@@ -124,35 +124,35 @@ client.on('message', message => {
 
 
 
-	
-	if (commandName === 'donate') {
+
+	if (commandName === "donate") {
 		moneyCount++;
-		//message.react(message.guild.emojis.get('426956349751164950'));
-		message.reply('thanks, I have $'+moneyCount+' now!');
+		//message.react(message.guild.emojis.get("426956349751164950"));
+		message.reply("thanks, I have $"+moneyCount+" now!");
 	}
 	
 	//shotgun related stuff ===========================================================
-	if (commandName === 'shotgun' || commandName === 'sg'){
+	if (commandName === "shotgun" || commandName === "sg"){
 		if (!shotgunGameEnabled){
 			shotgunGameEnabled = true;
 			playerName = message.author.username;
 			message.channel.send("Your Health: "+playerHealth+",   Your Ammo: "+playerAmmo+",   My Health: "+botHealth+",   My Ammo: "+botAmmo);
-			message.reply('select your move: $shoot, $reload, or $block? Or you can quit using $shotgunstop.');
+			message.reply("select your move: $shoot, $reload, or $block? Or you can quit using $shotgunstop.");
 		} else {
-			message.reply('there is already a game in progress.');
+			message.reply("there is already a game in progress.");
 		}
 	}
 	
-	if (commandName === 'shotgunstop' || commandName === 'sgstop'){
+	if (commandName === "shotgunstop" || commandName === "sgstop"){
 		if (shotgunGameEnabled){
 			shotgunStop();
-			message.channel.send('Shotgun game ended.');
+			message.channel.send("Shotgun game ended.");
 		} else {
-			message.reply('there is no shotgun game in progress.');
+			message.reply("there is no shotgun game in progress.");
 		}
 	}
 	
-	if (commandName === 'shoot'){
+	if (commandName === "shoot"){
 		if (shotgunGameEnabled){
 			if (message.author.username === playerName){
 				shotgunAISelectMove(playerAmmo, botAmmo);
@@ -187,11 +187,11 @@ client.on('message', message => {
 				message.reply("you're not "+playerName.avatar+"!");
 			}
 		} else {
-			message.reply('there is no shotgun game in progress, you clown.');
+			message.reply("there is no shotgun game in progress, you clown.");
 		}
 	}
 	
-	if (commandName === 'reload'){
+	if (commandName === "reload"){
 		if (shotgunGameEnabled){
 			if (message.author.username === playerName){
 				shotgunAISelectMove(playerAmmo, botAmmo);
@@ -217,11 +217,11 @@ client.on('message', message => {
 				message.reply("you're not "+playerName.avatar+"!");
 			}
 		} else {
-			message.reply('there is no shotgun game in progress, you clown.');
+			message.reply("there is no shotgun game in progress, you clown.");
 		}
 	}
 	
-	if (commandName === 'block'){
+	if (commandName === "block"){
 		if (shotgunGameEnabled){
 			if (message.author.username === playerName){
 				shotgunAISelectMove(playerAmmo, botAmmo);
@@ -247,7 +247,7 @@ client.on('message', message => {
 				message.reply("you're not "+playerName.avatar+"!");
 			}
 		} else {
-			message.reply('there is no shotgun game in progress, you clown.');
+			message.reply("there is no shotgun game in progress, you clown.");
 		}
 	}
 	
