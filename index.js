@@ -122,7 +122,7 @@ client.on("message", message => {
 	}
 
 	// Argument check, and show usage if it exists
-	if (command.args && !args.length) {
+	if (command.arguments && !arguments.length) {
 		let reply = "You didn't provide any arguments, " + message.author + "!";
 
 		if(command.usage){
