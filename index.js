@@ -57,8 +57,11 @@ for (const file of commandFiles) {
 	client.commands.set(command.name, command);
 }
 
+// Create cooldowns collection for commands
+const cooldowns = new Discord.Collection();
+
 // Triggers when the bot is live
-client.on("ready", () => {
+client.once("ready", () => {
 	botIsLiveTime = new Date();
 	var botIsLiveTimeAsLocaleString = botIsLiveTime.toLocaleString("en-US", {timeZone: "America/Los_Angeles",});
     console.log("I am ready! Live as of " + botIsLiveTimeAsLocaleString + " PST.");

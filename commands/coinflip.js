@@ -5,6 +5,7 @@ module.exports = {
 	aliases: [],
 	args: false,
 	guildOnly: false,
+	cooldown: 0,
 	execute(message, args) {
 		var randNum = Math.random();
     
