@@ -85,14 +85,13 @@ client.on("message", message => {
 	// Gets first word after prefix using the arguments array
 	const commandName = arguments.shift().toLowerCase();
 	
+	// Create the command, checking aliases as well
+	const command = client.commands.get(commandName) || client.commands.find(cmd => cmd.aliases && cmd.aliases.includes(commandName));
+	
 	// If the command doesn't exist, then stop
-	if (!client.commands.has(commandName)){
+	if (!command){
 		return;
 	}
-
-	// Create the command
-	const command = client.commands.get(commandName);
-
 
 	// Check cooldown of command of user
 	if (!cooldowns.has(command.name)) {

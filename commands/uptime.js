@@ -2,7 +2,7 @@ module.exports = {
 	name: 'uptime',
 	description: 'Displays how long the bot has been up for.',
 	usage: "No usage provided.",
-	aliases: [],
+	aliases: ["up"],
 	args: false,
 	guildOnly: false,
 	execute(message, args) {
