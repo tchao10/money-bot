@@ -93,21 +93,6 @@ client.on("message", message => {
 	// Create the command
 	const command = client.commands.get(commandName);
 
-	// Check if a command can only be used in a server (and not a DM)
-	if (command.guildOnly && message.channel.type === "dm") {
-		return message.reply("I can't execute that command inside DMs!");
-	}
-
-	// Argument check, and show usage if it exists
-	if (command.args && !args.length) {
-		let reply = "You didn't provide any arguments, " + message.author + "!";
-
-		if(command.usage){
-			reply += "\nThe proper usage would be: `" + prefix + command.name + " " + command.usage + "`";
-		}
-
-		return message.channel.send(reply);
-	}
 
 	// Check cooldown of command of user
 	if (!cooldowns.has(command.name)) {
@@ -129,6 +114,23 @@ client.on("message", message => {
 
 	timestamps.set(message.author.id, now);
 	setTimeout(() => timestamps.delete(message.author.id), cooldownAmount);
+
+
+	// Check if a command can only be used in a server (and not a DM)
+	if (command.guildOnly && message.channel.type === "dm") {
+		return message.reply("I can't execute that command inside DMs!");
+	}
+
+	// Argument check, and show usage if it exists
+	if (command.args && !args.length) {
+		let reply = "You didn't provide any arguments, " + message.author + "!";
+
+		if(command.usage){
+			reply += "\nThe proper usage would be: `" + prefix + command.name + " " + command.usage + "`";
+		}
+
+		return message.channel.send(reply);
+	}
 
 	
 	// Execute the command

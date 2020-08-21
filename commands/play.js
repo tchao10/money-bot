@@ -1,6 +1,10 @@
 module.exports = {
 	name: 'play',
 	description: 'Play',
+	usage: "No usage provided.",
+	aliases: [],
+	args: false,
+	guildOnly: false,
 	execute(message, args) {
 		const channel = message.member.voiceChannel;
 

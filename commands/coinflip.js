@@ -1,6 +1,6 @@
 module.exports = {
 	name: "coinflip",
-	description: "Coinflip",
+	description: "Flips a coin.",
 	usage: "No usage provided.",
 	aliases: [],
 	args: false,

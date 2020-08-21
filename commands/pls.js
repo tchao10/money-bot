@@ -1,6 +1,10 @@
 module.exports = {
 	name: 'pls',
 	description: 'Pls',
+	usage: "No usage provided.",
+	aliases: [],
+	args: false,
+	guildOnly: false,
 	execute(message, args) {
 		var randNum = Math.random();
 		

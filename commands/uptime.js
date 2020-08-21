@@ -1,6 +1,10 @@
 module.exports = {
 	name: 'uptime',
 	description: 'Uptime',
+	usage: "No usage provided.",
+	aliases: [],
+	args: false,
+	guildOnly: false,
 	execute(message, args) {
 		// Get time since botIsLiveTime
 		var currentDate = new Date();
