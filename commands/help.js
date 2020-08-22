@@ -1,4 +1,4 @@
-const { prefix } = require("../config.json");
+const { prefix, globalCooldownAmount } = require("../config.json");
 
 module.exports = {
 	name: "help",
@@ -43,18 +43,18 @@ module.exports = {
 			return message.reply("that's not a valid command!");
 		}
 
-		data.push("**Name:** " + command.name);
-
-		if (command.aliases.length){
-			data.push("**Aliases:** " + command.aliases.join(", "));
-		} else {
-			data.push("**Aliases:** No aliases.");
-		}
+		data.push("**Name:** `" + command.name + "`");
 
 		if (command.description){
 			data.push("**Description:** " + command.description);
 		} else {
 			data.push("**Description:** No description provided.");
+		}
+		
+		if (command.aliases.length){
+			data.push("**Aliases:** `" + command.aliases.join("`, `") + "`");
+		} else {
+			data.push("**Aliases:** No aliases.");
 		}
 
 		if (command.usage){
@@ -63,7 +63,7 @@ module.exports = {
 			data.push("**Usage:** `" + prefix + command.name + "`");
 		}
 
-		data.push("**Cooldown:** " + (command.cooldown || 1) + " second(s)");
+		data.push("**Cooldown:** " + (command.cooldown || globalCooldownAmount) + " second(s)");
 
 		message.channel.send(data, { split: true });
 	},

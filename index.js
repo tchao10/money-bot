@@ -23,7 +23,7 @@ setInterval(() => {
 //============           VARIABLES           ====================================
 
 // bot variables
-const { prefix } = require("./config.json");
+const { prefix, globalCooldownAmount } = require("./config.json");
 const client = new Discord.Client();
 
 // donate variables
@@ -95,7 +95,7 @@ client.on("message", message => {
 
 	// Check if a command can only be used in a server (and not a DM)
 	if (command.guildOnly && message.channel.type === "dm") {
-		return message.reply("I cannot execute that command inside DMs.");
+		return message.reply("You cannot execute that command inside DMs.");
 	}
 
 	
@@ -106,14 +106,14 @@ client.on("message", message => {
 
 	const now = Date.now();
 	const timestamps = cooldowns.get(command.name);
-	const cooldownAmount = (command.cooldown || 1) * 1000; // If command doesn't have a cooldown, set it to 1 seconds instead
+	const cooldownAmount = (command.cooldown || globalCooldownAmount) * 1000; // If command doesn't have a cooldown, set it to the globalCooldownAmount instead
 
 	if (timestamps.has(message.author.id)) {
 		const expirationTime = timestamps.get(message.author.id) + cooldownAmount;
 
 		if (now < expirationTime) {
 			const timeLeft = (expirationTime - now) / 1000;
-			return message.reply("please wait " + timeLeft.toFixed(1) + " more second(s) before reusing the `" + command.name + "` command.");
+			return message.channel.send("Please wait " + timeLeft.toFixed(1) + " more second(s) before reusing the `" + command.name + "` command.");
 		}
 	}
 
