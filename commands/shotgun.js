@@ -1,7 +1,7 @@
 module.exports = {
-	name: 'shotgun',
-	description: 'Starts a shotgun game.',
-	usage: "No usage provided.",
+	name: "shotgun",
+	description: "Starts a shotgun game.",
+	usage: "",
 	aliases: ["sg"],
 	arguments: false,
 	guildOnly: false,
