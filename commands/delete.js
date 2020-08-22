@@ -1,6 +1,6 @@
 module.exports = {
 	name: "delete",
-	description: "Deletes a certain amount of messages from a channel.",
+	description: "Deletes a certain number of messages from a channel. Note that this command cannot delete messages older than two weeks old.",
 	usage: "[number from 1-10]",
 	aliases: ["del", "clear", "prune"],
 	arguments: false,
@@ -19,7 +19,7 @@ module.exports = {
 			});
 		}
 
-		// Number of messages to delete
+		// Get the number of messages to delete
 		const deleteAmount = parseInt(arguments[0]);
 
 		// Check that the first argument is a number and is between 1 and 10.

@@ -19,8 +19,8 @@ module.exports = {
 			return message.channel.send(data);
 
 			/* 
+			This commented block sends the help message via DM instead
 
-			This commented block sends help message via DM instead
 
 			return message.author.send(data, { split: true })
 				.then(() => {
@@ -58,7 +58,7 @@ module.exports = {
 		}
 
 		if (command.usage){
-			data.push("**Usage:** `" + prefix + command.name + "`" + command.usage);
+			data.push("**Usage:** `" + prefix + command.name + " " + command.usage + "`");
 		} else {
 			data.push("**Usage:** `" + prefix + command.name + "`");
 		}
