@@ -98,6 +98,7 @@ client.on("message", message => {
 		return message.reply("I can't execute that command inside DMs!");
 	}
 
+	
 	// Check cooldown of command of user
 	if (!cooldowns.has(command.name)) {
 		cooldowns.set(command.name, new Discord.Collection());
@@ -118,6 +119,7 @@ client.on("message", message => {
 
 	timestamps.set(message.author.id, now);
 	setTimeout(() => timestamps.delete(message.author.id), cooldownAmount);
+
 
 	// Argument check, and show usage if it exists
 	if (command.arguments && !arguments.length) {

@@ -1,6 +1,6 @@
 module.exports = {
-	name: 'uptime',
-	description: 'Displays how long the bot has been up for.',
+	name: "uptime",
+	description: "Displays how long the bot has been up for.",
 	usage: "No usage provided.",
 	aliases: ["up"],
 	arguments: false,

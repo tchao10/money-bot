@@ -1,11 +1,11 @@
 module.exports = {
-	name: 'weather',
-	description: 'Displays the weather.',
-	usage: "No usage provided.",
+	name: "weather",
+	description: "Displays the weather.",
+	usage: "",
 	aliases: [],
 	arguments: false,
 	guildOnly: false,
 	execute(message, arguments) {
-		message.channel.send('hot');
+		message.channel.send("hot");
 	},
 };
