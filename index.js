@@ -95,7 +95,7 @@ client.on("message", message => {
 
 	// Check if a command can only be used in a server (and not a DM)
 	if (command.guildOnly && message.channel.type === "dm") {
-		return message.reply("I can't execute that command inside DMs!");
+		return message.reply("I cannot execute that command inside DMs.");
 	}
 
 	
