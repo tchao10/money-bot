@@ -18,15 +18,15 @@ module.exports = {
 			});
 		}
 
-		const deleteAmount = parseInt(arguments[0]) + 1;
+		const deleteAmount = parseInt(arguments[0]);
 
 		if (isNaN(deleteAmount)) {
 			return message.channel.send("Invalid number. Please specify a number between 1 and 10.");
-		} else if (amount < 2 || amount > 10) {
+		} else if (deleteAmount < 1 || deleteAmount > 10) {
 			return message.channel.send("You need to input a number between 1 and 10.");
 		}
 
-		message.channel.bulkDelete(deleteAmount, true).catch(err => {
+		message.channel.bulkDelete(deleteAmount + 1, true).catch(err => {
 			console.error(err);
 			message.channel.send('There was an error trying to delete messages in this channel!');
 		});
