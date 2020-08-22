@@ -7,7 +7,7 @@ module.exports = {
 	guildOnly: false,
 	execute(message, arguments){
 		if (!arguments.size){
-			return message.channel.send(`Your avatar: <${message.author.avatarURL({ format: "png", dynamic: true })}>`);
+			return message.channel.send(`Your avatar: ${message.author.displayAvatarURL}`);
 		}
 	},
 };
