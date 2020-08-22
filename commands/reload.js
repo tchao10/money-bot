@@ -8,7 +8,7 @@ module.exports = {
 	arguments: true,
 	guildOnly: false,
 	execute(message, arguments) {
-        if (message.author.id != 134095374381088768){ // 
+        if (message.author.id != 134095374381088768){ // If you are not me
             return message.channel.send("Insufficient permissions.");
         }
 
