@@ -3,7 +3,7 @@
 module.exports = {
 	name: "reload",
 	description: "Reloads a command.",
-	usage: "No usage provided.",
+	usage: "[command name]",
 	aliases: ["rl"],
 	arguments: true,
 	guildOnly: false,
@@ -12,9 +12,6 @@ module.exports = {
             return message.channel.send("Insufficient permissions.");
         }
 
-		if (!arguments.length){
-            return message.channel.send("You didn't pass any command to reload, " + message.author + "!");
-        }
         const commandName = arguments[0].toLowerCase();
         const command = message.client.commands.get(commandName) || message.client.commands.find(cmd => cmd.aliases && cmd.aliases.includes(commandName));
 
