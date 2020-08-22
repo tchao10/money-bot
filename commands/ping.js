@@ -1,11 +1,11 @@
 module.exports = {
-	name: 'ping',
-	description: 'pong',
-	usage: "No usage provided.",
+	name: "ping",
+	description: "pong",
+	usage: "",
 	aliases: [],
 	args: false,
 	guildOnly: false,
 	execute(message, args) {
-		message.reply('pong');
+		message.reply("pong");
 	},
 };
