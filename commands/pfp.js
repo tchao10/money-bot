@@ -6,14 +6,12 @@ module.exports = {
 	arguments: false,
 	guildOnly: false,
 	execute(message, arguments){
-		if (!arguments.length){
-			return message.channel.send(message.author.displayAvatarURL);
-		}
-
-		if (message.mentions.users.first() == arguments[0]){
+		// If the first argument is a mentioned user, then show the mentioned user's profile picture
+		if (arguments.length && message.mentions.users.first() == arguments[0]){
 			return message.channel.send(message.mentions.users.first().displayAvatarURL);
 		}
 
-		return message.channel.send("Invalid user.");
+		// Otherwise, just show the author's profile picture (this also takes care of "garbage" arguments)
+		return message.channel.send(message.author.displayAvatarURL);
 	},
 };
