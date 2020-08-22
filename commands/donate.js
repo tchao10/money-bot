@@ -8,6 +8,7 @@ module.exports = {
 	execute(message, arguments){
 		message.client.moneyCount++;
 		//message.react(message.guild.emojis.get("426956349751164950"));
+		message.react("💸");
 		message.channel.send("Thanks, I have $" + message.client.moneyCount + " now!");
 	},
 };

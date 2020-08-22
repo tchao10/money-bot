@@ -6,6 +6,9 @@ module.exports = {
 	arguments: false,
 	guildOnly: false,
 	execute(message, arguments) {
+		// Get botIsLiveTime from client
+		const botIsLiveTime = message.client.botIsLiveTime;
+
 		// Get time since botIsLiveTime
 		var currentDate = new Date();
 

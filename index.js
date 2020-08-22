@@ -8,7 +8,7 @@ const botStartupTime = new Date();
 const botStartupTimeAsLocaleString = botStartupTime.toLocaleString("en-US", {timeZone: "America/Los_Angeles",});
 console.log("*****");
 console.log("*****");
-console.log("Starting up bot at " + botStartupTimeAsLocaleString + " PST...");
+console.log("Starting up bot at " + botStartupTimeAsLocaleString + " PDT...");
 
 app.get("/", (request, response) => {
 	console.log(Date.now() + " Ping Received");
@@ -42,7 +42,7 @@ var botBlocked = false;
 var botMoveNum = -1;
 
 // uptime variables
-var botIsLiveTime; // ms of time of bot going live
+client.botIsLiveTime; // ms of time of bot going live
 
 //==============            "FUNCTIONS"           ===================================
 
@@ -66,7 +66,7 @@ const cooldowns = new Discord.Collection();
 client.once("ready", () => {
 	botIsLiveTime = new Date();
 	var botIsLiveTimeAsLocaleString = botIsLiveTime.toLocaleString("en-US", {timeZone: "America/Los_Angeles",});
-    console.log("I am ready! Live as of " + botIsLiveTimeAsLocaleString + " PST.");
+    console.log("I am ready! Live as of " + botIsLiveTimeAsLocaleString + " PDT.");
 });
 
 // Triggers on error 
@@ -368,5 +368,5 @@ client.on("message", message => {
 
 const botLoginTime = new Date();
 const botLoginTimeAsLocaleString = botLoginTime.toLocaleString("en-US", {timeZone: "America/Los_Angeles",});
-console.log("Attempting bot login at " + botLoginTimeAsLocaleString + " PST...");
+console.log("Attempting bot login at " + botLoginTimeAsLocaleString + " PDT...");
 client.login(process.env.TOKEN).catch(console.error);
