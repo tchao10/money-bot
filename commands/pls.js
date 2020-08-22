@@ -1,8 +1,8 @@
 module.exports = {
 	name: "pls",
 	description: "semilla gay",
-	usage: "No usage provided.",
-	aliases: ["pls meme"],
+	usage: "meme",
+	aliases: [],
 	arguments: true,
 	guildOnly: false,
 	execute(message, arguments){
