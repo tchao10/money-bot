@@ -1,11 +1,11 @@
 module.exports = {
 	name: "play",
 	description: "Plays music.",
-	usage: "No usage provided.",
+	usage: "",
 	aliases: [],
-	args: false,
+	arguments: false,
 	guildOnly: true,
-	execute(message, args) {
+	execute(message, arguments){
 		const channel = message.member.voiceChannel;
 
 		if (channel){

@@ -1,17 +1,17 @@
 module.exports = {
-	name: 'pls',
-	description: 'semilla gay',
+	name: "pls",
+	description: "semilla gay",
 	usage: "No usage provided.",
 	aliases: ["pls meme"],
-	args: false,
+	arguments: true,
 	guildOnly: false,
-	execute(message, args) {
+	execute(message, arguments){
 		var randNum = Math.random();
 		
 		if (randNum < 0.80){
-			message.channel.send('https://i.imgur.com/GReZEZN.png');
+			message.channel.send("https://i.imgur.com/GReZEZN.png");
 		} else {
-			message.channel.send('https://i.imgur.com/gK4EbAe.png');
+			message.channel.send("https://i.imgur.com/gK4EbAe.png");
 		}
 	},
 };

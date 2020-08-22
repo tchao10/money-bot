@@ -3,9 +3,9 @@ module.exports = {
 	description: 'Spams uno bot',
 	usage: "No usage provided.",
 	aliases: [],
-	args: false,
+	arguments: false,
 	guildOnly: true,
-	execute(message, args) {
+	execute(message, arguments) {
 		message.channel.send('uno help && uno help');
 		message.channel.send('uno help && uno help');
 		message.channel.send('uno help && uno help');

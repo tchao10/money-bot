@@ -3,9 +3,9 @@ module.exports = {
 	description: 'Displays the weather.',
 	usage: "No usage provided.",
 	aliases: [],
-	args: false,
+	arguments: false,
 	guildOnly: false,
-	execute(message, args) {
+	execute(message, arguments) {
 		message.channel.send('hot');
 	},
 };

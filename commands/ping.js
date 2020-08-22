@@ -3,9 +3,9 @@ module.exports = {
 	description: "pong",
 	usage: "",
 	aliases: [],
-	args: false,
+	arguments: false,
 	guildOnly: false,
-	execute(message, args) {
+	execute(message, arguments){
 		message.reply("pong");
 	},
 };

@@ -3,9 +3,9 @@ module.exports = {
 	description: 'Starts an uno game.',
 	usage: "No usage provided.",
 	aliases: [],
-	args: false,
+	arguments: false,
 	guildOnly: false,
-	execute(message, args) {
+	execute(message, arguments) {
 		message.channel.send('not yet');
 	},
 };

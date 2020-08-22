@@ -3,9 +3,9 @@ module.exports = {
 	description: "Flips a coin.",
 	usage: "",
 	aliases: ["cf"],
-	args: false,
+	arguments: false,
 	guildOnly: false,
-	execute(message, args) {
+	execute(message, arguments){
 		var randNum = Math.random();
     
 		if (randNum < 0.45){

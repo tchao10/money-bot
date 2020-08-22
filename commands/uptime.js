@@ -3,9 +3,9 @@ module.exports = {
 	description: 'Displays how long the bot has been up for.',
 	usage: "No usage provided.",
 	aliases: ["up"],
-	args: false,
+	arguments: false,
 	guildOnly: false,
-	execute(message, args) {
+	execute(message, arguments) {
 		// Get time since botIsLiveTime
 		var currentDate = new Date();
 

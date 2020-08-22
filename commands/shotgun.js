@@ -3,9 +3,9 @@ module.exports = {
 	description: 'Starts a shotgun game.',
 	usage: "No usage provided.",
 	aliases: ["sg"],
-	args: false,
+	arguments: false,
 	guildOnly: false,
-	execute(message, args) {
+	execute(message, arguments) {
         message.reply("Need to move shotgun to `shotgun.js`");
 	},
 };
