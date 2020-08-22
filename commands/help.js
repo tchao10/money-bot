@@ -8,9 +8,11 @@ module.exports = {
 	arguments: false,
 	guildOnly: false,
 	execute(message, arguments){
+		// Create a array to build the message, and get list of commands
 		const data = [];
 		const { commands } = message.client;
 
+		// Build message for the list of commands
 		if (!arguments.length) {
 			data.push("Here's a list of all my commands:");
 			data.push("`" + commands.map(command => command.name).join("`, `") + "`");
@@ -35,6 +37,9 @@ module.exports = {
 				});
 			*/
 		}
+
+		
+		// Build message for the help page of a command
 
 		const name = arguments[0].toLowerCase();
 		const command = commands.get(name) || commands.find(c => c.aliases && c.aliases.includes(name));
