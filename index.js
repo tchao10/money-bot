@@ -27,7 +27,7 @@ const { prefix, globalCooldownAmount } = require("./config.json");
 const client = new Discord.Client();
 
 // donate variables
-var moneyCount = 0;
+client.moneyCount = 0;
 
 // shotgun variables
 var shotgunGameEnabled = false;
@@ -151,12 +151,6 @@ client.on("message", message => {
 
 
 
-
-	if (commandName === "donate") {
-		moneyCount++;
-		//message.react(message.guild.emojis.get("426956349751164950"));
-		message.reply("thanks, I have $"+moneyCount+" now!");
-	}
 	
 	//shotgun related stuff ===========================================================
 	if (commandName === "shotgun" || commandName === "sg"){
