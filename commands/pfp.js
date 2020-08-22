@@ -6,8 +6,14 @@ module.exports = {
 	arguments: false,
 	guildOnly: false,
 	execute(message, arguments){
-		if (!arguments.size){
-			return message.channel.send(`Your avatar: ${message.author.displayAvatarURL}`);
+		if (!arguments.length){
+			return message.channel.send(message.author.displayAvatarURL);
 		}
+
+		if (message.mentions.users.first() == arguments[0]){
+			return message.channel.send(message.mentions.users.first().displayAvatarURL);
+		}
+
+		return message.channel.send("Invalid user.");
 	},
 };
