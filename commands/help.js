@@ -18,7 +18,10 @@ module.exports = {
 
 			return message.channel.send(data);
 
-			/* Sends help message via DM
+			/* 
+
+			This commented block sends help message via DM instead
+
 			return message.author.send(data, { split: true })
 				.then(() => {
 					if (message.channel.type === "dm"){
@@ -42,9 +45,23 @@ module.exports = {
 
 		data.push("**Name:** " + command.name);
 
-		if (command.aliases.length) data.push("**Aliases:** " + command.aliases.join(", "));
-		if (command.description) data.push("**Description:** " + command.description);
-		if (command.usage) data.push("**Usage:** `" + prefix + command.name + "`" + command.usage);
+		if (command.aliases.length){
+			data.push("**Aliases:** " + command.aliases.join(", "));
+		} else {
+			data.push("**Aliases:** No aliases.");
+		}
+
+		if (command.description){
+			data.push("**Description:** " + command.description);
+		} else {
+			data.push("**Description:** No description provided.");
+		}
+
+		if (command.usage){
+			data.push("**Usage:** `" + prefix + command.name + "`" + command.usage);
+		} else {
+			data.push("**Usage:** `" + prefix + command.name + "`");
+		}
 
 		data.push("**Cooldown:** " + (command.cooldown || 1) + " second(s)");
 
