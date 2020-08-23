@@ -17,6 +17,8 @@ module.exports = {
 			} else {
 				message.channel.send("There is already a game in progress.");
 			}
+
+			return;
 		}
 
 		// Stop a game
@@ -27,6 +29,8 @@ module.exports = {
 			} else {
 				message.channel.send("There is no shotgun game in progress.");
 			}
+
+			return;
 		}
 
 		// Player shoots
@@ -67,6 +71,8 @@ module.exports = {
 			} else {
 				message.channel.send("there is no shotgun game in progress.");
 			}
+
+			return;
 		}
 
 		// Player reloads
@@ -98,6 +104,8 @@ module.exports = {
 			} else {
 				message.channel.send("There is no shotgun game in progress.");
 			}
+
+			return;
 		}
 
 		// Player blocks
@@ -129,6 +137,8 @@ module.exports = {
 			} else {
 				message.channel.send("There is no shotgun game in progress.");
 			}
+
+			return;
 		}
 
 		// Display help message in every other case
@@ -138,34 +148,34 @@ module.exports = {
 
 function shotgunAISelectMove(pAmmo, bAmmo){
 	if (pAmmo == 0 && bAmmo == 0){
-		botMoveNum = 1;
+		message.client.botMoveNum = 1;
 	} else if (bAmmo == 0){
 		if (Math.random() < 0.5){
-			botMoveNum = 2;
+			message.client.botMoveNum = 2;
 			shotgunAIBlock();
 		} else {
-			botMoveNum = 1;
+			message.client.botMoveNum = 1;
 		}
 	} else if (pAmmo == 0){
 		if (Math.random() < 0.5){
-			botMoveNum = 0;
+			message.client.botMoveNum = 0;
 		} else {
-			botMoveNum = 1;
+			message.client.botMoveNum = 1;
 		}
 	} else if (bAmmo >= 2){
 		if (Math.random() < 0.5){
-			botMoveNum = 0;
+			message.client.botMoveNum = 0;
 		} else {
-			botMoveNum = 2;
+			message.client.botMoveNum = 2;
 			shotgunAIBlock();
 		}
 	} else {
 		if (Math.random() < 0.3333333333333333){
-			botMoveNum = 0;
+			message.client.botMoveNum = 0;
 		} else if (Math.random() < 0.66666666666666666){
-			botMoveNum = 1;
+			message.client.botMoveNum = 1;
 		} else {
-			botMoveNum = 2;
+			message.client.botMoveNum = 2;
 			shotgunAIBlock();
 		}
 	}
@@ -186,25 +196,25 @@ function shotgunAIShoot(pBlocked){
 	if (pBlocked){
 		message.channel.send("I shoot!... but you blocked my bullet.");
 	} else {
-		playerHealth--;
+		message.client.playerHealth--;
 		message.channel.send("I shoot!... and it hits! You lost some health.");
 	}
-	botAmmo--;
+	message.client.botAmmo--;
 }
 
 function shotgunAIReload(){
-	botAmmo++;
+	message.client.botAmmo++;
 	message.channel.send("I load in a bullet.");
 }
 
 function shotgunAIBlock(){
-	botBlocked = true;
+	message.client.botBlocked = true;
 	message.channel.send("I block this turn.");
 }
 
 function shotgunResetBlocked(){
-	playerBlocked = false;
-	botBlocked = false;
+	message.client.playerBlocked = false;
+	message.client.botBlocked = false;
 }
 
 function shotgunCheckGameOver(pHealth, bHealth){
@@ -215,14 +225,14 @@ function shotgunCheckGameOver(pHealth, bHealth){
 }
 
 function shotgunStop(){
-	shotgunGameEnabled = false;
-	shotgunTurnCounter = 0;
-	playerName = null;
-	playerHealth = 2;
-	playerAmmo = 0;
-	playerBlocked = false;
-	botHealth = 2;
-	botAmmo = 0;
-	botBlocked = false;
-	botMoveNum = -1;
+	message.client.shotgunGameEnabled = false;
+	message.client.shotgunTurnCounter = 0;
+	message.client.playerName = null;
+	message.client.playerHealth = 2;
+	message.client.playerAmmo = 0;
+	message.client.playerBlocked = false;
+	message.client.botHealth = 2;
+	message.client.botAmmo = 0;
+	message.client.botBlocked = false;
+	message.client.botMoveNum = -1;
 }
