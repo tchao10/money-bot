@@ -142,7 +142,7 @@ module.exports = {
 		}
 
 		// Display help message in every other case
-		return message.channel.send("help explanation goes here");
+		return message.channel.send("Shotgun is a simple turn-based game versus a bot. There are three actions you can take each turn. `" + prefix + this.name + " shoot` shoots your gun if you have ammo, `" + prefix + this.name + " reload` adds one bullet to your gun, and `" + prefix + this.name + " block` prevents you from taking damage that turn. The first player to get their opponent's health to 0 wins.");
 	},
 };
 
