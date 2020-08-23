@@ -51,8 +51,8 @@ module.exports = {
 						message.client.playerAmmo--;
 					}
 					
-					shotgunAIPerformMove(message.client.botMoveNum, message.client.playerBlocked);
-					shotgunResetBlocked();
+					shotgunAIPerformMove(message);
+					shotgunResetBlocked(message);
 					message.channel.send("Your Health: " + message.client.playerHealth + ",   Your Ammo: " + message.client.playerAmmo + "\nMy Health: " + message.client.botHealth + ",      My Ammo: " + message.client.botAmmo);
 					if (shotgunCheckGameOver(message.client.playerHealth, message.client.botHealth)){
 						if (message.client.playerHealth == 0 && message.client.botHealth == 0){
@@ -84,8 +84,8 @@ module.exports = {
 					message.client.playerAmmo++;
 					message.channel.send("You load a bullet.");
 					
-					shotgunAIPerformMove(message.client.botMoveNum, message.client.playerBlocked);
-					shotgunResetBlocked();
+					shotgunAIPerformMove(message);
+					shotgunResetBlocked(message);
 					message.channel.send("Your Health: " + message.client.playerHealth + ",   Your Ammo: " + message.client.playerAmmo + "\nMy Health: " + message.client.botHealth + ",      My Ammo: " + message.client.botAmmo);
 					if (shotgunCheckGameOver(message.client.playerHealth, message.client.botHealth)){
 						if (message.client.playerHealth == 0 && message.client.botHealth == 0){
@@ -117,8 +117,8 @@ module.exports = {
 					message.client.playerBlocked = true;
 					message.channel.send("You block this turn.");
 					
-					shotgunAIPerformMove(message.client.botMoveNum, message.client.playerBlocked);
-					shotgunResetBlocked();
+					shotgunAIPerformMove(message);
+					shotgunResetBlocked(message);
 					message.channel.send("Your Health: " + message.client.playerHealth + ",   Your Ammo: " + message.client.playerAmmo + "\nMy Health: " + message.client.botHealth + ",      My Ammo: " + message.client.botAmmo);
 					if (shotgunCheckGameOver(message.client.playerHealth, message.client.botHealth)){
 						if (message.client.playerHealth == 0 && message.client.botHealth == 0){
@@ -155,7 +155,7 @@ function shotgunAISelectMove(message){
 	} else if (bAmmo == 0){
 		if (Math.random() < 0.5){
 			message.client.botMoveNum = 2;
-			shotgunAIBlock();
+			shotgunAIBlock(message);
 		} else {
 			message.client.botMoveNum = 1;
 		}
@@ -170,7 +170,7 @@ function shotgunAISelectMove(message){
 			message.client.botMoveNum = 0;
 		} else {
 			message.client.botMoveNum = 2;
-			shotgunAIBlock();
+			shotgunAIBlock(message);
 		}
 	} else {
 		if (Math.random() < 0.3333333333333333){
@@ -179,52 +179,54 @@ function shotgunAISelectMove(message){
 			message.client.botMoveNum = 1;
 		} else {
 			message.client.botMoveNum = 2;
-			shotgunAIBlock();
+			shotgunAIBlock(message);
 		}
 	}
 }
 
-function shotgunAIPerformMove(moveNum, pBlocked){
+function shotgunAIPerformMove(message){
+	const moveNum = message.client.botMoveNum;
+	const pBlocked = message.client.playerBlocked;
+
 	if (moveNum == 0){
 		shotgunAIShoot(pBlocked);
 	} else if (moveNum == 1){
-		shotgunAIReload();
+		shotgunAIReload(message);
 	} else {
 		// this is done earlier in selectMove
-		//shotgunAIBlock();
+		//shotgunAIBlock(message);
 	}
 }
 
-function shotgunAIShoot(pBlocked){
+function shotgunAIShoot(message){
+	const pBlocked = message.client.playerBlocked;
+
 	if (pBlocked){
 		message.channel.send("I shoot!... but you blocked my bullet.");
 	} else {
 		message.client.playerHealth--;
-		message.channel.send("I shoot!... and it hits! You lost some health.");
+		message.channel.send("I shoot!... and it hits! You lose some health.");
 	}
 	message.client.botAmmo--;
 }
 
-function shotgunAIReload(){
+function shotgunAIReload(message){
 	message.client.botAmmo++;
 	message.channel.send("I load in a bullet.");
 }
 
-function shotgunAIBlock(){
+function shotgunAIBlock(message){
 	message.client.botBlocked = true;
 	message.channel.send("I block this turn.");
 }
 
-function shotgunResetBlocked(){
+function shotgunResetBlocked(message){
 	message.client.playerBlocked = false;
 	message.client.botBlocked = false;
 }
 
 function shotgunCheckGameOver(pHealth, bHealth){
-	if (pHealth == 0 || bHealth == 0){
-		return true;
-	}
-	return false;
+	return (pHealth == 0 || bHealth == 0);
 }
 
 function shotgunStop(message){
