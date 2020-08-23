@@ -1,3 +1,5 @@
+const { prefix } = require("../config.json");
+
 module.exports = {
 	name: "shotgun",
 	description: "Plays a shotgun game.",
@@ -5,21 +7,21 @@ module.exports = {
 	aliases: ["sg"],
 	arguments: false,
 	guildOnly: false,
-	execute(message, arguments) {
+	execute(message, arguments){
 		// Start a game
 		if (arguments[0] == "start"){
-			if (!shotgunGameEnabled){
-				shotgunGameEnabled = true;
-				playerName = message.author.username;
-				message.channel.send("Your Health: " + playerHealth + ",   Your Ammo: " + playerAmmo + "\nMy Health: " + botHealth + ",      My Ammo: " + botAmmo + "\nSelect your move: `" + prefix + "shoot`, `" + prefix + "reload`, or `" + prefix + "block`? Or you can quit using `" + prefix + "shotgunstop`.");
+			if (!message.client.shotgunGameEnabled){
+				message.client.shotgunGameEnabled = true;
+				message.client.playerName = message.author.username;
+				message.channel.send("Your Health: " + message.client.playerHealth + ",   Your Ammo: " + message.client.playerAmmo + "\nMy Health: " + message.client.botHealth + ",      My Ammo: " + message.client.botAmmo + "\nSelect your move: `" + prefix + "shoot`, `" + prefix + "reload`, or `" + prefix + "block`? Or you can quit using `" + prefix + "shotgunstop`.");
 			} else {
 				message.channel.send("There is already a game in progress.");
 			}
 		}
 
 		// Stop a game
-		if (commandName === "shotgunstop" || commandName === "sgstop"){
-			if (shotgunGameEnabled){
+		if (arguments[0] == "stop"){
+			if (message.client.shotgunGameEnabled){
 				shotgunStop();
 				message.channel.send("Shotgun game stopped.");
 			} else {
@@ -28,26 +30,26 @@ module.exports = {
 		}
 
 		// Player shoots
-		if (commandName === "shoot"){
-			if (shotgunGameEnabled){
-				if (message.author.username === playerName){
-					shotgunAISelectMove(playerAmmo, botAmmo);
+		if (arguments[0] == "shoot"){
+			if (message.client.shotgunGameEnabled){
+				if (message.author.username === message.client.playerName){
+					shotgunAISelectMove(message.client.playerAmmo, message.client.botAmmo);
 					
-					if (playerAmmo == 0){
-						message.channel.send("you shoot!... but you have no ammo.");
+					if (message.client.playerAmmo == 0){
+						message.channel.send("You shoot!... but you have no ammo.");
 					} else {
-						if (botBlocked){
-							message.channel.send("you shoot!... but I blocked this turn.");
+						if (message.client.botBlocked){
+							message.channel.send("You shoot!... but I blocked this turn.");
 						} else {
-							botHealth--;
-							message.channel.send("you shoot!... and it hits! I lose some health.");
+							message.client.botHealth--;
+							message.channel.send("You shoot!... and it hits! I lose some health.");
 						}
-						playerAmmo--;
+						message.client.playerAmmo--;
 					}
 					
-					shotgunAIPerformMove(botMoveNum, playerBlocked);
+					shotgunAIPerformMove(message.client.botMoveNum, message.client.playerBlocked);
 					shotgunResetBlocked();
-					message.channel.send("Your Health: "+playerHealth+",   Your Ammo: "+playerAmmo+",   My Health: "+botHealth+",   My Ammo: "+botAmmo);
+					message.channel.send("Your Health: " + message.client.playerHealth + ",   Your Ammo: " + message.client.playerAmmo + "\nMy Health: " + message.client.botHealth + ",      My Ammo: " + message.client.botAmmo + ");
 					if (shotgunCheckGameOver(playerHealth, botHealth)){
 						if (playerHealth == 0 && botHealth == 0){
 							message.channel.send("We killed each other! We both lose.");
@@ -68,7 +70,7 @@ module.exports = {
 		}
 
 		// Player reloads
-		if (commandName === "reload"){
+		if (arguments[0] == "reload"){
 			if (shotgunGameEnabled){
 				if (message.author.username === playerName){
 					shotgunAISelectMove(playerAmmo, botAmmo);
@@ -99,7 +101,7 @@ module.exports = {
 		}
 
 		// Player blocks
-		if (commandName === "block"){
+		if (arguments[0] == "blocks"){
 			if (shotgunGameEnabled){
 				if (message.author.username === playerName){
 					shotgunAISelectMove(playerAmmo, botAmmo);
