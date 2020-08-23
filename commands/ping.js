@@ -6,8 +6,6 @@ module.exports = {
 	arguments: false,
 	guildOnly: false,
 	execute(message, arguments){
-		console.log(message);
-		
 		message.reply("pong");
 	},
 };
