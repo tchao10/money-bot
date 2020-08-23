@@ -8,17 +8,12 @@ module.exports = {
 	arguments: false,
 	guildOnly: false,
 	execute(message, arguments){
-		//console.log(typeof message);
-		//console.log("~\n~\n~\n~\n~\n~\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-		//console.log(message.client);
-		//console.log("@\n@\n@\n@\n@\n@\n@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
-
 		// Start a game
 		if (arguments[0] == "start"){
 			if (!message.client.shotgunGameEnabled){
 				message.client.shotgunGameEnabled = true;
 				message.client.playerName = message.author.username;
-				message.channel.send("Your Health: " + message.client.playerHealth + ",   Your Ammo: " + message.client.playerAmmo + "\nMy Health: " + message.client.botHealth + ",      My Ammo: " + message.client.botAmmo + "\nSelect your move: `" + prefix + "shoot`, `" + prefix + "reload`, or `" + prefix + "block`? Or you can quit using `" + prefix + "shotgunstop`.");
+				message.channel.send("Your Health: " + message.client.playerHealth + ",   Your Ammo: " + message.client.playerAmmo + "\nMy Health: " + message.client.botHealth + ",      My Ammo: " + message.client.botAmmo + "\nSelect your move: `" + prefix + name + " shoot`, `" + prefix + name + " reload`, or `" + prefix + name + " block`? Or you can quit using `" + prefix + name + " stop`.");
 			} else {
 				message.channel.send("There is already a game in progress.");
 			}
@@ -194,7 +189,7 @@ function shotgunAIPerformMove(message){
 	const pBlocked = message.client.playerBlocked;
 
 	if (moveNum == 0){
-		shotgunAIShoot(pBlocked);
+		shotgunAIShoot(message);
 	} else if (moveNum == 1){
 		shotgunAIReload(message);
 	} else {
@@ -204,8 +199,6 @@ function shotgunAIPerformMove(message){
 }
 
 function shotgunAIShoot(message){
-	console.log(message);
-	console.log(message.client);
 	const pBlocked = message.client.playerBlocked;
 
 	if (pBlocked){
