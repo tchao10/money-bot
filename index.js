@@ -30,16 +30,16 @@ const client = new Discord.Client();
 client.moneyCount = 0;
 
 // shotgun variables
-var shotgunGameEnabled = false;
-var shotgunTurnCounter = 0;
-var playerName = null;
-var playerHealth = 2;
-var playerAmmo = 0;
-var playerBlocked = false;
-var botHealth = 2;
-var botAmmo = 0;
-var botBlocked = false;
-var botMoveNum = -1;
+client.shotgunGameEnabled = false;
+client.shotgunTurnCounter = 0;
+client.playerName = null;
+client.playerHealth = 2;
+client.playerAmmo = 0;
+client.playerBlocked = false;
+client.botHealth = 2;
+client.botAmmo = 0;
+client.botBlocked = false;
+client.botMoveNum = -1;
 
 // uptime variables
 client.botIsLiveTime; // ms of time of bot going live
@@ -194,11 +194,11 @@ client.on("message", message => {
 				message.channel.send("Your Health: "+playerHealth+",   Your Ammo: "+playerAmmo+",   My Health: "+botHealth+",   My Ammo: "+botAmmo);
 				if (shotgunCheckGameOver(playerHealth, botHealth)){
 					if (playerHealth == 0 && botHealth == 0){
-						message.channel.send("we killed each other! We both lose.");
+						message.channel.send("We killed each other! We both lose.");
 					} else if (playerHealth == 0){
-						message.channel.send("you lose!");
+						message.channel.send("You lose!");
 					} else {
-						message.channel.send("you win!");
+						message.channel.send("You win!");
 					}
 					
 					shotgunStop();
