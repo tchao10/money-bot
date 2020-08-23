@@ -75,6 +75,7 @@ client.on("error", (err) => {
   	console.error(err);
 });
 
+// Triggers whenever a message is sent
 client.on("message", message => {	
 	// If the message author is a bot or if the message doesn't start with the prefix, then stop
 	if (message.author.bot || !message.content.startsWith(prefix)){
@@ -87,7 +88,7 @@ client.on("message", message => {
 	// Gets first word after prefix using the arguments array
 	const commandName = arguments.shift().toLowerCase();
 	
-	// Create the command, checking aliases as well. But if the command doesn't exist, then stop
+	// Create the command, checking for aliases as well. But if a command isn't found, then stop
 	const command = client.commands.get(commandName) || client.commands.find(cmd => cmd.aliases && cmd.aliases.includes(commandName));
 	if (!command){
 		return;
@@ -123,10 +124,10 @@ client.on("message", message => {
 
 	// Argument check, and show usage if it exists
 	if (command.arguments && !arguments.length) {
-		let reply = "You didn't provide any arguments, " + message.author + "!";
+		let reply = "You didn't provide any arguments.";
 
 		if(command.usage){
-			reply += "\nThe proper usage would be: `" + prefix + command.name + " " + command.usage + "`";
+			reply += "\nThe proper usage is: `" + prefix + command.name + " " + command.usage + "`";
 		}
 
 		return message.channel.send(reply);
