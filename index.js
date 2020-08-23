@@ -20,7 +20,7 @@ setInterval(() => {
 	http.get("http://" + process.env.PROJECT_DOMAIN + ".glitch.me/");
 }, 280000);
 
-//============           VARIABLES           ====================================
+//============          VARIABLES          ====================================
 
 // bot variables
 const { prefix, globalCooldownAmount } = require("./config.json");
