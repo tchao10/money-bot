@@ -178,13 +178,13 @@ client.on("message", message => {
 				shotgunAISelectMove(playerAmmo, botAmmo);
 				
 				if (playerAmmo == 0){
-					message.reply("you shoot!... but you have no ammo.");
+					message.channel.send("you shoot!... but you have no ammo.");
 				} else {
 					if (botBlocked){
-						message.reply("you shoot!... but I blocked this turn.");
+						message.channel.send("you shoot!... but I blocked this turn.");
 					} else {
 						botHealth--;
-						message.reply("you shoot!... and it hits! I lose some health.");
+						message.channel.send("you shoot!... and it hits! I lose some health.");
 					}
 					playerAmmo--;
 				}
@@ -194,20 +194,20 @@ client.on("message", message => {
 				message.channel.send("Your Health: "+playerHealth+",   Your Ammo: "+playerAmmo+",   My Health: "+botHealth+",   My Ammo: "+botAmmo);
 				if (shotgunCheckGameOver(playerHealth, botHealth)){
 					if (playerHealth == 0 && botHealth == 0){
-						message.reply("we killed each other! We both lose.");
+						message.channel.send("we killed each other! We both lose.");
 					} else if (playerHealth == 0){
-						message.reply("you lose!");
+						message.channel.send("you lose!");
 					} else {
-						message.reply("you win!");
+						message.channel.send("you win!");
 					}
 					
 					shotgunStop();
 				}
 			} else {
-				message.reply("you're not "+playerName.avatar+"!");
+				message.channel.send("you're not "+playerName.avatar+"!");
 			}
 		} else {
-			message.reply("there is no shotgun game in progress, you clown.");
+			message.channel.send("there is no shotgun game in progress.");
 		}
 	}
 	
@@ -217,27 +217,27 @@ client.on("message", message => {
 				shotgunAISelectMove(playerAmmo, botAmmo);
 				
 				playerAmmo++;
-				message.reply("you load in a bullet.");
+				message.channel.send("You load a bullet.");
 				
 				shotgunAIPerformMove(botMoveNum, playerBlocked);
 				shotgunResetBlocked();
 				message.channel.send("Your Health: "+playerHealth+",   Your Ammo: "+playerAmmo+",   My Health: "+botHealth+",   My Ammo: "+botAmmo);
 				if (shotgunCheckGameOver(playerHealth, botHealth)){
 					if (playerHealth == 0 && botHealth == 0){
-						message.reply("we killed each other! We both lose.");
+						message.channel.send("We killed each other! We both lose.");
 					} else if (playerHealth == 0){
-						message.reply("you lose!");
+						message.channel.send("You lose!");
 					} else {
-						message.reply("you win!");
+						message.channel.send("You win!");
 					}
 					
 					shotgunStop();
 				}
 			} else {
-				message.reply("you're not "+playerName.avatar+"!");
+				message.channel.send("You're not "+playerName.avatar+"!");
 			}
 		} else {
-			message.reply("there is no shotgun game in progress, you clown.");
+			message.channel.send("There is no shotgun game in progress.");
 		}
 	}
 	
@@ -247,27 +247,27 @@ client.on("message", message => {
 				shotgunAISelectMove(playerAmmo, botAmmo);
 				
 				playerBlocked = true;
-				message.reply("you block this turn.");
+				message.channel.send("You block this turn.");
 				
 				shotgunAIPerformMove(botMoveNum, playerBlocked);
 				shotgunResetBlocked();
 				message.channel.send("Your Health: "+playerHealth+",   Your Ammo: "+playerAmmo+",   My Health: "+botHealth+",   My Ammo: "+botAmmo);
 				if (shotgunCheckGameOver(playerHealth, botHealth)){
 					if (playerHealth == 0 && botHealth == 0){
-						message.reply("we killed each other! We both lose.");
+						message.channel.send("We killed each other! We both lose.");
 					} else if (playerHealth == 0){
-						message.reply("you lose!");
+						message.channel.send("You lose!");
 					} else {
-						message.reply("you win!");
+						message.channel.send("You win!");
 					}
 					
 					shotgunStop();
 				}
 			} else {
-				message.reply("you're not "+playerName.avatar+"!");
+				message.channel.send("You're not "+playerName.avatar+"!");
 			}
 		} else {
-			message.reply("there is no shotgun game in progress, you clown.");
+			message.channel.send("There is no shotgun game in progress.");
 		}
 	}
 	
