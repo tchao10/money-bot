@@ -3,7 +3,7 @@ const { prefix } = require("../config.json");
 module.exports = {
 	name: "shotgun",
 	description: "Plays a shotgun game.",
-	usage: "[start/stop/shoot/reload/block/help]",
+	usage: "[help/start/stop/shoot/reload/block]",
 	aliases: ["sg"],
 	arguments: false,
 	guildOnly: false,
@@ -13,7 +13,7 @@ module.exports = {
 			if (!message.client.shotgunGameEnabled){
 				message.client.shotgunGameEnabled = true;
 				message.client.playerName = message.author.username;
-				message.channel.send("Your Health: " + message.client.playerHealth + ",   Your Ammo: " + message.client.playerAmmo + "\nMy Health: " + message.client.botHealth + ",      My Ammo: " + message.client.botAmmo + "\nSelect your move: `" + prefix + this.name + " shoot`, `" + prefix + this.name + " reload`, or `" + prefix + this.name + " block`? Or you can quit using `" + prefix + this.name + " stop`.");
+				message.channel.send("Your Health: " + message.client.playerHealth + ",   Your Ammo: " + message.client.playerAmmo + "\nMy Health: " + message.client.botHealth + ",      My Ammo: " + message.client.botAmmo + "\n**Select your move:** `" + prefix + this.name + " shoot`, `" + prefix + this.name + " reload`, or `" + prefix + this.name + " block`?\n(You can type `" + prefix + this.name + "` for help or `" + prefix + this.name + " stop` to stop the game.)");
 			} else {
 				message.channel.send("There is already a game in progress.");
 			}
@@ -142,7 +142,7 @@ module.exports = {
 		}
 
 		// Display help message in every other case
-		return message.channel.send("Shotgun is a simple turn-based game versus a bot. There are three actions you can take each turn. `" + prefix + this.name + " shoot` shoots your gun if you have ammo, `" + prefix + this.name + " reload` adds one bullet to your gun, and `" + prefix + this.name + " block` prevents you from taking damage that turn. The first player to get their opponent's health to 0 wins.");
+		return message.channel.send("Shotgun is a simple turn-based game versus a bot. There are three actions you can take each turn:\n\n`" + prefix + this.name + " shoot` shoots your gun if you have ammo.\n`" + prefix + this.name + " reload` adds one bullet to your gun.\n`" + prefix + this.name + " block` prevents you from taking damage that turn.\n\nThe first player to get their opponent's health to 0 wins! Start a game by typing `" + prefix + this.name + " start`.");
 	},
 };
 
