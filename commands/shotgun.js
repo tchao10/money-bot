@@ -8,9 +8,9 @@ module.exports = {
 	arguments: false,
 	guildOnly: false,
 	execute(message, arguments){
-		console.log(message);
+		//console.log(message);
 		console.log("~\n~\n~\n~\n~\n~\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-		console.log(message.client);
+		//console.log(message.client);
 		console.log("@\n@\n@\n@\n@\n@\n@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
 
 		// Start a game
