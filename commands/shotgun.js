@@ -8,6 +8,8 @@ module.exports = {
 	arguments: false,
 	guildOnly: false,
 	execute(message, arguments){
+		console.log(message+"\n~\n~\n~\n~\n~\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+
 		// Start a game
 		if (arguments[0] == "start"){
 			if (!message.client.shotgunGameEnabled){
@@ -199,6 +201,8 @@ function shotgunAIPerformMove(message){
 }
 
 function shotgunAIShoot(message){
+	console.log(message);
+	console.log(message.client);
 	const pBlocked = message.client.playerBlocked;
 
 	if (pBlocked){
