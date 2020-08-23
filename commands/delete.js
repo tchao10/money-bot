@@ -1,9 +1,9 @@
-const maxNumOfMessagesToDelete = 10; // Can be up to 99 (the +1 makes this 100)
+const { maxDeleteMessages } = require("../config.json"); // Can be up to 99 (the +1 makes this 100)
 
 module.exports = {
 	name: "delete",
 	description: "Deletes a certain number of messages from a channel. Note that this command cannot delete messages older than two weeks old.",
-	usage: "[number from 1-" + maxNumOfMessagesToDelete + "]",
+	usage: "[number from 1-" + maxDeleteMessages + "]",
 	aliases: ["del", "clear", "prune"],
 	arguments: false,
 	guildOnly: true,
@@ -24,11 +24,11 @@ module.exports = {
 		// Get the number of messages to delete
 		const deleteAmount = parseInt(arguments[0]);
 
-		// Check that the first argument is a number between 1 and maxNumOfMessagesToDelete.
+		// Check that the first argument is a number between 1 and maxDeleteMessages.
 		if (isNaN(deleteAmount)) {
-			return message.channel.send("Invalid number. Please specify a number between 1 and " + maxNumOfMessagesToDelete + ".");
-		} else if (deleteAmount < 1 || deleteAmount > maxNumOfMessagesToDelete) {
-			return message.channel.send("You need to input a number between 1 and " + maxNumOfMessagesToDelete + ".");
+			return message.channel.send("Invalid number. Please specify a number between 1 and " + maxDeleteMessages + ".");
+		} else if (deleteAmount < 1 || deleteAmount > maxDeleteMessages) {
+			return message.channel.send("You need to input a number between 1 and " + maxDeleteMessages + ".");
 		}
 
 		// Delete the messages
