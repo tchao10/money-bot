@@ -24,7 +24,7 @@ module.exports = {
 		// Stop a game
 		if (arguments[0] == "stop"){
 			if (message.client.shotgunGameEnabled){
-				shotgunStop();
+				shotgunStop(message);
 				message.channel.send("Shotgun game stopped.");
 			} else {
 				message.channel.send("There is no shotgun game in progress.");
@@ -63,7 +63,7 @@ module.exports = {
 							message.channel.send("You win!");
 						}
 						
-						shotgunStop();
+						shotgunStop(message);
 					}
 				} else {
 					message.channel.send("you're not "+message.client.playerName.avatar+"!");
@@ -96,7 +96,7 @@ module.exports = {
 							message.channel.send("You win!");
 						}
 						
-						shotgunStop();
+						shotgunStop(message);
 					}
 				} else {
 					message.channel.send("You're not "+message.client.playerName.avatar+"!");
@@ -129,7 +129,7 @@ module.exports = {
 							message.channel.send("You win!");
 						}
 						
-						shotgunStop();
+						shotgunStop(message);
 					}
 				} else {
 					message.channel.send("You're not "+message.client.playerName.avatar+"!");
@@ -224,7 +224,7 @@ function shotgunCheckGameOver(pHealth, bHealth){
 	return false;
 }
 
-function shotgunStop(){
+function shotgunStop(message){
 	message.client.shotgunGameEnabled = false;
 	message.client.shotgunTurnCounter = 0;
 	message.client.playerName = null;
