@@ -157,10 +157,9 @@ client.on("message", message => {
 		if (!shotgunGameEnabled){
 			shotgunGameEnabled = true;
 			playerName = message.author.username;
-			message.channel.send("Your Health: "+playerHealth+",   Your Ammo: "+playerAmmo+",   My Health: "+botHealth+",   My Ammo: "+botAmmo);
-			message.reply("select your move: $shoot, $reload, or $block? Or you can quit using $shotgunstop.");
+			message.channel.send("Your Health: " + playerHealth + ",   Your Ammo: " + playerAmmo + ",   My Health: " + botHealth + ",   My Ammo: " + botAmmo + "\nSelect your move: `$shoot`, `$reload`, or `$block`? Or you can quit using $shotgunstop.");
 		} else {
-			message.reply("there is already a game in progress.");
+			message.channel.send("There is already a game in progress.");
 		}
 	}
 	
@@ -169,7 +168,7 @@ client.on("message", message => {
 			shotgunStop();
 			message.channel.send("Shotgun game ended.");
 		} else {
-			message.reply("there is no shotgun game in progress.");
+			message.channel.send("There is no shotgun game in progress.");
 		}
 	}
 	
