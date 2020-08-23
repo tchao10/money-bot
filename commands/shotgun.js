@@ -37,7 +37,7 @@ module.exports = {
 		if (arguments[0] == "shoot"){
 			if (message.client.shotgunGameEnabled){
 				if (message.author.username === message.client.playerName){
-					shotgunAISelectMove(message.client.playerAmmo, message.client.botAmmo);
+					shotgunAISelectMove(message);
 					
 					if (message.client.playerAmmo == 0){
 						message.channel.send("You shoot!... but you have no ammo.");
@@ -79,7 +79,7 @@ module.exports = {
 		if (arguments[0] == "reload"){
 			if (message.client.shotgunGameEnabled){
 				if (message.author.username === message.client.playerName){
-					shotgunAISelectMove(message.client.playerAmmo, message.client.botAmmo);
+					shotgunAISelectMove(message);
 					
 					message.client.playerAmmo++;
 					message.channel.send("You load a bullet.");
@@ -112,7 +112,7 @@ module.exports = {
 		if (arguments[0] == "block"){
 			if (message.client.shotgunGameEnabled){
 				if (message.author.username === message.client.playerName){
-					shotgunAISelectMove(message.client.playerAmmo, message.client.botAmmo);
+					shotgunAISelectMove(message);
 					
 					message.client.playerBlocked = true;
 					message.channel.send("You block this turn.");
@@ -146,7 +146,10 @@ module.exports = {
 	},
 };
 
-function shotgunAISelectMove(pAmmo, bAmmo){
+function shotgunAISelectMove(message){
+	const pAmmo = message.client.playerAmmo;
+	const bAmmo = message.client.botAmmo;
+
 	if (pAmmo == 0 && bAmmo == 0){
 		message.client.botMoveNum = 1;
 	} else if (bAmmo == 0){
