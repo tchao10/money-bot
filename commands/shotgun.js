@@ -8,10 +8,10 @@ module.exports = {
 	arguments: false,
 	guildOnly: false,
 	execute(message, arguments){
-		console.log(typeof message);
-		console.log("~\n~\n~\n~\n~\n~\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+		//console.log(typeof message);
+		//console.log("~\n~\n~\n~\n~\n~\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
 		//console.log(message.client);
-		console.log("@\n@\n@\n@\n@\n@\n@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+		//console.log("@\n@\n@\n@\n@\n@\n@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
 
 		// Start a game
 		if (arguments[0] == "start"){
