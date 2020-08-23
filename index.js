@@ -122,6 +122,7 @@ client.on("message", message => {
 	setTimeout(() => timestamps.delete(message.author.id), cooldownAmount);
 
 
+	
 	// Argument check, and show usage if it exists
 	if (command.arguments && !arguments.length) {
 		let reply = "You didn't provide any arguments.";
