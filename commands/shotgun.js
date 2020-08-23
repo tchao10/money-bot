@@ -13,7 +13,7 @@ module.exports = {
 			if (!message.client.shotgunGameEnabled){
 				message.client.shotgunGameEnabled = true;
 				message.client.playerName = message.author.username;
-				message.channel.send("Your Health: " + message.client.playerHealth + ",   Your Ammo: " + message.client.playerAmmo + "\nMy Health: " + message.client.botHealth + ",      My Ammo: " + message.client.botAmmo + "\nSelect your move: `" + prefix + name + " shoot`, `" + prefix + name + " reload`, or `" + prefix + name + " block`? Or you can quit using `" + prefix + name + " stop`.");
+				message.channel.send("Your Health: " + message.client.playerHealth + ",   Your Ammo: " + message.client.playerAmmo + "\nMy Health: " + message.client.botHealth + ",      My Ammo: " + message.client.botAmmo + "\nSelect your move: `" + prefix + this.name + " shoot`, `" + prefix + this.name + " reload`, or `" + prefix + this.name + " block`? Or you can quit using `" + prefix + this.name + " stop`.");
 			} else {
 				message.channel.send("There is already a game in progress.");
 			}
