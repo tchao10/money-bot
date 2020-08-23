@@ -17,7 +17,7 @@ app.get("/", (request, response) => {
 
 app.listen(process.env.PORT);
 setInterval(() => {
-	http.get(`http://${process.env.PROJECT_DOMAIN}.glitch.me/`);
+	http.get("http://" + process.env.PROJECT_DOMAIN + ".glitch.me/");
 }, 280000);
 
 //============           VARIABLES           ====================================
@@ -50,7 +50,7 @@ client.botIsLiveTime; // ms of time of bot going live
 client.commands = new Discord.Collection();
 const commandFiles = fs.readdirSync("./commands").filter(file => file.endsWith(".js"));
 for (const file of commandFiles) {
-	const command = require(`./commands/${file}`);
+	const command = require("./commands/" + file);
 
 	// set a new item in the Collection
 	// with the key as the command name and the value as the exported module
@@ -157,7 +157,7 @@ client.on("message", message => {
 		if (!shotgunGameEnabled){
 			shotgunGameEnabled = true;
 			playerName = message.author.username;
-			message.channel.send("Your Health: " + playerHealth + ",   Your Ammo: " + playerAmmo + ",   My Health: " + botHealth + ",   My Ammo: " + botAmmo + "\nSelect your move: `$shoot`, `$reload`, or `$block`? Or you can quit using $shotgunstop.");
+			message.channel.send("Your Health: " + playerHealth + ",   Your Ammo: " + playerAmmo + "\nMy Health: " + botHealth + ",      My Ammo: " + botAmmo + "\nSelect your move: `" + prefix + "shoot`, `" + prefix + "reload`, or `" + prefix + "block`? Or you can quit using `" + prefix + "shotgunstop`.");
 		} else {
 			message.channel.send("There is already a game in progress.");
 		}
@@ -166,7 +166,7 @@ client.on("message", message => {
 	if (commandName === "shotgunstop" || commandName === "sgstop"){
 		if (shotgunGameEnabled){
 			shotgunStop();
-			message.channel.send("Shotgun game ended.");
+			message.channel.send("Shotgun game stopped.");
 		} else {
 			message.channel.send("There is no shotgun game in progress.");
 		}
@@ -178,10 +178,10 @@ client.on("message", message => {
 				shotgunAISelectMove(playerAmmo, botAmmo);
 				
 				if (playerAmmo == 0){
-					message.reply("you shoot!... but you have no ammo, you clown.");
+					message.reply("you shoot!... but you have no ammo.");
 				} else {
 					if (botBlocked){
-						message.reply("you shoot!... but I blocked this turn, heh heh.");
+						message.reply("you shoot!... but I blocked this turn.");
 					} else {
 						botHealth--;
 						message.reply("you shoot!... and it hits! I lose some health.");
