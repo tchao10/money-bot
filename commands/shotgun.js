@@ -49,11 +49,11 @@ module.exports = {
 					
 					shotgunAIPerformMove(message.client.botMoveNum, message.client.playerBlocked);
 					shotgunResetBlocked();
-					message.channel.send("Your Health: " + message.client.playerHealth + ",   Your Ammo: " + message.client.playerAmmo + "\nMy Health: " + message.client.botHealth + ",      My Ammo: " + message.client.botAmmo + ");
-					if (shotgunCheckGameOver(playerHealth, botHealth)){
-						if (playerHealth == 0 && botHealth == 0){
+					message.channel.send("Your Health: " + message.client.playerHealth + ",   Your Ammo: " + message.client.playerAmmo + "\nMy Health: " + message.client.botHealth + ",      My Ammo: " + message.client.botAmmo);
+					if (shotgunCheckGameOver(message.client.playerHealth, message.client.botHealth)){
+						if (message.client.playerHealth == 0 && message.client.botHealth == 0){
 							message.channel.send("We killed each other! We both lose.");
-						} else if (playerHealth == 0){
+						} else if (message.client.playerHealth == 0){
 							message.channel.send("You lose!");
 						} else {
 							message.channel.send("You win!");
@@ -62,7 +62,7 @@ module.exports = {
 						shotgunStop();
 					}
 				} else {
-					message.channel.send("you're not "+playerName.avatar+"!");
+					message.channel.send("you're not "+message.client.playerName.avatar+"!");
 				}
 			} else {
 				message.channel.send("there is no shotgun game in progress.");
@@ -71,20 +71,20 @@ module.exports = {
 
 		// Player reloads
 		if (arguments[0] == "reload"){
-			if (shotgunGameEnabled){
-				if (message.author.username === playerName){
-					shotgunAISelectMove(playerAmmo, botAmmo);
+			if (message.client.shotgunGameEnabled){
+				if (message.author.username === message.client.playerName){
+					shotgunAISelectMove(message.client.playerAmmo, message.client.botAmmo);
 					
-					playerAmmo++;
+					message.client.playerAmmo++;
 					message.channel.send("You load a bullet.");
 					
-					shotgunAIPerformMove(botMoveNum, playerBlocked);
+					shotgunAIPerformMove(message.client.botMoveNum, message.client.playerBlocked);
 					shotgunResetBlocked();
-					message.channel.send("Your Health: "+playerHealth+",   Your Ammo: "+playerAmmo+",   My Health: "+botHealth+",   My Ammo: "+botAmmo);
-					if (shotgunCheckGameOver(playerHealth, botHealth)){
-						if (playerHealth == 0 && botHealth == 0){
+					message.channel.send("Your Health: " + message.client.playerHealth + ",   Your Ammo: " + message.client.playerAmmo + "\nMy Health: " + message.client.botHealth + ",      My Ammo: " + message.client.botAmmo);
+					if (shotgunCheckGameOver(message.client.playerHealth, message.client.botHealth)){
+						if (message.client.playerHealth == 0 && message.client.botHealth == 0){
 							message.channel.send("We killed each other! We both lose.");
-						} else if (playerHealth == 0){
+						} else if (message.client.playerHealth == 0){
 							message.channel.send("You lose!");
 						} else {
 							message.channel.send("You win!");
@@ -93,7 +93,7 @@ module.exports = {
 						shotgunStop();
 					}
 				} else {
-					message.channel.send("You're not "+playerName.avatar+"!");
+					message.channel.send("You're not "+message.client.playerName.avatar+"!");
 				}
 			} else {
 				message.channel.send("There is no shotgun game in progress.");
@@ -101,21 +101,21 @@ module.exports = {
 		}
 
 		// Player blocks
-		if (arguments[0] == "blocks"){
-			if (shotgunGameEnabled){
-				if (message.author.username === playerName){
-					shotgunAISelectMove(playerAmmo, botAmmo);
+		if (arguments[0] == "block"){
+			if (message.client.shotgunGameEnabled){
+				if (message.author.username === message.client.playerName){
+					shotgunAISelectMove(message.client.playerAmmo, message.client.botAmmo);
 					
-					playerBlocked = true;
+					message.client.playerBlocked = true;
 					message.channel.send("You block this turn.");
 					
-					shotgunAIPerformMove(botMoveNum, playerBlocked);
+					shotgunAIPerformMove(message.client.botMoveNum, message.client.playerBlocked);
 					shotgunResetBlocked();
-					message.channel.send("Your Health: "+playerHealth+",   Your Ammo: "+playerAmmo+",   My Health: "+botHealth+",   My Ammo: "+botAmmo);
-					if (shotgunCheckGameOver(playerHealth, botHealth)){
-						if (playerHealth == 0 && botHealth == 0){
+					message.channel.send("Your Health: " + message.client.playerHealth + ",   Your Ammo: " + message.client.playerAmmo + "\nMy Health: " + message.client.botHealth + ",      My Ammo: " + message.client.botAmmo);
+					if (shotgunCheckGameOver(message.client.playerHealth, message.client.botHealth)){
+						if (message.client.playerHealth == 0 && message.client.botHealth == 0){
 							message.channel.send("We killed each other! We both lose.");
-						} else if (playerHealth == 0){
+						} else if (message.client.playerHealth == 0){
 							message.channel.send("You lose!");
 						} else {
 							message.channel.send("You win!");
@@ -124,7 +124,7 @@ module.exports = {
 						shotgunStop();
 					}
 				} else {
-					message.channel.send("You're not "+playerName.avatar+"!");
+					message.channel.send("You're not "+message.client.playerName.avatar+"!");
 				}
 			} else {
 				message.channel.send("There is no shotgun game in progress.");
