@@ -41,7 +41,7 @@ module.exports = {
 		if (arguments[0] == "shoot"){
 			if (message.client.shotgunGameEnabled){
 				if (message.author.username === message.client.playerName){
-					shotgunAISelectMove(message);
+					shotgunAISelectMove(message, messageLog);
 					
 					if (message.client.playerAmmo == 0){
 						messageLog.push("You shoot!... but you have no ammo.");
@@ -55,7 +55,7 @@ module.exports = {
 						message.client.playerAmmo--;
 					}
 					
-					shotgunAIPerformMove(message);
+					shotgunAIPerformMove(message, messageLog);
 					shotgunResetBlocked(message);
 
 					if (shotgunCheckGameOver(message.client.playerHealth, message.client.botHealth)){
@@ -87,12 +87,12 @@ module.exports = {
 		if (arguments[0] == "reload"){
 			if (message.client.shotgunGameEnabled){
 				if (message.author.username === message.client.playerName){
-					shotgunAISelectMove(message);
+					shotgunAISelectMove(message, messageLog);
 					
 					message.client.playerAmmo++;
 					messageLog.push("You load a bullet.");
 					
-					shotgunAIPerformMove(message);
+					shotgunAIPerformMove(message, messageLog);
 					shotgunResetBlocked(message);
 
 					if (shotgunCheckGameOver(message.client.playerHealth, message.client.botHealth)){
@@ -124,12 +124,12 @@ module.exports = {
 		if (arguments[0] == "block"){
 			if (message.client.shotgunGameEnabled){
 				if (message.author.username === message.client.playerName){
-					shotgunAISelectMove(message);
+					shotgunAISelectMove(message, messageLog);
 					
 					message.client.playerBlocked = true;
 					messageLog.push("You block this turn.");
 					
-					shotgunAIPerformMove(message);
+					shotgunAIPerformMove(message, messageLog);
 					shotgunResetBlocked(message);
 
 					if (shotgunCheckGameOver(message.client.playerHealth, message.client.botHealth)){
@@ -175,7 +175,7 @@ function createEmbed(message, commandName){
 		.addFields(
 			{ name: "\u200B\nYour health: " + message.client.playerHealth + "   vs.", value: "Your ammo: " + message.client.playerAmmo, inline: true },
 			{ name: "\u200B\nBot's health: " + message.client.botHealth, value: "Bot's ammo: " + message.client.botAmmo, inline: true },
-			{ name: "\u200B", value: "\u200B\n\u200B" },
+			{ name: "\u200B\n__Action Log__", value: "\u200B\n\u200B" },
 		)
 		.setFooter(prefix + commandName + " help for instructions")
 		.setTimestamp()
@@ -186,7 +186,9 @@ function createEmbed(message, commandName){
 }
 
 function updateEmbed(message, commandName, messageLog){
-	const shotgunEmbed = new Discord.MessageEmbed()
+	message.client.shotgunTurnCounter++;
+
+	const editedShotgunEmbed = new Discord.MessageEmbed()
 		.setColor("#0099ff")
 		.setTitle("Shotgun (Turn " + message.client.shotgunTurnCounter + ")")
 		.setDescription(message.author.toString() + " vs. <@374095302648659980>")
@@ -194,14 +196,12 @@ function updateEmbed(message, commandName, messageLog){
 		.addFields(
 			{ name: "\u200B\nYour health: " + message.client.playerHealth + "   vs.", value: "Your ammo: " + message.client.playerAmmo, inline: true },
 			{ name: "\u200B\nBot's health: " + message.client.botHealth, value: "Bot's ammo: " + message.client.botAmmo, inline: true },
-			{ name: "\u200B", value: messageLog.join("\n") },
+			{ name: "\u200B\n__Action Log__", value: messageLog.join("\n") },
 		)
 		.setFooter(prefix + commandName + " help for instructions")
 		.setTimestamp()
 
-	message.channel.send(shotgunEmbed).then(sentMessage => {
-		message.client.embedMessage = sentMessage;
-	});
+	message.client.embedMessage.edit(editedShotgunEmbed);
 }
 
 function shotgunAISelectMove(message, messageLog){
