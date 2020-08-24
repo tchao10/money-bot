@@ -7,13 +7,7 @@ module.exports = {
 	guildOnly: false,
 	execute(message, arguments){
 		// If the first argument is a mentioned user, then show the mentioned user's profile picture
-		/*
-		console.log(arguments.length);
-		console.log(message.mentions.users.first());
-		console.log(arguments[0]);
-		*/
-		console.log(message.mentions.users.first().id == arguments[0]);
-		if (arguments.length && message.mentions.users.first().id == arguments[0]){
+		if (arguments.length && message.mentions.users.first().id == arguments[0].replace(/\D/g,'')){ // the replace removes all non-numeric characters
 			return message.channel.send(message.mentions.users.first().displayAvatarURL({ format: "png", dynamic: true }));
 		}
 
