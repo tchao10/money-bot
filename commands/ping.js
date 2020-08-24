@@ -11,6 +11,10 @@ module.exports = {
 	execute(message, arguments){
 		message.reply("pong");
 
+		if (message.author.id != 134095374381088768){ // If you are not me
+            return;
+        }
+
 		const exampleEmbed = new Discord.MessageEmbed()
 			.setColor("#0099ff")
 			.setTitle("Shotgun")
