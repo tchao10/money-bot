@@ -21,10 +21,9 @@ module.exports = {
 			.setDescription("Some description here")
 			.setThumbnail("https://cdn.discordapp.com/avatars/374095302648659980/3953362a62cb6a1bdce66f13a31aef4a.png")
 			.addFields(
-				{ name: "Regular field title", value: "Some value here" },
+				{ name: "Your health:", value: "Your ammo:", inline: true },
+				{ name: "Bot's health:", value: "Bot's ammo:", inline: true },
 				{ name: "\u200B", value: "\u200B" },
-				{ name: "Inline field title", value: "Some value here", inline: true },
-				{ name: "Inline field title", value: "Some value here", inline: true },
 				{ name: "Inline field title", value: "Some value here", inline: true },
 			)
 			.setTimestamp()
