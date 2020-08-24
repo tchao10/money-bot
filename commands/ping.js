@@ -27,7 +27,7 @@ module.exports = {
 				{ name: "Inline field title", value: "Some value here", inline: true },
 			)
 			.setTimestamp()
-			.setFooter(prefix + this.name + " help  for instructions")
+			.setFooter(prefix + this.name + " help for instructions")
 
 		message.channel.send(exampleEmbed);
 	},
