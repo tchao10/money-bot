@@ -8,12 +8,14 @@ module.exports = {
 	aliases: [],
 	arguments: false,
 	guildOnly: false,
-	execute(message, arguments){
+	async execute(message, arguments){
 		message.channel.send("pong");
 
 		if (message.author.id != 134095374381088768){ // If you are not me
             return;
         }
+
+		var embedMessage;
 
 		const exampleEmbed = new Discord.MessageEmbed()
 			.setColor("#0099ff")
@@ -29,13 +31,16 @@ module.exports = {
 			.setTimestamp()
 			.setFooter(prefix + this.name + " help for instructions")
 
-		message.channel.send(exampleEmbed);
+		message.channel.send(exampleEmbed).then(sentMessage => {
+			embedMessage = sentMessage;
+		});
 
-		console.log(exampleEmbed);
+		//console.log(exampleEmbed);
+		await new Promise(r => setTimeout(r, 1000));
 
 		const newEmbed = new Discord.MessageEmbed()
 			.setColor("#0099ff")
-			.setTitle("Shotgun")
+			.setTitle("Shotgun asdasd")
 			.setDescription(message.author.toString() + " vs. <@374095302648659980>")
 			.setThumbnail("https://cdn.discordapp.com/avatars/374095302648659980/3953362a62cb6a1bdce66f13a31aef4a.png")
 			.addFields(
@@ -47,6 +52,6 @@ module.exports = {
 			.setTimestamp()
 			.setFooter(prefix + this.name + " help for instructions")
 
-		message.edit(newEmbe)
+		embedMessage.edit(newEmbed);
 	},
 };
