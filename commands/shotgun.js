@@ -15,7 +15,7 @@ module.exports = {
 				message.client.shotgunGameEnabled = true;
 				message.client.playerName = message.author.username;
 				createEmbed(message, this.name);
-				message.channel.send("Your Health: " + message.client.playerHealth + ",   Your Ammo: " + message.client.playerAmmo + "\nMy Health: " + message.client.botHealth + ",      My Ammo: " + message.client.botAmmo + "\n**Select your move:** `" + prefix + this.name + " shoot`, `" + prefix + this.name + " reload`, or `" + prefix + this.name + " block`?\n(You can type `" + prefix + this.name + "` for help or `" + prefix + this.name + " stop` to stop the game.)");
+				message.channel.send("**Select your move:** `" + prefix + this.name + " shoot`, `" + prefix + this.name + " reload`, or `" + prefix + this.name + " block`?\n(You can type `" + prefix + this.name + "` for help or `" + prefix + this.name + " stop` to stop the game.)");
 			} else {
 				message.channel.send("There is already a game in progress.");
 			}
@@ -159,17 +159,16 @@ function createEmbed(message, commandName){
 		.setDescription(message.author.toString() + " vs. <@374095302648659980>")
 		.setThumbnail("https://cdn.discordapp.com/avatars/374095302648659980/3953362a62cb6a1bdce66f13a31aef4a.png")
 		.addFields(
-			{ name: "\u200B", value: "\u200B" },
 			{ name: "Your health: " + message.client.playerHealth + "   vs.", value: "Your ammo: " + message.client.playerAmmo, inline: true },
 			{ name: "Bot's health: " + message.client.botHealth, value: "Bot's ammo: " + message.client.botAmmo, inline: true },
-			//{ name: "\u200B", value: "\u200B" },
+			{ name: "\u200B", value: "\u200B" },
 			//{ name: "Inline field title", value: "Some value here", inline: true },
 		)
-		.setTimestamp()
 		.setFooter(prefix + commandName + " help for instructions")
+		.setTimestamp()
 
 	message.channel.send(shotgunEmbed).then(sentMessage => {
-		embedMessage = sentMessage;
+		message.client.embedMessage = sentMessage;
 	});
 }
 
