@@ -1,5 +1,5 @@
 {
     "prefix": "$",
-    "globalCooldownAmount": 1,
+    "globalCooldownAmount": 0.3,
     "maxDeleteMessages": 10
 }

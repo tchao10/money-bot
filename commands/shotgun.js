@@ -14,7 +14,7 @@ module.exports = {
 			if (!message.client.shotgunGameEnabled){
 				message.client.shotgunGameEnabled = true;
 				message.client.playerName = message.author.username;
-				createEmbed(message);
+				createEmbed(message, this.name);
 				message.channel.send("Your Health: " + message.client.playerHealth + ",   Your Ammo: " + message.client.playerAmmo + "\nMy Health: " + message.client.botHealth + ",      My Ammo: " + message.client.botAmmo + "\n**Select your move:** `" + prefix + this.name + " shoot`, `" + prefix + this.name + " reload`, or `" + prefix + this.name + " block`?\n(You can type `" + prefix + this.name + "` for help or `" + prefix + this.name + " stop` to stop the game.)");
 			} else {
 				message.channel.send("There is already a game in progress.");
@@ -152,20 +152,21 @@ module.exports = {
 	},
 };
 
-function createEmbed(message){
+function createEmbed(message, commandName){
 	const shotgunEmbed = new Discord.MessageEmbed()
 		.setColor("#0099ff")
 		.setTitle("Shotgun")
 		.setDescription(message.author.toString() + " vs. <@374095302648659980>")
 		.setThumbnail("https://cdn.discordapp.com/avatars/374095302648659980/3953362a62cb6a1bdce66f13a31aef4a.png")
 		.addFields(
-			{ name: "Your health:", value: "Your ammo:", inline: true },
-			{ name: "Bot's health:", value: "Bot's ammo:", inline: true },
 			{ name: "\u200B", value: "\u200B" },
-			{ name: "Inline field title", value: "Some value here", inline: true },
+			{ name: "Your health: " + message.client.playerHealth + "   vs.", value: "Your ammo: " + message.client.playerAmmo, inline: true },
+			{ name: "Bot's health: " + message.client.botHealth, value: "Bot's ammo: " + message.client.botAmmo, inline: true },
+			//{ name: "\u200B", value: "\u200B" },
+			//{ name: "Inline field title", value: "Some value here", inline: true },
 		)
 		.setTimestamp()
-		.setFooter(prefix + this.name + " help for instructions")
+		.setFooter(prefix + commandName + " help for instructions")
 
 	message.channel.send(shotgunEmbed).then(sentMessage => {
 		embedMessage = sentMessage;
