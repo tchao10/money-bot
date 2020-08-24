@@ -155,14 +155,13 @@ module.exports = {
 function createEmbed(message, commandName){
 	const shotgunEmbed = new Discord.MessageEmbed()
 		.setColor("#0099ff")
-		.setTitle("Shotgun (Turn" + message.client.shotgunTurnCounter + ")")
+		.setTitle("Shotgun (Turn " + message.client.shotgunTurnCounter + ")")
 		.setDescription(message.author.toString() + " vs. <@374095302648659980>")
 		.setThumbnail("https://cdn.discordapp.com/avatars/374095302648659980/3953362a62cb6a1bdce66f13a31aef4a.png")
 		.addFields(
-			{ name: "Your health: " + message.client.playerHealth + "   vs.", value: "Your ammo: " + message.client.playerAmmo, inline: true },
-			{ name: "Bot's health: " + message.client.botHealth, value: "Bot's ammo: " + message.client.botAmmo, inline: true },
+			{ name: "\u200B\nYour health: " + message.client.playerHealth + "   vs.", value: "Your ammo: " + message.client.playerAmmo, inline: true },
+			{ name: "\u200B\nBot's health: " + message.client.botHealth, value: "Bot's ammo: " + message.client.botAmmo, inline: true },
 			{ name: "\u200B", value: "\u200B" },
-			//{ name: "Inline field title", value: "Some value here", inline: true },
 		)
 		.setFooter(prefix + commandName + " help for instructions")
 		.setTimestamp()
@@ -172,8 +171,23 @@ function createEmbed(message, commandName){
 	});
 }
 
-function updateEmbed(message){
+function updateEmbed(message, commandName){
+	const shotgunEmbed = new Discord.MessageEmbed()
+		.setColor("#0099ff")
+		.setTitle("Shotgun (Turn " + message.client.shotgunTurnCounter + ")")
+		.setDescription(message.author.toString() + " vs. <@374095302648659980>")
+		.setThumbnail("https://cdn.discordapp.com/avatars/374095302648659980/3953362a62cb6a1bdce66f13a31aef4a.png")
+		.addFields(
+			{ name: "\u200B\nYour health: " + message.client.playerHealth + "   vs.", value: "Your ammo: " + message.client.playerAmmo, inline: true },
+			{ name: "\u200B\nBot's health: " + message.client.botHealth, value: "Bot's ammo: " + message.client.botAmmo, inline: true },
+			//{ name: "\u200B", value: "MESSAGE 1\n**MESSAGE 2**" },
+		)
+		.setFooter(prefix + commandName + " help for instructions")
+		.setTimestamp()
 
+	message.channel.send(shotgunEmbed).then(sentMessage => {
+		message.client.embedMessage = sentMessage;
+	});
 }
 
 function shotgunAISelectMove(message){

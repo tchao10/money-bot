@@ -31,7 +31,7 @@ client.moneyCount = 0;
 
 // shotgun variables
 client.shotgunGameEnabled = false;
-client.shotgunTurnCounter = 0;
+client.shotgunTurnCounter = 1;
 client.embedMessage = null;
 client.playerName = null;
 client.playerHealth = 2;

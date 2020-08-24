@@ -36,7 +36,7 @@ module.exports = {
 		});
 
 		//console.log(exampleEmbed);
-		//await new Promise(r => setTimeout(r, 1000));
+		await new Promise(r => setTimeout(r, 1000));
 
 		const newEmbed = new Discord.MessageEmbed()
 			.setColor("#0099ff")
