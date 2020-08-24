@@ -1,4 +1,5 @@
 const Discord = require("discord.js");
+const { prefix } = require("../config.json");
 
 module.exports = {
 	name: "ping",
@@ -20,10 +21,10 @@ module.exports = {
 				{ name: "\u200B", value: "\u200B" },
 				{ name: "Inline field title", value: "Some value here", inline: true },
 				{ name: "Inline field title", value: "Some value here", inline: true },
+				{ name: "Inline field title", value: "Some value here", inline: true },
 			)
-			.addField("Inline field title", "Some value here", true)
-			.setImage("https://i.imgur.com/wSTFkRM.png")
 			.setTimestamp()
+			.setFooter(prefix + this.name + " help  for instructions")
 
 		message.channel.send(exampleEmbed);
 	},
