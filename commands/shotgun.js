@@ -21,11 +21,11 @@ module.exports = {
 			} else {
 				message.channel.send("There is already a game in progress.");
 			}
-
+			
 			return;
 		}
 
-		// Stop a game
+		// Stop the game
 		if (arguments[0] == "stop"){
 			if (message.client.shotgunGameEnabled){
 				shotgunReset(message);
