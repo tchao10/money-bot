@@ -9,6 +9,10 @@ module.exports = {
 	arguments: false,
 	guildOnly: false,
 	execute(message, arguments){
+		var logMessage1;
+		var logMessage2;
+		var logMessageResult;
+
 		// Start a game
 		if (arguments[0] == "start"){
 			if (!message.client.shotgunGameEnabled){
@@ -26,7 +30,7 @@ module.exports = {
 		// Stop a game
 		if (arguments[0] == "stop"){
 			if (message.client.shotgunGameEnabled){
-				shotgunStop(message);
+				shotgunReset(message);
 				message.channel.send("Shotgun game stopped.");
 			} else {
 				message.channel.send("There is no shotgun game in progress.");
@@ -65,7 +69,7 @@ module.exports = {
 							message.channel.send("You win!");
 						}
 						
-						shotgunStop(message);
+						shotgunReset(message);
 					}
 				} else {
 					message.channel.send("you're not "+message.client.playerName.avatar+"!");
@@ -98,7 +102,7 @@ module.exports = {
 							message.channel.send("You win!");
 						}
 						
-						shotgunStop(message);
+						shotgunReset(message);
 					}
 				} else {
 					message.channel.send("You're not "+message.client.playerName.avatar+"!");
@@ -131,7 +135,7 @@ module.exports = {
 							message.channel.send("You win!");
 						}
 						
-						shotgunStop(message);
+						shotgunReset(message);
 					}
 				} else {
 					message.channel.send("You're not "+message.client.playerName.avatar+"!");
@@ -161,7 +165,7 @@ function createEmbed(message, commandName){
 		.addFields(
 			{ name: "\u200B\nYour health: " + message.client.playerHealth + "   vs.", value: "Your ammo: " + message.client.playerAmmo, inline: true },
 			{ name: "\u200B\nBot's health: " + message.client.botHealth, value: "Bot's ammo: " + message.client.botAmmo, inline: true },
-			{ name: "\u200B", value: "\u200B" },
+			{ name: "\u200B", value: "\u200B\n\u200B" },
 		)
 		.setFooter(prefix + commandName + " help for instructions")
 		.setTimestamp()
@@ -180,7 +184,7 @@ function updateEmbed(message, commandName){
 		.addFields(
 			{ name: "\u200B\nYour health: " + message.client.playerHealth + "   vs.", value: "Your ammo: " + message.client.playerAmmo, inline: true },
 			{ name: "\u200B\nBot's health: " + message.client.botHealth, value: "Bot's ammo: " + message.client.botAmmo, inline: true },
-			//{ name: "\u200B", value: "MESSAGE 1\n**MESSAGE 2**" },
+			{ name: "\u200B", value: "MESSAGE 1\n**MESSAGE 2**" },
 		)
 		.setFooter(prefix + commandName + " help for instructions")
 		.setTimestamp()
@@ -273,9 +277,10 @@ function shotgunCheckGameOver(pHealth, bHealth){
 	return (pHealth == 0 || bHealth == 0);
 }
 
-function shotgunStop(message){
+function shotgunReset(message){
 	message.client.shotgunGameEnabled = false;
-	message.client.shotgunTurnCounter = 0;
+	message.client.shotgunTurnCounter = 1;
+	message.client.embedMessage = null;
 	message.client.playerName = null;
 	message.client.playerHealth = 2;
 	message.client.playerAmmo = 0;
