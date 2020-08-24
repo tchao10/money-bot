@@ -12,9 +12,7 @@ module.exports = {
 
 		const exampleEmbed = new Discord.MessageEmbed()
 			.setColor('#0099ff')
-			.setTitle('Some title')
-			.setURL('https://discord.js.org/')
-			.setAuthor('Some name', 'https://i.imgur.com/wSTFkRM.png', 'https://discord.js.org')
+			.setTitle('Shotgun')
 			.setDescription('Some description here')
 			.setThumbnail('https://i.imgur.com/wSTFkRM.png')
 			.addFields(
@@ -26,7 +24,6 @@ module.exports = {
 			.addField('Inline field title', 'Some value here', true)
 			.setImage('https://i.imgur.com/wSTFkRM.png')
 			.setTimestamp()
-			.setFooter('Some footer text here', 'https://i.imgur.com/wSTFkRM.png');
 
 		message.channel.send(exampleEmbed);
 	},
