@@ -144,7 +144,7 @@ module.exports = {
 
 		// Display help message
 		if (!arguments.length || arguments[0] == "help"){
-			return message.channel.send("Shotgun is a simple turn-based game versus <@374095302648659980>. There are three actions you can take each turn:\n\n`" + prefix + this.name + " shoot` shoots your gun if you have ammo.\n`" + prefix + this.name + " reload` adds one bullet to your gun.\n`" + prefix + this.name + " block` prevents you from taking damage that turn.\n\nThe first player to get their opponent's health to 0 wins! Start a game by typing `" + prefix + this.name + " start`.");
+			return message.channel.send("Shotgun is a simple turn-based game versus <@374095302648659980>. There are three actions you can take each turn:\n\n`" + prefix + this.name + " shoot` shoots your gun if you have ammo.\n`" + prefix + this.name + " reload` adds one bullet to your gun.\n`" + prefix + this.name + " block` protects you from getting shot that turn.\n\nThe first player to get their opponent's health to 0 wins! Start a game by typing `" + prefix + this.name + " start`.");
 		}
 
 		return;
