@@ -18,7 +18,7 @@ module.exports = {
 		const exampleEmbed = new Discord.MessageEmbed()
 			.setColor("#0099ff")
 			.setTitle("Shotgun")
-			.setDescription("Some description here")
+			.setDescription(message.author.toString() + " vs. <@374095302648659980>")
 			.setThumbnail("https://cdn.discordapp.com/avatars/374095302648659980/3953362a62cb6a1bdce66f13a31aef4a.png")
 			.addFields(
 				{ name: "Your health:", value: "Your ammo:", inline: true },
