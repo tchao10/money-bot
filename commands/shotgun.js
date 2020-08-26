@@ -16,6 +16,7 @@ module.exports = {
 			if (!message.client.shotgunGameEnabled){
 				message.client.shotgunGameEnabled = true;
 				message.client.playerName = message.author.username;
+				messageLog.push("`" + prefix + this.name + " help` for instructions.");
 				createEmbed(message, this.name);
 				message.channel.send("**Select your move:** `" + prefix + this.name + " shoot`, `" + prefix + this.name + " reload`, or `" + prefix + this.name + " block`?\n(You can type `" + prefix + this.name + "` for help or `" + prefix + this.name + " stop` to stop the game.)");
 			} else {
