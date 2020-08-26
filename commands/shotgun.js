@@ -16,7 +16,6 @@ module.exports = {
 			if (!message.client.shotgunGameEnabled){
 				message.client.shotgunGameEnabled = true;
 				message.client.playerName = message.author.username;
-				messageLog.push("`" + prefix + this.name + " help` for instructions.");
 				createEmbed(message, this.name);
 				message.channel.send("**Select your move:** `" + prefix + this.name + " shoot`, `" + prefix + this.name + " reload`, or `" + prefix + this.name + " block`?\n(You can type `" + prefix + this.name + "` for help or `" + prefix + this.name + " stop` to stop the game.)");
 			} else {
@@ -29,8 +28,12 @@ module.exports = {
 		// Stop the game
 		if (arguments[0] == "stop"){
 			if (message.client.shotgunGameEnabled){
-				shotgunReset(message);
-				message.channel.send("Shotgun game stopped.");
+				if (message.author.username === message.client.playerName || message.author.id == 134095374381088768){ // Or if you are me
+					shotgunReset(message);
+					message.channel.send("Shotgun game stopped.");
+				} else {
+					message.channel.send("You're not "+message.client.playerName.avatar+"!");
+				}
 			} else {
 				message.channel.send("There is no shotgun game in progress.");
 			}
@@ -176,7 +179,7 @@ function createEmbed(message, commandName){
 		.addFields(
 			{ name: "\u200B\nYour health: " + message.client.playerHealth + "   vs.", value: "Your ammo: " + message.client.playerAmmo, inline: true },
 			{ name: "\u200B\nBot's health: " + message.client.botHealth, value: "Bot's ammo: " + message.client.botAmmo, inline: true },
-			{ name: "\u200B\n__Action Log__", value: "\u200B\n\u200B" },
+			{ name: "\u200B\n__Action Log__", value: "(`" + prefix + commandName + " help` for instructions.)\n\u200b" },
 		)
 		.setFooter(prefix + commandName + " help for instructions")
 		.setTimestamp()
