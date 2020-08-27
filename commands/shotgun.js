@@ -9,9 +9,9 @@ module.exports = {
 	arguments: false,
 	guildOnly: false,
 	execute(message, arguments){
-		const shootIcon;
-		const reloadIcon;
-		const blockIcon;
+		const shootIcon = "💥";
+		const reloadIcon = "🔂";
+		const blockIcon = "🛡";
 		var messageLog = [];
 
 		// Start a game
