@@ -18,7 +18,7 @@ module.exports = {
 			sentMessage.awaitReactions(filter, { max: 1, time: 10000, errors: ['time'] })
 				.then(collected => console.log(collected))
 				.catch(collected => {
-					console.log("After 10 seconds, only " + collected.size + " out of 1 reacted.");
+					console.log("You took too long! Game has been stopped.");
 				});
 			
 		});
