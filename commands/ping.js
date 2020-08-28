@@ -8,7 +8,7 @@ module.exports = {
 	aliases: [],
 	arguments: false,
 	guildOnly: false,
-	async execute(message, arguments){
+	execute(message, arguments){
 		message.channel.send("pong").then(sentMessage => {
 			message.client.pingMessageID = sentMessage;
 		});
@@ -19,4 +19,8 @@ module.exports = {
 
 		
 	},
+};
+
+const filter = (reaction, user) => {
+	return reaction.emoji.name === "👍" && user.id === message.author.id;
 };
