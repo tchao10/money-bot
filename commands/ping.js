@@ -13,6 +13,17 @@ module.exports = {
 		const reloadIcon = "🔂";
 		const blockIcon = "🛡";
 
+		message.channel.send("message.author: " + message.author);
+		message.channel.send("message.author.avatar: " + message.author);
+		message.channel.send("message.author.bot: " + message.author);
+		message.channel.send("message.author.: " + message.author);
+		message.channel.send("message.author.: " + message.author);
+		message.channel.send("message.author.: " + message.author);
+		message.channel.send("message.author.: " + message.author);
+		message.channel.send("message.author.: " + message.author);
+		message.channel.send("message.author.: " + message.author);
+		message.channel.send("message.author.: " + message.author);
+
 		message.channel.send("pong").then(async sentMessage => {
 			message.client.pingMessageID = sentMessage;
 

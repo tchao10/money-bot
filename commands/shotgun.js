@@ -18,7 +18,7 @@ module.exports = {
 		if (arguments[0] == "start" || arguments[0] == "begin" || arguments[0] == "b"){
 			if (!message.client.shotgunGameEnabled){
 				message.client.shotgunGameEnabled = true;
-				message.client.playerName = message.author.username;
+				message.client.activePlayer = message.author.username;
 				createEmbed(message, this.name);
 				message.channel.send("**Select your move:** `" + prefix + this.name + " shoot`, `" + prefix + this.name + " reload`, or `" + prefix + this.name + " block`?\n(You can type `" + prefix + this.name + "` for help or `" + prefix + this.name + " stop` to stop the game.)");
 			} else {
@@ -31,11 +31,11 @@ module.exports = {
 		// Stop the game
 		if (arguments[0] == "stop" || arguments[0] == "quit" || arguments[0] == "q"){
 			if (message.client.shotgunGameEnabled){
-				if (message.author.username === message.client.playerName || message.author.id == 134095374381088768){ // Or if you are me
+				if (message.author.username === message.client.activePlayer || message.author.id == 134095374381088768){ // Or if you are me
 					shotgunReset(message);
 					message.channel.send("Shotgun game stopped.");
 				} else {
-					message.channel.send("You're not "+message.client.playerName.avatar+"!");
+					message.channel.send("You're not "+message.client.activePlayer.avatar+"!");
 				}
 			} else {
 				message.channel.send("There is no shotgun game in progress.");
@@ -47,7 +47,7 @@ module.exports = {
 		// Player shoots
 		if (arguments[0] == "shoot" || arguments[0] == "sh"){
 			if (message.client.shotgunGameEnabled){
-				if (message.author.username === message.client.playerName){
+				if (message.author.username === message.client.activePlayer){
 					shotgunAISelectMove(message, messageLog);
 					
 					if (message.client.playerAmmo == 0){
@@ -81,7 +81,7 @@ module.exports = {
 						updateEmbed(message, this.name, messageLog);
 					}
 				} else {
-					message.channel.send("You're not "+message.client.playerName.avatar+"!");
+					message.channel.send("You're not "+message.client.activePlayer.avatar+"!");
 				}
 			} else {
 				message.channel.send("There is no shotgun game in progress.");
@@ -93,7 +93,7 @@ module.exports = {
 		// Player reloads
 		if (arguments[0] == "reload" || arguments[0] == "r"){
 			if (message.client.shotgunGameEnabled){
-				if (message.author.username === message.client.playerName){
+				if (message.author.username === message.client.activePlayer){
 					shotgunAISelectMove(message, messageLog);
 					
 					message.client.playerAmmo++;
@@ -118,7 +118,7 @@ module.exports = {
 						updateEmbed(message, this.name, messageLog);
 					}
 				} else {
-					message.channel.send("You're not "+message.client.playerName.avatar+"!");
+					message.channel.send("You're not "+message.client.activePlayer.avatar+"!");
 				}
 			} else {
 				message.channel.send("There is no shotgun game in progress.");
@@ -130,7 +130,7 @@ module.exports = {
 		// Player blocks
 		if (arguments[0] == "block" || arguments[0] == "b"){
 			if (message.client.shotgunGameEnabled){
-				if (message.author.username === message.client.playerName){
+				if (message.author.username === message.client.activePlayer){
 					shotgunAISelectMove(message, messageLog);
 					
 					message.client.playerBlocked = true;
@@ -155,7 +155,7 @@ module.exports = {
 						updateEmbed(message, this.name, messageLog);
 					}
 				} else {
-					message.channel.send("You're not "+message.client.playerName.avatar+"!");
+					message.channel.send("You're not "+message.client.activePlayer.avatar+"!");
 				}
 			} else {
 				message.channel.send("There is no shotgun game in progress.");
@@ -298,7 +298,7 @@ function shotgunReset(message){
 	message.client.shotgunGameEnabled = false;
 	message.client.shotgunTurnCounter = 1;
 	message.client.embedMessage = null;
-	message.client.playerName = null;
+	message.client.activePlayer = null;
 	message.client.playerHealth = 2;
 	message.client.playerAmmo = 0;
 	message.client.playerBlocked = false;
