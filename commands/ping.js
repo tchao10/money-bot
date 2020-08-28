@@ -12,7 +12,7 @@ module.exports = {
 		const shootIcon = "💥";
 		const reloadIcon = "🔂";
 		const blockIcon = "🛡";
-		
+
 		message.channel.send("pong").then(async sentMessage => {
 			message.client.pingMessageID = sentMessage;
 
@@ -25,7 +25,7 @@ module.exports = {
 				message.channel.send("There was an error starting the shotgun game.");
 			}
 			
-			sentMessage.awaitReactions(filter, { max: 1, time: 60000, errors: ['time'] })
+			sentMessage.awaitReactions(validReactionChecker, { max: 1, time: 60000, errors: ["time"] })
 				.then(collected => {
 					const reactedEmoji = collected.first()._emoji.name;
 					sentMessage.reactions.resolve(reactedEmoji)	.users.remove(message.author);
@@ -37,7 +37,7 @@ module.exports = {
 			
 		});
 
-		const filter = (reaction, user) => {
+		const validReactionChecker = (reaction, user) => {
 			return user.id === message.author.id && [shootIcon, reloadIcon, blockIcon].includes(reaction.emoji.name);
 		};
 
