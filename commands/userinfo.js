@@ -19,7 +19,7 @@ module.exports = {
             //userInfoArray.push("**mentionedUser.client:** " + mentionedUser.client);
             userInfoArray.push("**mentionedUser.createdAt:** " + mentionedUser.createdAt);
             userInfoArray.push("**mentionedUser.createdTimestamp:** " + mentionedUser.createdTimestamp);
-            userInfoArray.push("**mentionedUser.defaultAvatarURL:** " + mentionedUser.defaultAvatarURL);
+            userInfoArray.push("**mentionedUser.defaultAvatarURL:** <" + mentionedUser.defaultAvatarURL + ">");
             userInfoArray.push("**mentionedUser.discriminator:** " + mentionedUser.discriminator);
             //userInfoArray.push("**mentionedUser.dmChannel:** " + mentionedUser.dmChannel);
             userInfoArray.push("**mentionedUser.flags:** " + mentionedUser.flags);
@@ -33,8 +33,8 @@ module.exports = {
             //userInfoArray.push("**mentionedUser.system:** " + mentionedUser.system);
             userInfoArray.push("**mentionedUser.tag:** " + mentionedUser.tag);
             userInfoArray.push("**mentionedUser.username:** " + mentionedUser.username);
-            userInfoArray.push("**mentionedUser.avatarURL():** " + mentionedUser.avatarURL());
-            userInfoArray.push("**mentionedUser.displayAvatarURL():** " + mentionedUser.displayAvatarURL());
+            userInfoArray.push("**mentionedUser.avatarURL():** <" + mentionedUser.avatarURL() + ">");
+            userInfoArray.push("**mentionedUser.displayAvatarURL():** <" + mentionedUser.displayAvatarURL() + ">");
             //userInfoArray.push("**mentionedUser.fetch():** " + mentionedUser.fetch());
             //userInfoArray.push("**mentionedUser.fetchFlags():*8 " + mentionedUser.fetchFlags());
             //userInfoArray.push("**mentionedUser.send():** " + mentionedUser.send());
@@ -51,7 +51,7 @@ module.exports = {
         //userInfoArray.push("**message.author.client:** " + message.author.client);
         userInfoArray.push("**message.author.createdAt:** " + message.author.createdAt);
         userInfoArray.push("**message.author.createdTimestamp:** " + message.author.createdTimestamp);
-        userInfoArray.push("**message.author.defaultAvatarURL:** " + message.author.defaultAvatarURL);
+        userInfoArray.push("**message.author.defaultAvatarURL:** <" + message.author.defaultAvatarURL + ">");
         userInfoArray.push("**message.author.discriminator:** " + message.author.discriminator);
         //userInfoArray.push("**message.author.dmChannel:** " + message.author.dmChannel);
         userInfoArray.push("**message.author.flags:** " + message.author.flags);
@@ -65,8 +65,8 @@ module.exports = {
         //userInfoArray.push("**message.author.system:** " + message.author.system);
         userInfoArray.push("**message.author.tag:** " + message.author.tag);
         userInfoArray.push("**message.author.username:** " + message.author.username);
-        userInfoArray.push("**message.author.avatarURL():** " + message.author.avatarURL());
-        userInfoArray.push("**message.author.displayAvatarURL():** " + message.author.displayAvatarURL());
+        userInfoArray.push("**message.author.avatarURL():** <" + message.author.avatarURL() + ">");
+        userInfoArray.push("**message.author.displayAvatarURL():** <" + message.author.displayAvatarURL() + ">");
         //userInfoArray.push("**message.author.fetch():** " + message.author.fetch());
         //userInfoArray.push("**message.author.fetchFlags():*8 " + message.author.fetchFlags());
         //userInfoArray.push("**message.author.send():** " + message.author.send());

@@ -12,7 +12,7 @@ module.exports = {
 		const shootIcon = "💥";
 		const reloadIcon = "🔂";
 		const blockIcon = "🛡";
-		var messageLog = [];
+		const messageLog = [];
 
 		// Start a game
 		if (arguments[0] == "start" || arguments[0] == "begin" || arguments[0] == "b"){
@@ -35,7 +35,7 @@ module.exports = {
 					shotgunReset(message);
 					message.channel.send("Shotgun game stopped.");
 				} else {
-					message.channel.send("You're not "+message.client.activePlayer.avatar+"!");
+					message.channel.send("You're not " + message.client.activePlayer.username + "!");
 				}
 			} else {
 				message.channel.send("There is no shotgun game in progress.");
@@ -81,7 +81,7 @@ module.exports = {
 						updateEmbed(message, this.name, messageLog);
 					}
 				} else {
-					message.channel.send("You're not "+message.client.activePlayer.avatar+"!");
+					message.channel.send("You're not " + message.client.activePlayer.username + "!");
 				}
 			} else {
 				message.channel.send("There is no shotgun game in progress.");
@@ -118,7 +118,7 @@ module.exports = {
 						updateEmbed(message, this.name, messageLog);
 					}
 				} else {
-					message.channel.send("You're not "+message.client.activePlayer.avatar+"!");
+					message.channel.send("You're not " + message.client.activePlayer.username + "!");
 				}
 			} else {
 				message.channel.send("There is no shotgun game in progress.");
@@ -155,7 +155,7 @@ module.exports = {
 						updateEmbed(message, this.name, messageLog);
 					}
 				} else {
-					message.channel.send("You're not "+message.client.activePlayer.avatar+"!");
+					message.channel.send("You're not " + message.client.activePlayer.username + "!");
 				}
 			} else {
 				message.channel.send("There is no shotgun game in progress.");
@@ -209,6 +209,10 @@ function updateEmbed(message, commandName, messageLog){
 		.setTimestamp()
 
 	message.client.embedMessage.edit(editedShotgunEmbed);
+}
+
+function createReactionCollector(message){
+	
 }
 
 function shotgunAISelectMove(message, messageLog){
