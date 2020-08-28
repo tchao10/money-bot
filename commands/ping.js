@@ -12,7 +12,7 @@ module.exports = {
 		message.channel.send("pong").then(sentMessage => {
 			message.client.pingMessageID = sentMessage;
 			sentMessage.awaitReactions(filter, { max: 1, time: 5000, errors: ['time'] })
-				.then(collected => console.log(collected.size))
+				.then(collected => console.log(collected))
 				.catch(collected => {
 					console.log("After 5 seconds, only " + collected.size + " out of 1 reacted.");
 				});
