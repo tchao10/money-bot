@@ -12,6 +12,7 @@ module.exports = {
         if (arguments.length && message.mentions.users.first().id == arguments[0].replace(/\D/g,'')){ // the replace removes all non-numeric characters
             const mentionedUser = message.mentions.users.first();
 
+            userInfoArray.push("**__Information about " + mentionedUser.toString() + "__**");
             userInfoArray.push("**mentionedUser (Object, but prints as mentionedUser.id):** " + mentionedUser);
             //userInfoArray.push("**mentionedUser.avatar:** " + mentionedUser.avatar);
             //userInfoArray.push("**mentionedUser.bot:** " + mentionedUser.bot);
@@ -41,8 +42,9 @@ module.exports = {
             
             return message.channel.send(userInfoArray);
 		}
-
+        
         // Otherwise, just show the author's info (this also takes care of "garbage" arguments)
+        userInfoArray.push("**__Information about " + message.author.toString() + "__**\n");
         userInfoArray.push("**message.author (Object, but prints as author.id):** " + message.author);
         //userInfoArray.push("**message.author.avatar:** " + message.author.avatar);
         //userInfoArray.push("**message.author.bot:** " + message.author.bot);
