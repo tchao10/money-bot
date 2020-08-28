@@ -19,13 +19,11 @@ module.exports = {
 		messageBlock.push("\nmessage.author.createdTimestamp: " + message.author.createdTimestamp);
 		messageBlock.push("\nmessage.author.defaultAvatarURL: " + message.author.defaultAvatarURL);
 		messageBlock.push("\nmessage.author.discriminator: " + message.author.discriminator);
+		messageBlock.push("\nmessage.author.flags: " + message.author.flags);
 		messageBlock.push("\nmessage.author.id: " + message.author.id);
-		messageBlock.push("\nmessage.author.lastMessage: " + message.author.lastMessage);
+		messageBlock.push("\nmessage.author.lastMessage (Object): " + message.author.lastMessage);
 		messageBlock.push("\nmessage.author.lastMessageChannelID: " + message.author.lastMessageChannelID);
 		messageBlock.push("\nmessage.author.lastMessageID: " + message.author.lastMessageID);
-		messageBlock.push("\nmessage.author.locale: " + message.author.locale);
-		messageBlock.push("\nmessage.author.partial: " + message.author.partial);
-		messageBlock.push("\nmessage.author.presence: " + message.author.presence);
 		messageBlock.push("\nmessage.author.system: " + message.author.system);
 		messageBlock.push("\nmessage.author.tag: " + message.author.tag);
 		messageBlock.push("\nmessage.author.username: " + message.author.username);
