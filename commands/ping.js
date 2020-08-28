@@ -18,16 +18,16 @@ module.exports = {
 		message.channel.send("pong").then(sentMessage => {
 			message.client.pingMessageID = sentMessage;
 			sentMessage.react("👍");
-			sentMessage.awaitReactions(filter, { max: 1, time: 10000, errors: ['time'] })
+			sentMessage.awaitReactions(filter, { time: 60000, errors: ['time'] })
 				.then(collected => {
-					const reactedEmoji
-					console.log(collected.first()._emoji.name)
+					const reactedEmoji = collected.first()._emoji.name;
+					console.log(reactedEmoji);
+					sentMessage.reactions.resolve(reactedEmoji).users.remove(message.author));
 				})
 				.catch(collected => {
-					console.log("You took too long! Game has been stopped.");
+					console.log("You took too long! The game has been stopped.");
 				});
 			
-			sentMessage.reactions.resolve("REACTION EMOJI, REACTION OBJECT OR REACTION ID").users.remove("ID OR OBJECT OF USER TO REMOVE");
 		});
 
 		const filter = (reaction, user) => {
