@@ -29,6 +29,9 @@ const client = new Discord.Client();
 // donate variables
 client.moneyCount = 0;
 
+// ping variables
+client.pingMessageID = null;
+
 // shotgun variables
 client.shotgunGameEnabled = false;
 client.shotgunTurnCounter = 1;

@@ -9,7 +9,9 @@ module.exports = {
 	arguments: false,
 	guildOnly: false,
 	async execute(message, arguments){
-		message.channel.send("pong");
+		message.channel.send("pong").then(sentMessage => {
+			message.client.pingMessageID = sentMessage;
+		});
 
 		if (message.author.id != 134095374381088768){ // If you are not me
             return;
