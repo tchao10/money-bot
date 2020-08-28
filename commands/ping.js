@@ -18,7 +18,7 @@ module.exports = {
 		message.channel.send("pong").then(sentMessage => {
 			message.client.pingMessageID = sentMessage;
 			sentMessage.awaitReactions(filter, { max: 1, time: 10000, errors: ['time'] })
-				.then(collected => console.log(collected))
+				.then(collected => console.log(collected.))
 				.catch(collected => {
 					console.log("You took too long! Game has been stopped.");
 				});
