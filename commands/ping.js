@@ -17,12 +17,17 @@ module.exports = {
 		
 		message.channel.send("pong").then(sentMessage => {
 			message.client.pingMessageID = sentMessage;
+			sentMessage.react("👍");
 			sentMessage.awaitReactions(filter, { max: 1, time: 10000, errors: ['time'] })
-				.then(collected => console.log(collected.))
+				.then(collected => {
+					const reactedEmoji
+					console.log(collected.first()._emoji.name)
+				})
 				.catch(collected => {
 					console.log("You took too long! Game has been stopped.");
 				});
 			
+			sentMessage.reactions.resolve("REACTION EMOJI, REACTION OBJECT OR REACTION ID").users.remove("ID OR OBJECT OF USER TO REMOVE");
 		});
 
 		const filter = (reaction, user) => {
