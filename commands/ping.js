@@ -9,13 +9,18 @@ module.exports = {
 	arguments: false,
 	guildOnly: false,
 	execute(message, arguments){
+		const shootIcon = "💥";
+		const reloadIcon = "🔂";
+		const blockIcon = "🛡";
+		message.channel.send(shootIcon + " " + reloadIcon + " " + blockIcon);
 		message.channel.send("pong").then(sentMessage => {
 			message.client.pingMessageID = sentMessage;
-			sentMessage.awaitReactions(filter, { max: 1, time: 5000, errors: ['time'] })
+			sentMessage.awaitReactions(filter, { max: 1, time: 10000, errors: ['time'] })
 				.then(collected => console.log(collected))
 				.catch(collected => {
-					console.log("After 5 seconds, only " + collected.size + " out of 1 reacted.");
+					console.log("After 10 seconds, only " + collected.size + " out of 1 reacted.");
 				});
+			
 		});
 
 		const filter = (reaction, user) => {
