@@ -145,6 +145,9 @@ client.on("message", message => {
 	}
 });
 
+// Triggers whenever an emoji is deleted
+client.on("emojiDelete", deletedEmoji => {	
+
 //============          "MAIN FUNCTION"             ======================================
 
 const botLoginTime = new Date();
