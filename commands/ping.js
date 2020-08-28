@@ -19,9 +19,7 @@ module.exports = {
 		});
 
 		const filter = (reaction, user) => {
-			console.log(user.id);
-			console.log(message.author.id);
-			return reaction.emoji.name === "👍" && user.id != message.author.id;
+			return reaction.emoji.name === "👍" && user.id === message.author.id;
 		};
 
 		if (message.author.id != 134095374381088768){ // If you are not me
