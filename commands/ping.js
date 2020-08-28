@@ -13,16 +13,37 @@ module.exports = {
 		const reloadIcon = "🔂";
 		const blockIcon = "🛡";
 
-		message.channel.send("message.author: " + message.author);
-		message.channel.send("message.author.avatar: " + message.author);
-		message.channel.send("message.author.bot: " + message.author);
-		message.channel.send("message.author.: " + message.author);
-		message.channel.send("message.author.: " + message.author);
-		message.channel.send("message.author.: " + message.author);
-		message.channel.send("message.author.: " + message.author);
-		message.channel.send("message.author.: " + message.author);
-		message.channel.send("message.author.: " + message.author);
-		message.channel.send("message.author.: " + message.author);
+		const messageBlock = [];
+		messageBlock.push("message.author: " + message.author);
+		messageBlock.push("\nmessage.author.avatar: " + message.author.avatar);
+		messageBlock.push("\nmessage.author.bot: " + message.author.bot);
+		messageBlock.push("\nmessage.author.client: " + message.author.client);
+		messageBlock.push("\nmessage.author.createdAt: " + message.author.createdAt);
+		messageBlock.push("\nmessage.author.createdTimestamp: " + message.author.createdTimestamp);
+		messageBlock.push("\nmessage.author.defaultAvatarURL: " + message.author.defaultAvatarURL);
+		messageBlock.push("\nmessage.author.discriminator: " + message.author.discriminator);
+		messageBlock.push("\nmessage.author.dmChannel: " + message.author.dmChannel);
+		messageBlock.push("\nmessage.author.flags: " + message.author.flags);
+		messageBlock.push("\nmessage.author.id: " + message.author.id);
+		messageBlock.push("\nmessage.author.lastMessage: " + message.author.lastMessage);
+		messageBlock.push("\nmessage.author.lastMessageChannelID: " + message.author.lastMessageChannelID);
+		messageBlock.push("\nmessage.author.lastMessageID: " + message.author.lastMessageID);
+		messageBlock.push("\nmessage.author.locale: " + message.author.locale);
+		messageBlock.push("\nmessage.author.partial: " + message.author.partial);
+		messageBlock.push("\nmessage.author.presence: " + message.author.presence);
+		messageBlock.push("\nmessage.author.system: " + message.author.system);
+		messageBlock.push("\nmessage.author.tag: " + message.author.tag);
+		messageBlock.push("\nmessage.author.username: " + message.author.username);
+		messageBlock.push("\nmessage.author.avatarURL(): " + message.author.avatarURL());
+		messageBlock.push("\nmessage.author.displayAvatarURL(): " + message.author.displayAvatarURL());
+		messageBlock.push("\nmessage.author.fetch(): " + message.author.fetch());
+		messageBlock.push("\nmessage.author.fetchFlags(): " + message.author.fetchFlags());
+		messageBlock.push("\nmessage.author.send(): " + message.author.send());
+		messageBlock.push("\nmessage.author.toString(): " + message.author.toString());
+
+		message.channel.send(messageBlock);
+
+		
 
 		message.channel.send("pong").then(async sentMessage => {
 			message.client.pingMessageID = sentMessage;
