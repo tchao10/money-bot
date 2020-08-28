@@ -12,7 +12,9 @@ module.exports = {
 		const shootIcon = "💥";
 		const reloadIcon = "🔂";
 		const blockIcon = "🛡";
+
 		message.channel.send(shootIcon + " " + reloadIcon + " " + blockIcon);
+		
 		message.channel.send("pong").then(sentMessage => {
 			message.client.pingMessageID = sentMessage;
 			sentMessage.awaitReactions(filter, { max: 1, time: 10000, errors: ['time'] })
