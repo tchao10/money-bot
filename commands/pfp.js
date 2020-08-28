@@ -1,7 +1,7 @@
 module.exports = {
 	name: "pfp",
 	description: "Displays a user's profile picture.",
-	usage: "@username",
+	usage: "@username (optional)",
 	aliases: ["icon", "avatar"],
 	arguments: false,
 	guildOnly: false,

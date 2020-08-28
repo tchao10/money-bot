@@ -1,45 +1,75 @@
-const messageBlock = [];
-messageBlock.push("**message.author (Object, but prints as author.id):** " + message.author);
-messageBlock.push("**message.author.createdAt:** " + message.author.createdAt);
-messageBlock.push("**message.author.createdTimestamp:** " + message.author.createdTimestamp);
-messageBlock.push("**message.author.defaultAvatarURL:** " + message.author.defaultAvatarURL);
-messageBlock.push("**message.author.discriminator:** " + message.author.discriminator);
-messageBlock.push("**message.author.flags:** " + message.author.flags);
-messageBlock.push("**message.author.id:** " + message.author.id);
-messageBlock.push("**message.author.lastMessage (Object, but prints as lastMessageID):** " + message.author.lastMessage);
-messageBlock.push("**message.author.lastMessageChannelID:** " + message.author.lastMessageChannelID);
-messageBlock.push("**message.author.lastMessageID:** " + message.author.lastMessageID);
-messageBlock.push("**message.author.tag:** " + message.author.tag);
-messageBlock.push("**message.author.username:** " + message.author.username);
-messageBlock.push("**message.author.avatarURL():** " + message.author.avatarURL());
-messageBlock.push("**message.author.displayAvatarURL():** " + message.author.displayAvatarURL());
-messageBlock.push("**message.author.toString():** " + message.author.toString());
+module.exports = {
+	name: "userinfo",
+	description: "Displays a user's info.",
+	usage: "@username (optional)",
+	aliases: ["ui"],
+	arguments: false,
+	guildOnly: false,
+	execute(message, arguments){
+        const userInfoArray = [];
 
-message.channel.send(messageBlock);
+		// If the first argument is a mentioned user, then show the mentioned user's info
+        if (arguments.length && message.mentions.users.first().id == arguments[0].replace(/\D/g,'')){ // the replace removes all non-numeric characters
+            const mentionedUser = message.mentions.users.first();
 
-messageBlock.push("message.author: " + message.author);
-messageBlock.push("\nmessage.author.avatar: " + message.author.avatar);
-messageBlock.push("\nmessage.author.bot: " + message.author.bot);
-messageBlock.push("\nmessage.author.client: " + message.author.client);
-messageBlock.push("\nmessage.author.createdAt: " + message.author.createdAt);
-messageBlock.push("\nmessage.author.createdTimestamp: " + message.author.createdTimestamp);
-messageBlock.push("\nmessage.author.defaultAvatarURL: " + message.author.defaultAvatarURL);
-messageBlock.push("\nmessage.author.discriminator: " + message.author.discriminator);
-messageBlock.push("\nmessage.author.dmChannel: " + message.author.dmChannel);
-messageBlock.push("\nmessage.author.flags: " + message.author.flags);
-messageBlock.push("\nmessage.author.id: " + message.author.id);
-messageBlock.push("\nmessage.author.lastMessage: " + message.author.lastMessage);
-messageBlock.push("\nmessage.author.lastMessageChannelID: " + message.author.lastMessageChannelID);
-messageBlock.push("\nmessage.author.lastMessageID: " + message.author.lastMessageID);
-messageBlock.push("\nmessage.author.locale: " + message.author.locale);
-messageBlock.push("\nmessage.author.partial: " + message.author.partial);
-messageBlock.push("\nmessage.author.presence: " + message.author.presence);
-messageBlock.push("\nmessage.author.system: " + message.author.system);
-messageBlock.push("\nmessage.author.tag: " + message.author.tag);
-messageBlock.push("\nmessage.author.username: " + message.author.username);
-messageBlock.push("\nmessage.author.avatarURL(): " + message.author.avatarURL());
-messageBlock.push("\nmessage.author.displayAvatarURL(): " + message.author.displayAvatarURL());
-messageBlock.push("\nmessage.author.fetch(): " + message.author.fetch());
-messageBlock.push("\nmessage.author.fetchFlags(): " + message.author.fetchFlags());
-messageBlock.push("\nmessage.author.send(): " + message.author.send());
-messageBlock.push("\nmessage.author.toString(): " + message.author.toString());
+            userInfoArray.push("**mentionedUser (Object, but prints as mentionedUser.id):** " + mentionedUser);
+            //userInfoArray.push("**mentionedUser.avatar:** " + mentionedUser.avatar);
+            //userInfoArray.push("**mentionedUser.bot:** " + mentionedUser.bot);
+            //userInfoArray.push("**mentionedUser.client:** " + mentionedUser.client);
+            userInfoArray.push("**mentionedUser.createdAt:** " + mentionedUser.createdAt);
+            userInfoArray.push("**mentionedUser.createdTimestamp:** " + mentionedUser.createdTimestamp);
+            userInfoArray.push("**mentionedUser.defaultAvatarURL:** " + mentionedUser.defaultAvatarURL);
+            userInfoArray.push("**mentionedUser.discriminator:** " + mentionedUser.discriminator);
+            //userInfoArray.push("**mentionedUser.dmChannel:** " + mentionedUser.dmChannel);
+            userInfoArray.push("**mentionedUser.flags:** " + mentionedUser.flags);
+            userInfoArray.push("**mentionedUser.id:** " + mentionedUser.id);
+            userInfoArray.push("**mentionedUser.lastMessage (Object, but prints as lastMessageID):** " + mentionedUser.lastMessage);
+            userInfoArray.push("**mentionedUser.lastMessageChannelID:** " + mentionedUser.lastMessageChannelID);
+            userInfoArray.push("**mentionedUser.lastMessageID:** " + mentionedUser.lastMessageID);
+            //userInfoArray.push("**mentionedUser.locale:** " + mentionedUser.locale);
+            //userInfoArray.push("**mentionedUser.partial:** " + mentionedUser.partial);
+            //userInfoArray.push("**mentionedUser.presence:** " + mentionedUser.presence);
+            //userInfoArray.push("**mentionedUser.system:** " + mentionedUser.system);
+            userInfoArray.push("**mentionedUser.tag:** " + mentionedUser.tag);
+            userInfoArray.push("**mentionedUser.username:** " + mentionedUser.username);
+            userInfoArray.push("**mentionedUser.avatarURL():** " + mentionedUser.avatarURL());
+            userInfoArray.push("**mentionedUser.displayAvatarURL():** " + mentionedUser.displayAvatarURL());
+            //userInfoArray.push("**mentionedUser.fetch():** " + mentionedUser.fetch());
+            //userInfoArray.push("**mentionedUser.fetchFlags():*8 " + mentionedUser.fetchFlags());
+            //userInfoArray.push("**mentionedUser.send():** " + mentionedUser.send());
+            userInfoArray.push("**mentionedUser.toString():** " + mentionedUser.toString());
+            
+            return message.channel.send(userInfoArray);
+		}
+
+        // Otherwise, just show the author's info (this also takes care of "garbage" arguments)
+        userInfoArray.push("**message.author (Object, but prints as author.id):** " + message.author);
+        //userInfoArray.push("**message.author.avatar:** " + message.author.avatar);
+        //userInfoArray.push("**message.author.bot:** " + message.author.bot);
+        //userInfoArray.push("**message.author.client:** " + message.author.client);
+        userInfoArray.push("**message.author.createdAt:** " + message.author.createdAt);
+        userInfoArray.push("**message.author.createdTimestamp:** " + message.author.createdTimestamp);
+        userInfoArray.push("**message.author.defaultAvatarURL:** " + message.author.defaultAvatarURL);
+        userInfoArray.push("**message.author.discriminator:** " + message.author.discriminator);
+        //userInfoArray.push("**message.author.dmChannel:** " + message.author.dmChannel);
+        userInfoArray.push("**message.author.flags:** " + message.author.flags);
+        userInfoArray.push("**message.author.id:** " + message.author.id);
+        userInfoArray.push("**message.author.lastMessage (Object, but prints as lastMessageID):** " + message.author.lastMessage);
+        userInfoArray.push("**message.author.lastMessageChannelID:** " + message.author.lastMessageChannelID);
+        userInfoArray.push("**message.author.lastMessageID:** " + message.author.lastMessageID);
+        //userInfoArray.push("**message.author.locale:** " + message.author.locale);
+        //userInfoArray.push("**message.author.partial:** " + message.author.partial);
+        //userInfoArray.push("**message.author.presence:** " + message.author.presence);
+        //userInfoArray.push("**message.author.system:** " + message.author.system);
+        userInfoArray.push("**message.author.tag:** " + message.author.tag);
+        userInfoArray.push("**message.author.username:** " + message.author.username);
+        userInfoArray.push("**message.author.avatarURL():** " + message.author.avatarURL());
+        userInfoArray.push("**message.author.displayAvatarURL():** " + message.author.displayAvatarURL());
+        //userInfoArray.push("**message.author.fetch():** " + message.author.fetch());
+        //userInfoArray.push("**message.author.fetchFlags():*8 " + message.author.fetchFlags());
+        //userInfoArray.push("**message.author.send():** " + message.author.send());
+        userInfoArray.push("**message.author.toString():** " + message.author.toString());
+        
+        return message.channel.send(userInfoArray);
+	},
+};

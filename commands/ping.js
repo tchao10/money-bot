@@ -12,28 +12,7 @@ module.exports = {
 		const shootIcon = "💥";
 		const reloadIcon = "🔂";
 		const blockIcon = "🛡";
-
-		const messageBlock = [];
-		messageBlock.push("**message.author (Object, but prints as author.id):** " + message.author);
-		messageBlock.push("**message.author.createdAt:** " + message.author.createdAt);
-		messageBlock.push("**message.author.createdTimestamp:** " + message.author.createdTimestamp);
-		messageBlock.push("**message.author.defaultAvatarURL:** " + message.author.defaultAvatarURL);
-		messageBlock.push("**message.author.discriminator:** " + message.author.discriminator);
-		messageBlock.push("**message.author.flags:** " + message.author.flags);
-		messageBlock.push("**message.author.id:** " + message.author.id);
-		messageBlock.push("**message.author.lastMessage (Object, but prints as lastMessageID):** " + message.author.lastMessage);
-		messageBlock.push("**message.author.lastMessageChannelID:** " + message.author.lastMessageChannelID);
-		messageBlock.push("**message.author.lastMessageID:** " + message.author.lastMessageID);
-		messageBlock.push("**message.author.tag:** " + message.author.tag);
-		messageBlock.push("**message.author.username:** " + message.author.username);
-		messageBlock.push("**message.author.avatarURL():** " + message.author.avatarURL());
-		messageBlock.push("**message.author.displayAvatarURL():** " + message.author.displayAvatarURL());
-		messageBlock.push("**message.author.toString():** " + message.author.toString());
-
-		message.channel.send(messageBlock);
-
-
-
+		
 		message.channel.send("pong").then(async sentMessage => {
 			message.client.pingMessageID = sentMessage;
 
