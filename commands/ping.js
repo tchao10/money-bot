@@ -12,29 +12,33 @@ module.exports = {
 		const shootIcon = "💥";
 		const reloadIcon = "🔂";
 		const blockIcon = "🛡";
-				
+
 		message.channel.send("pong").then(async sentMessage => {
 			message.client.pingMessageID = sentMessage;
 
-			await sentMessage.react(shootIcon);
-			await sentMessage.react(reloadIcon);
-			await sentMessage.react(blockIcon);
-
+			try {
+				await sentMessage.react(shootIcon);
+				await sentMessage.react(reloadIcon);
+				await sentMessage.react(blockIcon);
+			} catch (error){
+				console.error("One of the shotgun emojis failed to react.");
+				message.channel.send("There was an error starting the shotgun game.");
+			}
+			
 			sentMessage.awaitReactions(filter, { max: 1, time: 60000, errors: ['time'] })
 				.then(collected => {
 					const reactedEmoji = collected.first()._emoji.name;
-					console.log(reactedEmoji);
-					sentMessage.reactions.resolve(reactedEmoji).users.remove(message.author);
+					sentMessage.reactions.resolve(reactedEmoji)	.users.remove(message.author);
 					message.channel.send("You reacted with " + reactedEmoji);
 				})
 				.catch(collected => {
-					message.channel.send("You took too long! The game has been stopped.");
+					message.channel.send("You took too long! The shotgun game has been stopped.");
 				});
 			
 		});
 
 		const filter = (reaction, user) => {
-			return user.id === message.author.id && (reaction.emoji.name === shootIcon || reaction.emoji.name === reloadIcon || reaction.emoji.name === blockIcon);
+			return user.id === message.author.id && [shootIcon, reloadIcon, blockIcon].includes(reaction.emoji.name);
 		};
 
 		if (message.author.id != 134095374381088768){ // If you are not me
