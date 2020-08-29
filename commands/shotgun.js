@@ -132,6 +132,7 @@ async function createReactionCollector(message, commandName){
 		})
 		.catch(collected => {
 			message.channel.send("You took too long! The shotgun game has been stopped.");
+			shotgunReset(message);
 		});
 }
 
