@@ -1,6 +1,12 @@
 const Discord = require("discord.js");
 const { prefix } = require("../config.json");
 
+const shootIcon = "💥";
+const reloadIcon = "🔂";
+const blockIcon = "🛡";
+
+const messageLog = [];
+
 module.exports = {
 	name: "shotgun",
 	description: "Plays a shotgun game.",
@@ -9,10 +15,6 @@ module.exports = {
 	arguments: false,
 	guildOnly: false,
 	execute(message, arguments){
-		const shootIcon = "💥";
-		const reloadIcon = "🔂";
-		const blockIcon = "🛡";
-		const messageLog = [];
 
 		// Start a game
 		if (arguments[0] == "start" || arguments[0] == "begin" || arguments[0] == "b"){
@@ -20,7 +22,7 @@ module.exports = {
 				message.client.shotgunGameEnabled = true;
 				message.client.activePlayer = message.author;
 				createEmbed(message, this.name);
-				message.channel.send("**Select your move:** `" + prefix + this.name + " shoot`, `" + prefix + this.name + " reload`, or `" + prefix + this.name + " block`?\n(You can type `" + prefix + this.name + "` for help or `" + prefix + this.name + " stop` to stop the game.)");
+				//message.channel.send("**Select your move:** `" + prefix + this.name + " shoot`, `" + prefix + this.name + " reload`, or `" + prefix + this.name + " block`?\n(You can type `" + prefix + this.name + "` for help or `" + prefix + this.name + " stop` to stop the game.)");
 			} else {
 				message.channel.send("There is already a game in progress.");
 			}
@@ -44,99 +46,16 @@ module.exports = {
 			return;
 		}
 
-		// Player shoots
-		if (arguments[0] == "shoot" || arguments[0] == "sh"){
-			if (message.client.shotgunGameEnabled){
-				if (message.author === message.client.activePlayer){
-					shotgunAISelectMove(message, messageLog);
-					
-					if (message.client.playerAmmo == 0){
-						messageLog.push("You shoot!... but you have no ammo.");
-					} else {
-						if (message.client.botBlocked){
-							messageLog.push("You shoot!... but I blocked this turn.");
-						} else {
-							message.client.botHealth--;
-							messageLog.push("You shoot!... and it hits! I lose some health.");
-						}
-						message.client.playerAmmo--;
-					}
-					
-					shotgunAIPerformMove(message, messageLog);
-					shotgunResetBlocked(message);
-
-					if (shotgunCheckGameOver(message.client.playerHealth, message.client.botHealth)){
-						if (message.client.playerHealth == 0 && message.client.botHealth == 0){
-							messageLog.push("We killed each other! We both lose.");
-						} else if (message.client.playerHealth == 0){
-							messageLog.push("You lose!");
-						} else {
-							messageLog.push("You win!");
-						}
-
-						updateEmbed(message, this.name, messageLog);
-						
-						shotgunReset(message);
-					} else {
-						updateEmbed(message, this.name, messageLog);
-					}
-				} else {
-					message.channel.send("You're not " + message.client.activePlayer.username + "!");
-				}
-			} else {
-				message.channel.send("There is no shotgun game in progress.");
-			}
-
-			return;
-		}
-
-		// Player reloads
-		if (arguments[0] == "reload" || arguments[0] == "r"){
-			if (message.client.shotgunGameEnabled){
-				if (message.author === message.client.activePlayer){
-					shotgunAISelectMove(message, messageLog);
-					
-					message.client.playerAmmo++;
-					messageLog.push("You load a bullet.");
-					
-					shotgunAIPerformMove(message, messageLog);
-					shotgunResetBlocked(message);
-
-					if (shotgunCheckGameOver(message.client.playerHealth, message.client.botHealth)){
-						if (message.client.playerHealth == 0 && message.client.botHealth == 0){
-							messageLog.push("We killed each other! We both lose.");
-						} else if (message.client.playerHealth == 0){
-							messageLog.push("You lose!");
-						} else {
-							messageLog.push("You win!");
-						}
-
-						updateEmbed(message, this.name, messageLog);
-						
-						shotgunReset(message);
-					} else {
-						updateEmbed(message, this.name, messageLog);
-					}
-				} else {
-					message.channel.send("You're not " + message.client.activePlayer.username + "!");
-				}
-			} else {
-				message.channel.send("There is no shotgun game in progress.");
-			}
-
-			return;
-		}
-
 		// Player blocks
 		if (arguments[0] == "block" || arguments[0] == "b"){
 			if (message.client.shotgunGameEnabled){
 				if (message.author === message.client.activePlayer){
-					shotgunAISelectMove(message, messageLog);
+					shotgunAISelectMove(message);
 					
 					message.client.playerBlocked = true;
 					messageLog.push("You block this turn.");
 					
-					shotgunAIPerformMove(message, messageLog);
+					shotgunAIPerformMove(message);
 					shotgunResetBlocked(message);
 
 					if (shotgunCheckGameOver(message.client.playerHealth, message.client.botHealth)){
@@ -148,11 +67,11 @@ module.exports = {
 							messageLog.push("You win!");
 						}
 
-						updateEmbed(message, this.name, messageLog);
+						updateEmbed(message, this.name);
 						
 						shotgunReset(message);
 					} else {
-						updateEmbed(message, this.name, messageLog);
+						updateEmbed(message, this.name);
 					}
 				} else {
 					message.channel.send("You're not " + message.client.activePlayer.username + "!");
@@ -194,7 +113,7 @@ function createEmbed(message, commandName){
 	createReactionCollector(message);
 }
 
-function updateEmbed(message, commandName, messageLog){
+function updateEmbed(message, commandName){
 	message.client.shotgunTurnCounter++;
 
 	const editedShotgunEmbed = new Discord.MessageEmbed()
@@ -228,8 +147,18 @@ function createReactionCollector(message){
 	message.client.embedMessage.awaitReactions(validReactionChecker, { max: 1, time: 60000, errors: ["time"] })
 		.then(collected => {
 			const reactedEmoji = collected.first()._emoji.name;
+
 			message.client.embedMessage.reactions.resolve(reactedEmoji).users.remove(message.author);
-			message.channel.send("You reacted with " + reactedEmoji);
+			
+			if (reactedEmoji == shootIcon){
+				playerShoot(message);
+			} else if (reactedEmoji == reloadIcon){
+				playerReload(message);
+			} else if (reactedEmoji == blockIcon){
+				playerBlock(message);
+			} else {
+				message.channel.send("Error receiving reaction.");
+			}
 		})
 		.catch(collected => {
 			message.channel.send("You took too long! The shotgun game has been stopped.");
@@ -241,7 +170,94 @@ const validReactionChecker = (reaction, user) => {
 	return user.id === message.author.id && [shootIcon, reloadIcon, blockIcon].includes(reaction.emoji.name);
 };
 
-function shotgunAISelectMove(message, messageLog){
+function playerShoot(message){
+	shotgunAISelectMove(message);
+	
+	if (message.client.playerAmmo == 0){
+		messageLog.push("You shoot!... but you have no ammo.");
+	} else {
+		if (message.client.botBlocked){
+			messageLog.push("You shoot!... but I blocked this turn.");
+		} else {
+			message.client.botHealth--;
+			messageLog.push("You shoot!... and it hits! I lose some health.");
+		}
+		message.client.playerAmmo--;
+	}
+	
+	shotgunAIPerformMove(message);
+	shotgunResetBlocked(message);
+
+	if (shotgunCheckGameOver(message.client.playerHealth, message.client.botHealth)){
+		if (message.client.playerHealth == 0 && message.client.botHealth == 0){
+			messageLog.push("We killed each other! We both lose.");
+		} else if (message.client.playerHealth == 0){
+			messageLog.push("You lose!");
+		} else {
+			messageLog.push("You win!");
+		}
+
+		updateEmbed(message, this.name);
+		
+		shotgunReset(message);
+	} else {
+		updateEmbed(message, this.name);
+	}
+}
+
+function playerReload(message){
+	shotgunAISelectMove(message);
+					
+	message.client.playerAmmo++;
+	messageLog.push("You load a bullet.");
+	
+	shotgunAIPerformMove(message);
+	shotgunResetBlocked(message);
+
+	if (shotgunCheckGameOver(message.client.playerHealth, message.client.botHealth)){
+		if (message.client.playerHealth == 0 && message.client.botHealth == 0){
+			messageLog.push("We killed each other! We both lose.");
+		} else if (message.client.playerHealth == 0){
+			messageLog.push("You lose!");
+		} else {
+			messageLog.push("You win!");
+		}
+
+		updateEmbed(message, this.name);
+		
+		shotgunReset(message);
+	} else {
+		updateEmbed(message, this.name);
+	}
+}
+
+function playerBlock(message){
+	shotgunAISelectMove(message);
+					
+	message.client.playerBlocked = true;
+	messageLog.push("You block this turn.");
+	
+	shotgunAIPerformMove(message);
+	shotgunResetBlocked(message);
+
+	if (shotgunCheckGameOver(message.client.playerHealth, message.client.botHealth)){
+		if (message.client.playerHealth == 0 && message.client.botHealth == 0){
+			messageLog.push("We killed each other! We both lose.");
+		} else if (message.client.playerHealth == 0){
+			messageLog.push("You lose!");
+		} else {
+			messageLog.push("You win!");
+		}
+
+		updateEmbed(message, this.name);
+		
+		shotgunReset(message);
+	} else {
+		updateEmbed(message, this.name);
+	}
+}
+
+function shotgunAISelectMove(message){
 	const pAmmo = message.client.playerAmmo;
 	const bAmmo = message.client.botAmmo;
 
@@ -279,7 +295,7 @@ function shotgunAISelectMove(message, messageLog){
 	}
 }
 
-function shotgunAIPerformMove(message, messageLog){
+function shotgunAIPerformMove(message){
 	const moveNum = message.client.botMoveNum;
 	const pBlocked = message.client.playerBlocked;
 
@@ -293,7 +309,7 @@ function shotgunAIPerformMove(message, messageLog){
 	}
 }
 
-function shotgunAIShoot(message, messageLog){
+function shotgunAIShoot(message){
 	const pBlocked = message.client.playerBlocked;
 
 	if (pBlocked){
@@ -305,12 +321,12 @@ function shotgunAIShoot(message, messageLog){
 	message.client.botAmmo--;
 }
 
-function shotgunAIReload(message, messageLog){
+function shotgunAIReload(message){
 	message.client.botAmmo++;
 	messageLog.push("I load in a bullet.");
 }
 
-function shotgunAIBlock(message, messageLog){
+function shotgunAIBlock(message){
 	message.client.botBlocked = true;
 	messageLog.push("I block this turn.");
 }
