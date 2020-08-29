@@ -127,11 +127,12 @@ async function createReactionCollector(message){
 		.catch(collected => {
 			message.channel.send("You took too long! The shotgun game has been stopped.");
 		});
+
+	const validReactionChecker = (reaction, user) => {
+		return user.id === message.author.id && [shootIcon, reloadIcon, blockIcon].includes(reaction.emoji.name);
+	};
 }
 
-const validReactionChecker = (reaction, user) => {
-	return user.id === message.author.id && [shootIcon, reloadIcon, blockIcon].includes(reaction.emoji.name);
-};
 
 function playerShoot(message){
 	shotgunAISelectMove(message);
