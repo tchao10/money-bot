@@ -46,43 +46,6 @@ module.exports = {
 			return;
 		}
 
-		// Player blocks
-		if (arguments[0] == "block" || arguments[0] == "b"){
-			if (message.client.shotgunGameEnabled){
-				if (message.author === message.client.activePlayer){
-					shotgunAISelectMove(message);
-					
-					message.client.playerBlocked = true;
-					messageLog.push("You block this turn.");
-					
-					shotgunAIPerformMove(message);
-					shotgunResetBlocked(message);
-
-					if (shotgunCheckGameOver(message.client.playerHealth, message.client.botHealth)){
-						if (message.client.playerHealth == 0 && message.client.botHealth == 0){
-							messageLog.push("We killed each other! We both lose.");
-						} else if (message.client.playerHealth == 0){
-							messageLog.push("You lose!");
-						} else {
-							messageLog.push("You win!");
-						}
-
-						updateEmbed(message, this.name);
-						
-						shotgunReset(message);
-					} else {
-						updateEmbed(message, this.name);
-					}
-				} else {
-					message.channel.send("You're not " + message.client.activePlayer.username + "!");
-				}
-			} else {
-				message.channel.send("There is no shotgun game in progress.");
-			}
-
-			return;
-		}
-
 		// Display help message
 		if (!arguments.length || arguments[0] == "help"){
 			return message.channel.send("Shotgun is a simple turn-based game versus <@374095302648659980>. There are three actions you can take each turn:\n\n`" + prefix + this.name + " shoot` shoots your gun if you have ammo.\n`" + prefix + this.name + " reload` adds one bullet to your gun.\n`" + prefix + this.name + " block` protects you from getting shot that turn.\n\nThe first player to get their opponent's health to 0 wins! Start a game by typing `" + prefix + this.name + " start`.");
