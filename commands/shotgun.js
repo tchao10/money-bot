@@ -228,7 +228,7 @@ function createReactionCollector(message){
 	message.client.embedMessage.awaitReactions(validReactionChecker, { max: 1, time: 60000, errors: ["time"] })
 		.then(collected => {
 			const reactedEmoji = collected.first()._emoji.name;
-			message.client.embedMessage.reactions.resolve(reactedEmoji)	.users.remove(message.author);
+			message.client.embedMessage.reactions.resolve(reactedEmoji).users.remove(message.author);
 			message.channel.send("You reacted with " + reactedEmoji);
 		})
 		.catch(collected => {
