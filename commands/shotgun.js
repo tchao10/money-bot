@@ -190,6 +190,8 @@ function createEmbed(message, commandName){
 	message.channel.send(shotgunEmbed).then(sentMessage => {
 		message.client.embedMessage = sentMessage;
 	});
+
+	createReactionCollector(message);
 }
 
 function updateEmbed(message, commandName, messageLog){
@@ -209,11 +211,35 @@ function updateEmbed(message, commandName, messageLog){
 		.setTimestamp()
 
 	message.client.embedMessage.edit(editedShotgunEmbed);
+
+	createReactionCollector(message);
 }
 
 function createReactionCollector(message){
+	try {
+		await message.client.embedMessage.react(shootIcon);
+		await message.client.embedMessage.react(reloadIcon);
+		await message.client.embedMessage.react(blockIcon);
+	} catch (error){
+		console.error("One of the shotgun emojis failed to react.");
+		message.channel.send("There was an error starting the shotgun game.");
+	}
 	
+	message.client.embedMessage.awaitReactions(validReactionChecker, { max: 1, time: 60000, errors: ["time"] })
+		.then(collected => {
+			const reactedEmoji = collected.first()._emoji.name;
+			message.client.embedMessage.reactions.resolve(reactedEmoji)	.users.remove(message.author);
+			message.channel.send("You reacted with " + reactedEmoji);
+		})
+		.catch(collected => {
+			message.channel.send("You took too long! The shotgun game has been stopped.");
+		});
+
 }
+
+const validReactionChecker = (reaction, user) => {
+	return user.id === message.author.id && [shootIcon, reloadIcon, blockIcon].includes(reaction.emoji.name);
+};
 
 function shotgunAISelectMove(message, messageLog){
 	const pAmmo = message.client.playerAmmo;
