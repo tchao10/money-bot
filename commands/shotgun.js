@@ -73,6 +73,9 @@ function createEmbed(message, commandName){
 		message.client.embedMessage = sentMessage;
 	});
 
+	console.log("s8jefiuosaef");
+	console.log(message);
+	console.log("s8jefiuosaef");
 	createReactionCollector(message);
 }
 
@@ -97,13 +100,18 @@ function updateEmbed(message, commandName){
 	createReactionCollector(message);
 }
 
-function createReactionCollector(message){
+async function createReactionCollector(message){
+	console.log(message);
+	console.log("@@@@@@@@@@@@@@@@@@@@");
+	console.log(message.client.embedMessage);
+	console.log("@@@@@@@@@@@@@@@@@@@@");
 	try {
 		await message.client.embedMessage.react(shootIcon);
 		await message.client.embedMessage.react(reloadIcon);
 		await message.client.embedMessage.react(blockIcon);
 	} catch (error){
 		console.error("One of the shotgun emojis failed to react.");
+		console.error(error);
 		message.channel.send("There was an error starting the shotgun game.");
 	}
 	
