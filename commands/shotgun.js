@@ -54,7 +54,7 @@ module.exports = {
 	},
 };
 
-function createEmbed(message, commandName){
+async function createEmbed(message, commandName){
 	const shotgunEmbed = new Discord.MessageEmbed()
 		.setColor("#0099ff")
 		.setTitle("Shotgun (Turn " + message.client.shotgunTurnCounter + ")")
@@ -68,7 +68,7 @@ function createEmbed(message, commandName){
 		.setFooter(prefix + commandName + " help for instructions")
 		.setTimestamp()
 		
-	message.channel.send(shotgunEmbed).then(sentMessage => {
+	await message.channel.send(shotgunEmbed).then(sentMessage => {
 		message.client.embedMessage = sentMessage;
 	});
 
@@ -105,27 +105,28 @@ async function createReactionCollector(message){
 		console.error("One of the shotgun emojis failed to react.");
 		console.error(error);
 		message.channel.send("There was an error starting the shotgun game.");
-}
+	}
 
-message.client.embedMessage.awaitReactions(validReactionChecker, { max: 1, time: 60000, errors: ["time"] })
-	.then(collected => {
-		const reactedEmoji = collected.first()._emoji.name;
+	console.log("Creating reaction collector...");
+	message.client.embedMessage.awaitReactions(validReactionChecker, { max: 1, time: 60000, errors: ["time"] })
+		.then(collected => {
+			const reactedEmoji = collected.first()._emoji.name;
 
-		message.client.embedMessage.reactions.resolve(reactedEmoji).users.remove(message.author);
-		
-		if (reactedEmoji == shootIcon){
-			playerShoot(message);
-		} else if (reactedEmoji == reloadIcon){
-			playerReload(message);
-		} else if (reactedEmoji == blockIcon){
-			playerBlock(message);
-		} else {
-			message.channel.send("Error receiving reaction.");
-		}
-	})
-	.catch(collected => {
-		message.channel.send("You took too long! The shotgun game has been stopped.");
-	});
+			message.client.embedMessage.reactions.resolve(reactedEmoji).users.remove(message.author);
+			
+			if (reactedEmoji == shootIcon){
+				playerShoot(message);
+			} else if (reactedEmoji == reloadIcon){
+				playerReload(message);
+			} else if (reactedEmoji == blockIcon){
+				playerBlock(message);
+			} else {
+				message.channel.send("Error receiving reaction.");
+			}
+		})
+		.catch(collected => {
+			message.channel.send("You took too long! The shotgun game has been stopped.");
+		});
 }
 
 const validReactionChecker = (reaction, user) => {
