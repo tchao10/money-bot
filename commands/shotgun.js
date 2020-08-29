@@ -107,7 +107,10 @@ async function createReactionCollector(message){
 		message.channel.send("There was an error starting the shotgun game.");
 	}
 
-	console.log("Creating reaction collector...");
+	const validReactionChecker = (reaction, user) => {
+		return user.id === message.author.id && [shootIcon, reloadIcon, blockIcon].includes(reaction.emoji.name);
+	};
+
 	message.client.embedMessage.awaitReactions(validReactionChecker, { max: 1, time: 60000, errors: ["time"] })
 		.then(collected => {
 			const reactedEmoji = collected.first()._emoji.name;
@@ -127,10 +130,6 @@ async function createReactionCollector(message){
 		.catch(collected => {
 			message.channel.send("You took too long! The shotgun game has been stopped.");
 		});
-
-	const validReactionChecker = (reaction, user) => {
-		return user.id === message.author.id && [shootIcon, reloadIcon, blockIcon].includes(reaction.emoji.name);
-	};
 }
 
 
