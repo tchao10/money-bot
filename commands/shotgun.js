@@ -18,6 +18,7 @@ module.exports = {
 		// Start a game
 		if (arguments[0] == "start" || arguments[0] == "begin" || arguments[0] == "b"){
 			if (!message.client.shotgunGameEnabled){
+				console.log("@@@@@ STARTING NEW GAME @@@@");
 				message.client.shotgunGameEnabled = true;
 				message.client.activePlayer = message.author;
 				createEmbed(message, this.name);
@@ -72,7 +73,7 @@ async function createEmbed(message, commandName){
 		message.client.embedMessage = sentMessage;
 	});
 
-	createReactionCollector(message);
+	createReactionCollector(message, commandName);
 }
 
 function updateEmbed(message, commandName){
@@ -92,11 +93,13 @@ function updateEmbed(message, commandName){
 		.setTimestamp()
 
 	message.client.embedMessage.edit(editedShotgunEmbed);
+
+	messageLog.length = 0;
 	
-	createReactionCollector(message);
+	createReactionCollector(message, commandName);
 }
 
-async function createReactionCollector(message){
+async function createReactionCollector(message, commandName){
 	try {
 		await message.client.embedMessage.react(shootIcon);
 		await message.client.embedMessage.react(reloadIcon);
@@ -118,11 +121,11 @@ async function createReactionCollector(message){
 			message.client.embedMessage.reactions.resolve(reactedEmoji).users.remove(message.author);
 			
 			if (reactedEmoji == shootIcon){
-				playerShoot(message);
+				playerShoot(message, commandName);
 			} else if (reactedEmoji == reloadIcon){
-				playerReload(message);
+				playerReload(message, commandName);
 			} else if (reactedEmoji == blockIcon){
-				playerBlock(message);
+				playerBlock(message, commandName);
 			} else {
 				message.channel.send("Error receiving reaction.");
 			}
@@ -133,7 +136,7 @@ async function createReactionCollector(message){
 }
 
 
-function playerShoot(message){
+function playerShoot(message, commandName){
 	shotgunAISelectMove(message);
 	
 	if (message.client.playerAmmo == 0){
@@ -160,15 +163,15 @@ function playerShoot(message){
 			messageLog.push("You win!");
 		}
 
-		updateEmbed(message, this.name);
+		updateEmbed(message, commandName);
 		
 		shotgunReset(message);
 	} else {
-		updateEmbed(message, this.name);
+		updateEmbed(message, commandName);
 	}
 }
 
-function playerReload(message){
+function playerReload(message, commandName){
 	shotgunAISelectMove(message);
 					
 	message.client.playerAmmo++;
@@ -186,15 +189,15 @@ function playerReload(message){
 			messageLog.push("You win!");
 		}
 
-		updateEmbed(message, this.name);
+		updateEmbed(message, commandName);
 		
 		shotgunReset(message);
 	} else {
-		updateEmbed(message, this.name);
+		updateEmbed(message, commandName);
 	}
 }
 
-function playerBlock(message){
+function playerBlock(message, commandName){
 	shotgunAISelectMove(message);
 					
 	message.client.playerBlocked = true;
@@ -212,11 +215,11 @@ function playerBlock(message){
 			messageLog.push("You win!");
 		}
 
-		updateEmbed(message, this.name);
+		updateEmbed(message, commandName);
 		
 		shotgunReset(message);
 	} else {
-		updateEmbed(message, this.name);
+		updateEmbed(message, commandName);
 	}
 }
 
