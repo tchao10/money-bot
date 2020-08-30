@@ -96,7 +96,10 @@ function updateEmbed(message, commandName){
 
 	messageLog.length = 0;
 	
-	createReactionCollector(message, commandName);
+	console.log(message.client.shotgunGameEnabled);
+	if (message.client.shotgunGameEnabled){
+		createReactionCollector(message, commandName);
+	}
 }
 
 async function createReactionCollector(message, commandName){
@@ -114,7 +117,7 @@ async function createReactionCollector(message, commandName){
 		return user.id === message.author.id && [shootIcon, reloadIcon, blockIcon].includes(reaction.emoji.name);
 	};
 
-	message.client.embedMessage.awaitReactions(validReactionChecker, { max: 1, time: 60000, errors: ["time"] })
+	message.client.embedMessage.awaitReactions(validReactionChecker, { max: 1,	 time: 60000, errors: ["time"] })
 		.then(collected => {
 			const reactedEmoji = collected.first()._emoji.name;
 
