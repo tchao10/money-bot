@@ -96,8 +96,7 @@ function updateEmbed(message, commandName){
 
 	messageLog.length = 0;
 	
-	console.log(message.client.shotgunGameEnabled);
-	if (message.client.shotgunGameEnabled){
+	if (!shotgunCheckGameOver(message)){
 		createReactionCollector(message, commandName);
 	}
 }
@@ -158,7 +157,7 @@ function playerShoot(message, commandName){
 	shotgunAIPerformMove(message);
 	shotgunResetBlocked(message);
 
-	if (shotgunCheckGameOver(message.client.playerHealth, message.client.botHealth)){
+	if (shotgunCheckGameOver(message)){
 		if (message.client.playerHealth == 0 && message.client.botHealth == 0){
 			messageLog.push("We killed each other! We both lose.");
 		} else if (message.client.playerHealth == 0){
@@ -184,7 +183,7 @@ function playerReload(message, commandName){
 	shotgunAIPerformMove(message);
 	shotgunResetBlocked(message);
 
-	if (shotgunCheckGameOver(message.client.playerHealth, message.client.botHealth)){
+	if (shotgunCheckGameOver(message)){
 		if (message.client.playerHealth == 0 && message.client.botHealth == 0){
 			messageLog.push("We killed each other! We both lose.");
 		} else if (message.client.playerHealth == 0){
@@ -210,7 +209,7 @@ function playerBlock(message, commandName){
 	shotgunAIPerformMove(message);
 	shotgunResetBlocked(message);
 
-	if (shotgunCheckGameOver(message.client.playerHealth, message.client.botHealth)){
+	if (shotgunCheckGameOver(message)){
 		if (message.client.playerHealth == 0 && message.client.botHealth == 0){
 			messageLog.push("We killed each other! We both lose.");
 		} else if (message.client.playerHealth == 0){
@@ -306,8 +305,8 @@ function shotgunResetBlocked(message){
 	message.client.botBlocked = false;
 }
 
-function shotgunCheckGameOver(pHealth, bHealth){
-	return (pHealth == 0 || bHealth == 0);
+function shotgunCheckGameOver(message){
+	return (message.client.playerHealth == 0 || message.client.botHealth == 0);
 }
 
 function shotgunReset(message){
