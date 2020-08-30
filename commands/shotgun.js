@@ -78,6 +78,7 @@ async function createEmbed(message, commandName){
 
 function updateEmbed(message, commandName){
 	message.client.shotgunTurnCounter++;
+	messageLog.push("\n\u200B"); // Inserts one more blank line in message log
 	
 	const editedShotgunEmbed = new Discord.MessageEmbed()
 		.setColor("#0099ff")
