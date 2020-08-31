@@ -17,7 +17,7 @@ module.exports = {
 	execute(message, arguments){
 		// Display help message
 		if (!arguments.length || arguments[0] == "help"){
-			return message.channel.send("Shotgun is a simple turn-based game versus <@374095302648659980>. There are three actions you can take each turn:\n\n`" + prefix + this.name + " shoot` shoots your gun if you have ammo.\n`" + prefix + this.name + " reload` adds one bullet to your gun.\n`" + prefix + this.name + " block` protects you from getting shot that turn.\n\nThe first player to get their opponent's health to 0 wins! Start a game by typing `" + prefix + this.name + " start`.");
+			return message.channel.send("Shotgun is a simple turn-based game versus <@374095302648659980>. There are three actions you can take each turn:\n\n" + shootIcon + " `" + prefix + this.name + " shoot` shoots your gun if you have ammo.\n" + reloadIcon + " `" + prefix + this.name + " reload` adds one bullet to your gun.\n" + blockIcon + " `" + prefix + this.name + " block` protects you from getting shot that turn.\n\nThe first player to get their opponent's health to 0 wins! Start a game by typing `" + prefix + this.name + " start`.");
 		}
 
 		// Start a game
@@ -292,11 +292,11 @@ function performEndOfTurnStuff(message, commandName){
 
 function displayEndGameResults(message, commandName){
 	if (message.client.playerHealth == 0 && message.client.botHealth == 0){
-		messageLog.push("We killed each other! We both lose.");
+		messageLog.push("\:regional_indicator_f: **We killed each other! We both lose.** \:regional_indicator_f:");
 	} else if (message.client.playerHealth == 0){
-		messageLog.push("You lose!");
+		messageLog.push("🥈 **You lose!** 🥈");
 	} else {
-		messageLog.push("You win!");
+		messageLog.push("🏆 **You win!** 🏆");
 	}
 
 	updateEmbed(message, commandName);
