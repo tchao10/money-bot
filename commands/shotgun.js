@@ -156,13 +156,13 @@ function playerShoot(message, commandName){
 	AISelectMove(message);
 	
 	if (message.client.playerAmmo == 0){
-		messageLog.push("You shoot!... but you have no ammo.");
+		messageLog.push("You shoot! " + shootIcon + "... but you have no ammo.");
 	} else {
 		if (message.client.botBlocked){
-			messageLog.push("You shoot!... but <@" + message.client.user.id + "> blocks this turn.");
+			messageLog.push("You shoot!" + shootIcon + "... but <@" + message.client.user.id + "> blocks this turn.");
 		} else {
 			message.client.botHealth--;
-			messageLog.push("You shoot!... and it hits! <@" + message.client.user.id + "> loses some health.");
+			messageLog.push("You shoot!" + shootIcon + "... and it hits! <@" + message.client.user.id + "> loses some health.");
 		}
 		message.client.playerAmmo--;
 	}
