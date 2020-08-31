@@ -17,7 +17,7 @@ module.exports = {
 		if (!arguments.length){
 			return message.channel.bulkDelete(2, true).catch(err => {
 				console.error(err);
-				message.channel.send('There was an error trying to delete messages in this channel!');
+				message.channel.send("There was an error trying to delete messages in this channel!");
 			});
 		}
 
@@ -34,7 +34,7 @@ module.exports = {
 		// Delete the messages
 		message.channel.bulkDelete(deleteAmount + 1, true).catch(err => {
 			console.error(err);
-			message.channel.send('There was an error trying to delete messages in this channel!');
+			message.channel.send("There was an error trying to delete messages in this channel! Make sure this bot has the `Manage Messages` permission.");
 		});
 	},
 };

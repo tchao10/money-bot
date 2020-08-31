@@ -27,7 +27,9 @@ module.exports = {
 				message.client.shotgunGameEnabled = true;
 				message.client.activePlayer = message.author;
 				createEmbed(message, this.name);
-				//message.channel.send("**Select your move:** `" + prefix + this.name + " shoot`, `" + prefix + this.name + " reload`, or `" + prefix + this.name + " block`?\n(You can type `" + prefix + this.name + "` for help or `" + prefix + this.name + " stop` to stop the game.)");
+				if (!enableShotgunReactions){
+					message.channel.send("**Select your move:** `" + prefix + this.name + " shoot`, `" + prefix + this.name + " reload`, or `" + prefix + this.name + " block`?\n(You can type `" + prefix + this.name + "` for help or `" + prefix + this.name + " stop` to stop the game.)");
+				}
 			} else {
 				message.channel.send("There is already a game in progress.");
 			}
@@ -43,9 +45,9 @@ module.exports = {
 					message.channel.send("Shotgun game stopped.");
 				} else if (arguments[0] == "shoot" || arguments[0] == "sh"){
 					playerShoot(message, this.name);
-				} else if (arguments[0] == "reload" || arguments[0] == "r"){
+				} else if (arguments[0] == "reload" || arguments[0] == "re"){
 					playerReload(message, this.name);
-				} else if (arguments[0] == "block" || arguments[0] == "b"){
+				} else if (arguments[0] == "block" || arguments[0] == "bl"){
 					playerBlock(message, this.name);
 				}
 			} else {
@@ -275,6 +277,13 @@ function performEndOfTurnStuff(message, commandName){
 	} else {
 		updateEmbed(message, commandName);
 	}
+
+	/*
+	message.delete().catch(err => {
+		console.log("The bot doesn't have the Manage Messages permission... so here's an error message (source: shotgun): ");
+		console.error(err);
+	});
+	*/
 }
 
 function displayEndGameResults(message, commandName){
