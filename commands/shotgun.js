@@ -15,6 +15,11 @@ module.exports = {
 	arguments: false,
 	guildOnly: false,
 	execute(message, arguments){
+		// Display help message
+		if (!arguments.length || arguments[0] == "help"){
+			return message.channel.send("Shotgun is a simple turn-based game versus <@374095302648659980>. There are three actions you can take each turn:\n\n`" + prefix + this.name + " shoot` shoots your gun if you have ammo.\n`" + prefix + this.name + " reload` adds one bullet to your gun.\n`" + prefix + this.name + " block` protects you from getting shot that turn.\n\nThe first player to get their opponent's health to 0 wins! Start a game by typing `" + prefix + this.name + " start`.");
+		}
+
 		// Start a game
 		if (arguments[0] == "start" || arguments[0] == "begin" || arguments[0] == "b"){
 			if (!message.client.shotgunGameEnabled){
@@ -29,6 +34,18 @@ module.exports = {
 			
 			return;
 		}
+
+		// If the game is active and the message author is the active player, then stop/shoot/reload/block
+		if (message.client.shotgunGameEnabled){
+			if (message.author === message.client.activePlayer){
+				if (arguments[0] == "stop" || arguments[0] == "quit" || arguments[0] == "q"){
+					shotgunReset(message);
+					message.channel.send("Shotgun game stopped.");
+				} else if (arguments[0] == "shoot" || arguments[0] == "sh"){
+					playerShoot(message, this.name);
+				} else if 
+
+
 
 		// Stop the game
 		if (arguments[0] == "stop" || arguments[0] == "quit" || arguments[0] == "q"){
@@ -46,10 +63,25 @@ module.exports = {
 			return;
 		}
 
-		// Display help message
-		if (!arguments.length || arguments[0] == "help"){
-			return message.channel.send("Shotgun is a simple turn-based game versus <@374095302648659980>. There are three actions you can take each turn:\n\n`" + prefix + this.name + " shoot` shoots your gun if you have ammo.\n`" + prefix + this.name + " reload` adds one bullet to your gun.\n`" + prefix + this.name + " block` protects you from getting shot that turn.\n\nThe first player to get their opponent's health to 0 wins! Start a game by typing `" + prefix + this.name + " start`.");
+		// Player shoots
+		if (arguments[0] == "shoot" || arguments[0] == "sh"){
+			if (message.client.shotgunGameEnabled){
+				if (message.author.username === message.client.activePlayer){
+					playerShoot(message, this.name);
+				} else {
+					message.channel.send("You're not " + message.client.activePlayer.username + "!");
+				}
+			} else {
+				message.channel.send("There is no shotgun game in progress.");
+			}
+
+			return;
 		}
+
+		// Player reloads
+		if (arguments[0] == "reload" || arguments[0] == "r"){
+			if (message.client.shotgunGameEnabled){
+				if (message.author.username === message.client.activePlayer){
 
 		return;
 	},
