@@ -156,13 +156,13 @@ function playerShoot(message, commandName){
 	AISelectMove(message);
 	
 	if (message.client.playerAmmo == 0){
-		messageLog.push("You shoot! " + shootIcon + "... but you have no ammo.");
+		messageLog.push(shootIcon + " You shoot!... but you have no ammo.");
 	} else {
 		if (message.client.botBlocked){
-			messageLog.push("You shoot!" + shootIcon + "... but <@" + message.client.user.id + "> blocks this turn.");
+			messageLog.push(shootIcon + " You shoot!... but <@" + message.client.user.id + "> blocks it. " + blockIcon);
 		} else {
 			message.client.botHealth--;
-			messageLog.push("You shoot!" + shootIcon + "... and it hits! <@" + message.client.user.id + "> loses some health.");
+			messageLog.push(shootIcon + " You shoot!... and it hits! <@" + message.client.user.id + "> loses some health.");
 		}
 		message.client.playerAmmo--;
 	}
@@ -174,7 +174,7 @@ function playerReload(message, commandName){
 	AISelectMove(message);
 					
 	message.client.playerAmmo++;
-	messageLog.push("You load a bullet.");
+	messageLog.push(reloadIcon + " You load a bullet.");
 	
 	performEndOfTurnStuff(message, commandName);
 }
@@ -183,7 +183,7 @@ function playerBlock(message, commandName){
 	AISelectMove(message);
 					
 	message.client.playerBlocked = true;
-	messageLog.push("You block this turn.");
+	messageLog.push(blockIcon + " You block this turn.");
 	
 	performEndOfTurnStuff(message, commandName);
 }
@@ -242,23 +242,23 @@ function AIPerformMove(message){
 function AIShoot(message){
 	const pBlocked = message.client.playerBlocked;
 
-	if (pBlocked){
-		messageLog.push("<@" + message.client.user.id + "> shoots!... but you blocked the bullet.");
+	if (pBlocked){Icon
+		messageLog.push(shootIcon + " <@" + message.client.user.id + "> shoots!... but you blocked the bullet. " + shieldIcon);
 	} else {
 		message.client.playerHealth--;
-		messageLog.push("<@" + message.client.user.id + "> shoots!... and it hits! You lose some health.");
+		messageLog.push(shootIcon + " <@" + message.client.user.id + "> shoots!... and it hits! You lose some health.");
 	}
 	message.client.botAmmo--;
 }
 
 function AIReload(message){
 	message.client.botAmmo++;
-	messageLog.push("<@" + message.client.user.id + "> loads in a bullet.");
+	messageLog.push(reloadIcon + " <@" + message.client.user.id + "> loads in a bullet.");
 }
 
 function AIBlock(message){
 	message.client.botBlocked = true;
-	messageLog.push("<@" + message.client.user.id + "> blocks this turn.");
+	messageLog.push(blockIcon + " <@" + message.client.user.id + "> blocks this turn.");
 }
 
 function resetBlocked(message){
