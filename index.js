@@ -74,9 +74,19 @@ client.once("ready", () => {
 });
 
 // Triggers on error 
-client.on("error", (err) => {
+client.on("error", (error) => {
   	console.error("Bot error:");
-  	console.error(err);
+  	console.error(error);
+});
+
+// Triggers on hitting rate limit
+client.on("rateLimit", (rateLimitInfo) => {
+	console.log(rateLimitInfo);
+	console.log("rateLimitInfo.timeout: " + rateLimitInfo.timeout);
+	console.log("rateLimitInfo.limit: " + rateLimitInfo.limit);
+	console.log("rateLimitInfo.method: " + rateLimitInfo.method);
+	console.log("rateLimitInfo.path: " + rateLimitInfo.path);
+	console.log("rateLimitInfo.route: " + rateLimitInfo.route);
 });
 
 // Triggers whenever a message is sent
