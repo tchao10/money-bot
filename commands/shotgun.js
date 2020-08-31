@@ -149,7 +149,7 @@ async function createReactionCollector(message, commandName){
 
 
 function playerShoot(message, commandName){
-	shotgunAISelectMove(message);
+	AISelectMove(message);
 	
 	if (message.client.playerAmmo == 0){
 		messageLog.push("You shoot!... but you have no ammo.");
