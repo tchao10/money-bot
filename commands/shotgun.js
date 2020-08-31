@@ -6,7 +6,6 @@ const reloadIcon = "🔂";
 const blockIcon = "🛡";
 
 const messageLog = [];
-//134095374381088768
 
 module.exports = {
 	name: "shotgun",
@@ -40,7 +39,7 @@ module.exports = {
 		// If you are me, force stop the game
 		if (message.client.shotgunGameEnabled && message.author.id == 134095374381088768 && (arguments[0] == "forcestop" || arguments[0] == "fs")){
 			shotgunReset(message);
-			message.channel.send("Shotgun game force-stopped.");
+			return message.channel.send("Shotgun game force-stopped.");
 		}
 
 		// If the game is active and the message author is the active player, then stop/shoot/reload/block
@@ -230,7 +229,6 @@ function AISelectMove(message){
 
 function AIPerformMove(message){
 	const moveNum = message.client.botMoveNum;
-	const pBlocked = message.client.playerBlocked;
 
 	if (moveNum == 0){
 		AIShoot(message, messageLog);
