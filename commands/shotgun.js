@@ -159,10 +159,10 @@ function playerShoot(message, commandName){
 		messageLog.push(shootIcon + " You shoot!... but you have no ammo.");
 	} else {
 		if (message.client.botBlocked){
-			messageLog.push(shootIcon + " You shoot!... but <@" + message.client.user.id + "> blocks it. " + blockIcon);
+			messageLog.push(shootIcon + " You shoot!... but <@" + message.client.user.id + "> blocks the bullet. " + blockIcon);
 		} else {
 			message.client.botHealth--;
-			messageLog.push(shootIcon + " You shoot!... and it hits! <@" + message.client.user.id + "> loses some health.");
+			messageLog.push(shootIcon + " You shoot!... and it hits! <@" + message.client.user.id + "> loses some health. 🩸");
 		}
 		message.client.playerAmmo--;
 	}
@@ -242,11 +242,11 @@ function AIPerformMove(message){
 function AIShoot(message){
 	const pBlocked = message.client.playerBlocked;
 
-	if (pBlocked){Icon
+	if (pBlocked){
 		messageLog.push(shootIcon + " <@" + message.client.user.id + "> shoots!... but you blocked the bullet. " + shieldIcon);
 	} else {
 		message.client.playerHealth--;
-		messageLog.push(shootIcon + " <@" + message.client.user.id + "> shoots!... and it hits! You lose some health.");
+		messageLog.push(shootIcon + " <@" + message.client.user.id + "> shoots!... and it hits! You lose some health. 🩸");
 	}
 	message.client.botAmmo--;
 }
