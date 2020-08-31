@@ -1,11 +1,12 @@
 const Discord = require("discord.js");
-const { prefix } = require("../config.json");
+const { prefix, enableShotgunReactions } = require("../config.json");
 
 const shootIcon = "💥";
 const reloadIcon = "🔂";
 const blockIcon = "🛡";
 
 const messageLog = [];
+//134095374381088768
 
 module.exports = {
 	name: "shotgun",
@@ -23,7 +24,6 @@ module.exports = {
 		// Start a game
 		if (arguments[0] == "start" || arguments[0] == "begin" || arguments[0] == "b"){
 			if (!message.client.shotgunGameEnabled){
-				console.log("@@@@@ STARTING NEW GAME @@@@");
 				message.client.shotgunGameEnabled = true;
 				message.client.activePlayer = message.author;
 				createEmbed(message, this.name);
@@ -43,45 +43,17 @@ module.exports = {
 					message.channel.send("Shotgun game stopped.");
 				} else if (arguments[0] == "shoot" || arguments[0] == "sh"){
 					playerShoot(message, this.name);
-				} else if 
-
-
-
-		// Stop the game
-		if (arguments[0] == "stop" || arguments[0] == "quit" || arguments[0] == "q"){
-			if (message.client.shotgunGameEnabled){
-				if (message.author === message.client.activePlayer || message.author.id == 134095374381088768){ // Or if you are me
-					shotgunReset(message);
-					message.channel.send("Shotgun game stopped.");
-				} else {
-					message.channel.send("You're not " + message.client.activePlayer.username + "!");
+				} else if (arguments[0] == "reload" || arguments[0] == "r"){
+					playerReload(message, this.name);
+				} else if (arguments[0] == "block" || arguments[0] == "b"){
+					playerBlock(message, this.name);
 				}
 			} else {
-				message.channel.send("There is no shotgun game in progress.");
+				message.channel.send("You're not " + message.client.activePlayer.username + "!");
 			}
-
-			return;
+		} else {
+			message.channel.send("There is no shotgun game in progress.");
 		}
-
-		// Player shoots
-		if (arguments[0] == "shoot" || arguments[0] == "sh"){
-			if (message.client.shotgunGameEnabled){
-				if (message.author.username === message.client.activePlayer){
-					playerShoot(message, this.name);
-				} else {
-					message.channel.send("You're not " + message.client.activePlayer.username + "!");
-				}
-			} else {
-				message.channel.send("There is no shotgun game in progress.");
-			}
-
-			return;
-		}
-
-		// Player reloads
-		if (arguments[0] == "reload" || arguments[0] == "r"){
-			if (message.client.shotgunGameEnabled){
-				if (message.author.username === message.client.activePlayer){
 
 		return;
 	},
@@ -105,7 +77,9 @@ async function createEmbed(message, commandName){
 		message.client.embedMessage = sentMessage;
 	});
 
-	createReactionCollector(message, commandName);
+	if (enableShotgunReactions){
+		createReactionCollector(message, commandName);
+	}
 }
 
 function updateEmbed(message, commandName){
@@ -129,7 +103,7 @@ function updateEmbed(message, commandName){
 
 	messageLog.length = 0;
 	
-	if (!shotgunCheckGameOver(message)){
+	if (enableShotgunReactions && !shotgunCheckGameOver(message)){
 		createReactionCollector(message, commandName);
 	}
 }
@@ -341,6 +315,8 @@ function shotgunResetBlocked(message){
 function shotgunCheckGameOver(message){
 	return (message.client.playerHealth == 0 || message.client.botHealth == 0);
 }
+
+function
 
 function shotgunReset(message){
 	message.client.shotgunGameEnabled = false;

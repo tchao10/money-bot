@@ -1,5 +1,6 @@
 {
     "prefix": "$",
     "globalCooldownAmount": 0.3,
-    "maxDeleteMessages": 10
+    "maxDeleteMessages": 10,
+    "enableShotgunReactions": false
 }
