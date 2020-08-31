@@ -243,7 +243,7 @@ function AIShoot(message){
 	const pBlocked = message.client.playerBlocked;
 
 	if (pBlocked){
-		messageLog.push(shootIcon + " <@" + message.client.user.id + "> shoots!... but you blocked the bullet. " + shieldIcon);
+		messageLog.push(shootIcon + " <@" + message.client.user.id + "> shoots!... but you blocked the bullet. " + blockIcon);
 	} else {
 		message.client.playerHealth--;
 		messageLog.push(shootIcon + " <@" + message.client.user.id + "> shoots!... and it hits! You lose some health. 🩸");
