@@ -167,7 +167,7 @@ function playerShoot(message, commandName){
 }
 
 function playerReload(message, commandName){
-	shotgunAISelectMove(message);
+	AISelectMove(message);
 					
 	message.client.playerAmmo++;
 	messageLog.push("You load a bullet.");
@@ -176,7 +176,7 @@ function playerReload(message, commandName){
 }
 
 function playerBlock(message, commandName){
-	shotgunAISelectMove(message);
+	AISelectMove(message);
 					
 	message.client.playerBlocked = true;
 	messageLog.push("You block this turn.");
