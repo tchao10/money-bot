@@ -37,6 +37,12 @@ module.exports = {
 			return;
 		}
 
+		// If you are me, force stop the game
+		if (message.client.shotgunGameEnabled && message.author.id == 134095374381088768 && (arguments[0] == "forcestop" || arguments[0] == "fs")){
+			shotgunReset(message);
+			message.channel.send("Shotgun game force-stopped.");
+		}
+
 		// If the game is active and the message author is the active player, then stop/shoot/reload/block
 		if (message.client.shotgunGameEnabled){
 			if (message.author === message.client.activePlayer){
@@ -105,7 +111,7 @@ function updateEmbed(message, commandName){
 
 	messageLog.length = 0;
 	
-	if (enableShotgunReactions && !shotgunCheckGameOver(message)){
+	if (enableShotgunReactions && !checkGameOver(message)){
 		createReactionCollector(message, commandName);
 	}
 }
@@ -184,7 +190,7 @@ function playerBlock(message, commandName){
 	performEndOfTurnStuff(message, commandName);
 }
 
-function shotgunAISelectMove(message){
+function AISelectMove(message){
 	const pAmmo = message.client.playerAmmo;
 	const bAmmo = message.client.botAmmo;
 
@@ -193,7 +199,7 @@ function shotgunAISelectMove(message){
 	} else if (bAmmo == 0){
 		if (Math.random() < 0.5){
 			message.client.botMoveNum = 2;
-			shotgunAIBlock(message, messageLog);
+			AIBlock(message, messageLog);
 		} else {
 			message.client.botMoveNum = 1;
 		}
@@ -208,7 +214,7 @@ function shotgunAISelectMove(message){
 			message.client.botMoveNum = 0;
 		} else {
 			message.client.botMoveNum = 2;
-			shotgunAIBlock(message, messageLog);
+			AIBlock(message, messageLog);
 		}
 	} else {
 		if (Math.random() < 0.3333333333333333){
@@ -217,26 +223,26 @@ function shotgunAISelectMove(message){
 			message.client.botMoveNum = 1;
 		} else {
 			message.client.botMoveNum = 2;
-			shotgunAIBlock(message, messageLog);
+			AIBlock(message, messageLog);
 		}
 	}
 }
 
-function shotgunAIPerformMove(message){
+function AIPerformMove(message){
 	const moveNum = message.client.botMoveNum;
 	const pBlocked = message.client.playerBlocked;
 
 	if (moveNum == 0){
-		shotgunAIShoot(message, messageLog);
+		AIShoot(message, messageLog);
 	} else if (moveNum == 1){
-		shotgunAIReload(message, messageLog);
+		AIReload(message, messageLog);
 	} else {
 		// this is done earlier in selectMove
-		//shotgunAIBlock(message, messageLog);
+		//AIBlock(message, messageLog);
 	}
 }
 
-function shotgunAIShoot(message){
+function AIShoot(message){
 	const pBlocked = message.client.playerBlocked;
 
 	if (pBlocked){
@@ -248,30 +254,30 @@ function shotgunAIShoot(message){
 	message.client.botAmmo--;
 }
 
-function shotgunAIReload(message){
+function AIReload(message){
 	message.client.botAmmo++;
 	messageLog.push("I load in a bullet.");
 }
 
-function shotgunAIBlock(message){
+function AIBlock(message){
 	message.client.botBlocked = true;
 	messageLog.push("I block this turn.");
 }
 
-function shotgunResetBlocked(message){
+function resetBlocked(message){
 	message.client.playerBlocked = false;
 	message.client.botBlocked = false;
 }
 
-function shotgunCheckGameOver(message){
+function checkGameOver(message){
 	return (message.client.playerHealth == 0 || message.client.botHealth == 0);
 }
 
 function performEndOfTurnStuff(message, commandName){
-	shotgunAIPerformMove(message);
-	shotgunResetBlocked(message);
+	AIPerformMove(message);
+	resetBlocked(message);
 
-	if (shotgunCheckGameOver(message)){
+	if (checkGameOver(message)){
 		displayEndGameResults(message, commandName);
 		shotgunReset(message);
 	} else {
