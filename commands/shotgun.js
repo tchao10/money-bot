@@ -17,7 +17,7 @@ module.exports = {
 	execute(message, arguments){
 		// Display help message
 		if (!arguments.length || arguments[0] == "help"){
-			return message.channel.send("Shotgun is a simple turn-based game versus <@374095302648659980>. There are three actions you can take each turn:\n\n" + shootIcon + " `" + prefix + this.name + " shoot` shoots your gun if you have ammo.\n" + reloadIcon + " `" + prefix + this.name + " reload` adds one bullet to your gun.\n" + blockIcon + " `" + prefix + this.name + " block` protects you from getting shot that turn.\n\nThe first player to get their opponent's health to 0 wins! Start a game by typing `" + prefix + this.name + " start`.");
+			return message.channel.send("Shotgun is a simple turn-based game versus <@" + message.client.user.id + ">. There are three actions you can take each turn:\n\n" + shootIcon + " `" + prefix + this.name + " shoot` shoots your gun if you have ammo.\n" + reloadIcon + " `" + prefix + this.name + " reload` adds one bullet to your gun.\n" + blockIcon + " `" + prefix + this.name + " block` protects you from getting shot that turn.\n\nThe first player to get their opponent's health to 0 wins! Start a game by typing `" + prefix + this.name + " start`.");
 		}
 
 		// Start a game
@@ -70,7 +70,7 @@ async function createEmbed(message, commandName){
 	const shotgunEmbed = new Discord.MessageEmbed()
 		.setColor("#0099ff")
 		.setTitle("Shotgun (Turn " + message.client.shotgunTurnCounter + ")")
-		.setDescription(message.author.toString() + " vs. <@374095302648659980>")
+		.setDescription(message.author.toString() + " vs. <@" + message.client.user.id + ">")
 		.setThumbnail("https://cdn.discordapp.com/avatars/374095302648659980/3953362a62cb6a1bdce66f13a31aef4a.png")
 		.addFields(
 			{ name: "\u200B\nYour health: " + message.client.playerHealth + "   vs.", value: "Your ammo: " + message.client.playerAmmo, inline: true },
@@ -96,7 +96,7 @@ function updateEmbed(message, commandName){
 	const editedShotgunEmbed = new Discord.MessageEmbed()
 		.setColor("#0099ff")
 		.setTitle("Shotgun (Turn " + message.client.shotgunTurnCounter + ")")
-		.setDescription(message.author.toString() + " vs. <@374095302648659980>")
+		.setDescription(message.author.toString() + " vs. <@" + message.client.user.id + ">")
 		.setThumbnail("https://cdn.discordapp.com/avatars/374095302648659980/3953362a62cb6a1bdce66f13a31aef4a.png")
 		.addFields(
 			{ name: "\u200B\nYour health: " + message.client.playerHealth + "   vs.", value: "Your ammo: " + message.client.playerAmmo, inline: true },
@@ -159,10 +159,10 @@ function playerShoot(message, commandName){
 		messageLog.push("You shoot!... but you have no ammo.");
 	} else {
 		if (message.client.botBlocked){
-			messageLog.push("You shoot!... but <@374095302648659980> blocks this turn.");
+			messageLog.push("You shoot!... but <@" + message.client.user.id + "> blocks this turn.");
 		} else {
 			message.client.botHealth--;
-			messageLog.push("You shoot!... and it hits! <@374095302648659980> loses some health.");
+			messageLog.push("You shoot!... and it hits! <@" + message.client.user.id + "> loses some health.");
 		}
 		message.client.playerAmmo--;
 	}
@@ -243,22 +243,22 @@ function AIShoot(message){
 	const pBlocked = message.client.playerBlocked;
 
 	if (pBlocked){
-		messageLog.push("<@374095302648659980> shoots!... but you blocked the bullet.");
+		messageLog.push("<@" + message.client.user.id + "> shoots!... but you blocked the bullet.");
 	} else {
 		message.client.playerHealth--;
-		messageLog.push("<@374095302648659980> shoots!... and it hits! You lose some health.");
+		messageLog.push("<@" + message.client.user.id + "> shoots!... and it hits! You lose some health.");
 	}
 	message.client.botAmmo--;
 }
 
 function AIReload(message){
 	message.client.botAmmo++;
-	messageLog.push("<@374095302648659980> loads in a bullet.");
+	messageLog.push("<@" + message.client.user.id + "> loads in a bullet.");
 }
 
 function AIBlock(message){
 	message.client.botBlocked = true;
-	messageLog.push("<@374095302648659980> blocks this turn.");
+	messageLog.push("<@" + message.client.user.id + "> blocks this turn.");
 }
 
 function resetBlocked(message){
@@ -291,7 +291,7 @@ function performEndOfTurnStuff(message, commandName){
 
 function displayEndGameResults(message, commandName){
 	if (message.client.playerHealth == 0 && message.client.botHealth == 0){
-		messageLog.push("\:regional_indicator_f: **We killed each other! We both lose.** \:regional_indicator_f:");
+		messageLog.push("\:regional_indicator_f: **You killed each other! You both lose.** \:regional_indicator_f:");
 	} else if (message.client.playerHealth == 0){
 		messageLog.push("🥈 **You lose!** 🥈");
 	} else {
