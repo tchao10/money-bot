@@ -152,7 +152,6 @@ async function createReactionCollector(message, commandName){
 		});
 }
 
-
 function playerShoot(message, commandName){
 	AISelectMove(message);
 	
@@ -160,10 +159,10 @@ function playerShoot(message, commandName){
 		messageLog.push("You shoot!... but you have no ammo.");
 	} else {
 		if (message.client.botBlocked){
-			messageLog.push("You shoot!... but I blocked this turn.");
+			messageLog.push("You shoot!... but <@374095302648659980> blocks this turn.");
 		} else {
 			message.client.botHealth--;
-			messageLog.push("You shoot!... and it hits! I lose some health.");
+			messageLog.push("You shoot!... and it hits! <@374095302648659980> loses some health.");
 		}
 		message.client.playerAmmo--;
 	}
@@ -244,22 +243,22 @@ function AIShoot(message){
 	const pBlocked = message.client.playerBlocked;
 
 	if (pBlocked){
-		messageLog.push("I shoot!... but you blocked my bullet.");
+		messageLog.push("<@374095302648659980> shoots!... but you blocked the bullet.");
 	} else {
 		message.client.playerHealth--;
-		messageLog.push("I shoot!... and it hits! You lose some health.");
+		messageLog.push("<@374095302648659980> shoots!... and it hits! You lose some health.");
 	}
 	message.client.botAmmo--;
 }
 
 function AIReload(message){
 	message.client.botAmmo++;
-	messageLog.push("I load in a bullet.");
+	messageLog.push("<@374095302648659980> loads in a bullet.");
 }
 
 function AIBlock(message){
 	message.client.botBlocked = true;
-	messageLog.push("I block this turn.");
+	messageLog.push("<@374095302648659980> blocks this turn.");
 }
 
 function resetBlocked(message){
