@@ -81,12 +81,15 @@ client.on("error", (error) => {
 
 // Triggers on hitting rate limit
 client.on("rateLimit", (rateLimitInfo) => {
+	console.log("\u200b\nHit the rate limit! Here's the info:");
 	console.log(rateLimitInfo);
+	/*
 	console.log("rateLimitInfo.timeout: " + rateLimitInfo.timeout);
 	console.log("rateLimitInfo.limit: " + rateLimitInfo.limit);
 	console.log("rateLimitInfo.method: " + rateLimitInfo.method);
 	console.log("rateLimitInfo.path: " + rateLimitInfo.path);
 	console.log("rateLimitInfo.route: " + rateLimitInfo.route);
+	*/
 });
 
 // Triggers whenever a message is sent
