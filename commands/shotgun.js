@@ -161,24 +161,7 @@ function playerShoot(message, commandName){
 		message.client.playerAmmo--;
 	}
 	
-	shotgunAIPerformMove(message);
-	shotgunResetBlocked(message);
-
-	if (shotgunCheckGameOver(message)){
-		if (message.client.playerHealth == 0 && message.client.botHealth == 0){
-			messageLog.push("We killed each other! We both lose.");
-		} else if (message.client.playerHealth == 0){
-			messageLog.push("You lose!");
-		} else {
-			messageLog.push("You win!");
-		}
-
-		updateEmbed(message, commandName);
-		
-		shotgunReset(message);
-	} else {
-		updateEmbed(message, commandName);
-	}
+	performEndOfTurnStuff(message, commandName);
 }
 
 function playerReload(message, commandName){
@@ -187,24 +170,7 @@ function playerReload(message, commandName){
 	message.client.playerAmmo++;
 	messageLog.push("You load a bullet.");
 	
-	shotgunAIPerformMove(message);
-	shotgunResetBlocked(message);
-
-	if (shotgunCheckGameOver(message)){
-		if (message.client.playerHealth == 0 && message.client.botHealth == 0){
-			messageLog.push("We killed each other! We both lose.");
-		} else if (message.client.playerHealth == 0){
-			messageLog.push("You lose!");
-		} else {
-			messageLog.push("You win!");
-		}
-
-		updateEmbed(message, commandName);
-		
-		shotgunReset(message);
-	} else {
-		updateEmbed(message, commandName);
-	}
+	performEndOfTurnStuff(message, commandName);
 }
 
 function playerBlock(message, commandName){
@@ -213,24 +179,7 @@ function playerBlock(message, commandName){
 	message.client.playerBlocked = true;
 	messageLog.push("You block this turn.");
 	
-	shotgunAIPerformMove(message);
-	shotgunResetBlocked(message);
-
-	if (shotgunCheckGameOver(message)){
-		if (message.client.playerHealth == 0 && message.client.botHealth == 0){
-			messageLog.push("We killed each other! We both lose.");
-		} else if (message.client.playerHealth == 0){
-			messageLog.push("You lose!");
-		} else {
-			messageLog.push("You win!");
-		}
-
-		updateEmbed(message, commandName);
-		
-		shotgunReset(message);
-	} else {
-		updateEmbed(message, commandName);
-	}
+	performEndOfTurnStuff(message, commandName);
 }
 
 function shotgunAISelectMove(message){
@@ -316,7 +265,29 @@ function shotgunCheckGameOver(message){
 	return (message.client.playerHealth == 0 || message.client.botHealth == 0);
 }
 
-function
+function performEndOfTurnStuff(message, commandName){
+	shotgunAIPerformMove(message);
+	shotgunResetBlocked(message);
+
+	if (shotgunCheckGameOver(message)){
+		displayEndGameResults(message, commandName);
+		shotgunReset(message);
+	} else {
+		updateEmbed(message, commandName);
+	}
+}
+
+function displayEndGameResults(message, commandName){
+	if (message.client.playerHealth == 0 && message.client.botHealth == 0){
+		messageLog.push("We killed each other! We both lose.");
+	} else if (message.client.playerHealth == 0){
+		messageLog.push("You lose!");
+	} else {
+		messageLog.push("You win!");
+	}
+
+	updateEmbed(message, commandName);
+}
 
 function shotgunReset(message){
 	message.client.shotgunGameEnabled = false;
