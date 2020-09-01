@@ -16,12 +16,11 @@ module.exports = {
 		serverInfoArray.push("**guild.createdAt:** " + message.guild.createdAt);
 		serverInfoArray.push("**guild.description:** " + message.guild.description);
 		serverInfoArray.push("**guild.icon:** " + message.guild.icon);
-		serverInfoArray.push("**guild.joinedAt:** " + message.guild.joinedAt);
+		//serverInfoArray.push("**guild.joinedAt (this bot's join time):** " + message.guild.joinedAt);
 		serverInfoArray.push("**guild.name:** " + message.guild.name);
-		serverInfoArray.push("**guild.fetch().maximumMembers:** " + message.guild.fetch().maximumMembers);
 		serverInfoArray.push("**guild.memberCount:** " + message.guild.memberCount);
-		serverInfoArray.push("**guild.owner (only gives id):** " + message.guild.owner);
-		serverInfoArray.push("**guild.owner:** " + message.guild.members.cache.get('id'););
+		serverInfoArray.push("**guild.owner (Object, but prints as id):** " + message.guild.owner);
+		serverInfoArray.push("**guild.owner.displayName:** " + message.guild.owner.displayName);
 		serverInfoArray.push("**guild.region:** " + message.guild.region);
 		serverInfoArray.push("**guild.toString():** " + message.guild.toString());
 		serverInfoArray.push("");
