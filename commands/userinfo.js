@@ -12,7 +12,7 @@ module.exports = {
         if (arguments.length && message.mentions.users.first().id == arguments[0].replace(/\D/g,'')){ // the replace removes all non-numeric characters
             const mentionedUser = message.mentions.users.first();
 
-            userInfoArray.push("**__Information about " + mentionedUser.toString() + "__**");
+            userInfoArray.push("**__Information about " + mentionedUser.toString() + "__**\n");
             userInfoArray.push("**mentionedUser (Object, but prints as mentionedUser.id):** " + mentionedUser);
             //userInfoArray.push("**mentionedUser.avatar:** " + mentionedUser.avatar);
             //userInfoArray.push("**mentionedUser.bot:** " + mentionedUser.bot);
@@ -45,32 +45,32 @@ module.exports = {
         
         // Otherwise, just show the author's info (this also takes care of "garbage" arguments)
         userInfoArray.push("**__Information about " + message.author.toString() + "__**\n");
-        userInfoArray.push("**message.author (Object, but prints as author.id):** " + message.author);
-        //userInfoArray.push("**message.author.avatar:** " + message.author.avatar);
-        //userInfoArray.push("**message.author.bot:** " + message.author.bot);
-        //userInfoArray.push("**message.author.client:** " + message.author.client);
-        userInfoArray.push("**message.author.createdAt:** " + message.author.createdAt);
-        userInfoArray.push("**message.author.createdTimestamp:** " + message.author.createdTimestamp);
-        userInfoArray.push("**message.author.defaultAvatarURL:** <" + message.author.defaultAvatarURL + ">");
-        userInfoArray.push("**message.author.discriminator:** " + message.author.discriminator);
-        //userInfoArray.push("**message.author.dmChannel:** " + message.author.dmChannel);
-        userInfoArray.push("**message.author.flags:** " + message.author.flags);
-        userInfoArray.push("**message.author.id:** " + message.author.id);
-        userInfoArray.push("**message.author.lastMessage (Object, but prints as lastMessageID):** " + message.author.lastMessage);
-        userInfoArray.push("**message.author.lastMessageChannelID:** " + message.author.lastMessageChannelID);
-        userInfoArray.push("**message.author.lastMessageID:** " + message.author.lastMessageID);
-        //userInfoArray.push("**message.author.locale:** " + message.author.locale);
-        //userInfoArray.push("**message.author.partial:** " + message.author.partial);
-        //userInfoArray.push("**message.author.presence:** " + message.author.presence);
-        //userInfoArray.push("**message.author.system:** " + message.author.system);
-        userInfoArray.push("**message.author.tag:** " + message.author.tag);
-        userInfoArray.push("**message.author.username:** " + message.author.username);
-        userInfoArray.push("**message.author.avatarURL():** <" + message.author.avatarURL() + ">");
-        userInfoArray.push("**message.author.displayAvatarURL():** <" + message.author.displayAvatarURL() + ">");
-        //userInfoArray.push("**message.author.fetch():** " + message.author.fetch());
-        //userInfoArray.push("**message.author.fetchFlags():*8 " + message.author.fetchFlags());
-        //userInfoArray.push("**message.author.send():** " + message.author.send());
-        userInfoArray.push("**message.author.toString():** " + message.author.toString());
+        userInfoArray.push("**author (Object, but prints as author.id):** " + message.author);
+        //userInfoArray.push("**author.avatar:** " + message.author.avatar);
+        //userInfoArray.push("**author.bot:** " + message.author.bot);
+        //userInfoArray.push("**author.client:** " + message.author.client);
+        userInfoArray.push("**author.createdAt:** " + message.author.createdAt);
+        userInfoArray.push("**author.createdTimestamp:** " + message.author.createdTimestamp);
+        userInfoArray.push("**author.defaultAvatarURL:** <" + message.author.defaultAvatarURL + ">");
+        userInfoArray.push("**author.discriminator:** " + message.author.discriminator);
+        //userInfoArray.push("**author.dmChannel:** " + message.author.dmChannel);
+        userInfoArray.push("**author.flags:** " + message.author.flags);
+        userInfoArray.push("**author.id:** " + message.author.id);
+        userInfoArray.push("**author.lastMessage (Object, but prints as lastMessageID):** " + message.author.lastMessage);
+        userInfoArray.push("**author.lastMessageChannelID:** " + message.author.lastMessageChannelID);
+        userInfoArray.push("**author.lastMessageID:** " + message.author.lastMessageID);
+        //userInfoArray.push("**author.locale:** " + message.author.locale);
+        //userInfoArray.push("**author.partial:** " + message.author.partial);
+        //userInfoArray.push("**author.presence:** " + message.author.presence);
+        //userInfoArray.push("**author.system:** " + message.author.system);
+        userInfoArray.push("**author.tag:** " + message.author.tag);
+        userInfoArray.push("**author.username:** " + message.author.username);
+        userInfoArray.push("**author.avatarURL():** <" + message.author.avatarURL() + ">");
+        userInfoArray.push("**author.displayAvatarURL():** <" + message.author.displayAvatarURL() + ">");
+        //userInfoArray.push("**author.fetch():** " + message.author.fetch());
+        //userInfoArray.push("**author.fetchFlags():*8 " + message.author.fetchFlags());
+        //userInfoArray.push("**author.send():** " + message.author.send());
+        userInfoArray.push("**author.toString():** " + message.author.toString());
         
         return message.channel.send(userInfoArray);
 	},
